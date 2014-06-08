@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 public class DSActivity extends FragmentActivity {
 
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		onHandleIntent();
 		onSetContent();
 		DSApplication.instance().activityOnCreate(this);

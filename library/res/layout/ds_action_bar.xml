@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.damon.ds.actionbar.DSActionBar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ds_action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="45dip"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip" >
+
+    <FrameLayout
+        android:id="@+id/ds_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxWidth="240dip"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:ellipsize="end"
+            android:maxWidth="240dip"
+            android:singleLine="true"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/ds_home_as_up_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <ImageButton
+            android:id="@+id/ds_home_as_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:src="@drawable/ds_home_as_up" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ds_action_bar_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" />
+
+</com.damon.ds.actionbar.DSActionBar>
