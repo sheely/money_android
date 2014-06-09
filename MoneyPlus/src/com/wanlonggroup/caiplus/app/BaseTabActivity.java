@@ -14,16 +14,9 @@ public class BaseTabActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		
+		setContentView(R.layout.ds_tab_activity);
 		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup();
-	}
-	
-	
-	
-	@Override
-	protected void onSetContent() {
-		setContentView(R.layout.ds_tab_activity);
 	}
 	
 	public void addTab(String title, Intent intent) {

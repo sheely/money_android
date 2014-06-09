@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.damon.ds.library.R;
-import com.damon.ds.util.DSUtils;
+import com.damon.ds.util.Pix2Utils;
 
 public class DSActionBar extends FrameLayout {
 
@@ -43,13 +43,13 @@ public class DSActionBar extends FrameLayout {
 		homeAsUp = (ImageButton) findViewById(R.id.ds_home_as_up);
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(CharSequence title) {
 		if (titleView != null) {
 			titleView.setText(title);
 		}
 	}
 
-	public void setSubTitle(String title) {
+	public void setSubTitle(CharSequence title) {
 		if (subTitleView == null) {
 			return;
 		}
@@ -103,7 +103,8 @@ public class DSActionBar extends FrameLayout {
 	public void addAction(String title, String tag, OnClickListener listener) {
 		TextView textView = new TextView(getContext());
 		textView.setText(title);
-		textView.setPadding(DSUtils.dip2px(getContext(), 5), 0, 0, 0);
+		textView.setTextColor(getResources().getColor(R.color.white));
+		textView.setPadding(Pix2Utils.dip2px(getContext(), 5), 0, 0, 0);
 		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceSmall);
 		addAction(textView, tag, listener);
 	}

@@ -11,17 +11,7 @@ public class DSActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		onHandleIntent();
-		onSetContent();
 		DSApplication.instance().activityOnCreate(this);
-	}
-
-	protected void onHandleIntent() {
-
-	}
-
-	protected void onSetContent() {
-
 	}
 
 	public void addFramgent(Class<?> clss, Bundle args) {

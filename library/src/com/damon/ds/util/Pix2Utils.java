@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.TypedValue;
 
-public class DSUtils {
+public class Pix2Utils {
 
 	/**
 	 * @param context
@@ -59,45 +59,6 @@ public class DSUtils {
 		Resources r = context.getResources();
 		float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, r.getDisplayMetrics());
 		return size;
-	}
-
-	/**
-	 * @param context
-	 * @return
-	 */
-	public static boolean isWifiConnected(Context context) {
-		if (context == null) {
-			return false;
-		}
-		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
-		if (activeNetworkInfo == null) {
-			return false;
-		}
-		if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static boolean isConnectNetwork(Context context) {
-		boolean flag = false;
-		try {
-			ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo ni = manager.getActiveNetworkInfo();
-			if (ni != null && ni.isConnected()) {
-				flag = true;
-			}
-		} catch (Exception e) {
-		}
-
-		return flag;
 	}
 
 }

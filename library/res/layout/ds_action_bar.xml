@@ -19,6 +19,7 @@
             android:ellipsize="end"
             android:maxWidth="240dip"
             android:singleLine="true"
+            android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -29,6 +30,7 @@
             android:ellipsize="end"
             android:maxWidth="240dip"
             android:singleLine="true"
+            android:textColor="@color/white"
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </FrameLayout>

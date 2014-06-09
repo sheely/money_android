@@ -201,4 +201,5 @@ public class Log {
 			android.util.Log.e(TAG_DEFAULT, log);
 		}
 	}
+	
 }

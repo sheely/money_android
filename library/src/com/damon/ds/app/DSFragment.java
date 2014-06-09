@@ -25,12 +25,7 @@ public class DSFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
-		return onSetView(inflater, container);
-	}
-
-	protected View onSetView(LayoutInflater inflater, ViewGroup container) {
-		return inflater.inflate(android.R.layout.simple_list_item_1, container, false);
+		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
 	@Override
