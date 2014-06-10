@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_marginTop="60dip"
+        android:layout_marginBottom="20dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:src="@drawable/app_logo" />
+
+    <com.damon.ds.widget.TableView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dip" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dip" />
+    </com.damon.ds.widget.TableView>
+
+    <Button
+        style="@style/GreenButton"
+        android:layout_margin="15dip"
+        android:text="登录" />
+
+</LinearLayout>

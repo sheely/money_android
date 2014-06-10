@@ -1,11 +1,12 @@
 package com.wanlonggroup.caiplus;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.AlphaAnimation;
 
-public class SplashScreenActivity extends Activity {
+import com.wanlonggroup.caiplus.app.BaseActivity;
+
+public class SplashScreenActivity extends BaseActivity {
 
 	private final Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -26,6 +27,10 @@ public class SplashScreenActivity extends Activity {
 		findViewById(R.id.screen).startAnimation(animation);
 
 		handler.sendEmptyMessageDelayed(1, 2400);
+	}
+	
+	protected ActionBarType actionBarType() {
+		return ActionBarType.NONE;
 	}
 
 }

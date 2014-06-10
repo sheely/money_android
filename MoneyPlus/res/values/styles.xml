@@ -16,13 +16,66 @@
     <style name="AppTheme" parent="AppBaseTheme">
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/main_bg</item>
         <item name="android:windowTitleSize">45dip</item>
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
+        <item name="android:listViewStyle">@style/CustomListView</item>
     </style>
 
     <style name="CustomWindowTitleBackground">
-        <item name="android:background">@color/text_color_link</item>
+        <item name="android:background">#2780cb</item>
+    </style>
+    
+    
+    
+    <!-- button -->
+    <style name="BlueButton" parent="android:Widget.Button">
+        <item name="android:layout_height">45dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/btn_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_list</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    
+    <style name="GreenButton" parent="android:Widget.Button">
+        <item name="android:layout_height">40dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/btn_green</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_list</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    
+    <!-- list view  -->
+    <style name="CustomListView" parent="android:Widget.AbsListView">
+        <item name="android:listSelector">@drawable/list_item</item>
+        <item name="android:cacheColorHint">#00000000</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:divider">@color/line_gray</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:choiceMode">singleChoice</item>
+    </style>
+    
+    
+     <!-- Table View start -->
+    <style name="TableItem">
+        <item name="android:background">@drawable/table_view_item</item>
+    </style>
+
+    <style name="TableItemWithPadding" parent="TableItem">
+        <item name="android:paddingLeft">@dimen/table_item_padding</item>
+        <item name="android:paddingRight">@dimen/table_item_padding</item>
+    </style>
+
+    <style name="SingleLineTableItemWithPadding" parent="TableItemWithPadding">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/single_line_height</item>
+    </style>
+
+    <style name="SingleLineTableItem" parent="TableItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/single_line_height</item>
     </style>
 
 </resources>
