@@ -22,6 +22,7 @@
     <color name="yellow">#ff7000</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FFF0F0F0</color>
     <color name="transparent">#00000000</color>
     
 </resources>
