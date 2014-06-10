@@ -11,7 +11,8 @@ public class SplashScreenActivity extends BaseActivity {
 	private final Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			if (msg.what == 1) {
-				
+				startActivity("cp://login");
+				finish();
 			}
 
 		};
@@ -28,7 +29,7 @@ public class SplashScreenActivity extends BaseActivity {
 
 		handler.sendEmptyMessageDelayed(1, 2400);
 	}
-	
+
 	protected ActionBarType actionBarType() {
 		return ActionBarType.NONE;
 	}

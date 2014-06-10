@@ -1,6 +1,7 @@
 package com.damon.ds.app;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -67,6 +68,14 @@ public class DSActivity extends FragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		DSApplication.instance().activityOnDestory(this);
+	}
+
+	public void startActivity(String urlSchema) {
+		startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema)), -1);
+	}
+
+	public void startActivity(String urlSchema, int requestCode) {
+		startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema)), requestCode);
 	}
 
 	@Override
