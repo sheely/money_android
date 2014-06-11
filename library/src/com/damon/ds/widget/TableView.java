@@ -16,13 +16,11 @@ import android.widget.LinearLayout;
 
 import com.damon.ds.library.R;
 
-
 public class TableView extends LinearLayout implements OnClickListener {
 
 	private OnItemClickListener mClickListener;
 	private Adapter adapter;
-	private Drawable divider = getResources().getDrawable(
-			R.drawable.gray_horizontal_line);
+	private Drawable divider = getResources().getDrawable(R.drawable.gray_horizontal_line);
 	private Drawable dividerOfGroupEnd;
 
 	private Handler handler = new Handler() {
@@ -79,8 +77,7 @@ public class TableView extends LinearLayout implements OnClickListener {
 	public void childDrawableStateChanged(View child) {
 		super.childDrawableStateChanged(child);
 		if (divider != null) {
-			invalidate(child.getLeft(), child.getTop(), child.getRight(),
-					child.getBottom());
+			invalidate(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
 		}
 	}
 
@@ -90,8 +87,7 @@ public class TableView extends LinearLayout implements OnClickListener {
 		if (divider != null) {
 			for (int i = 0; i < getChildCount(); i++) {
 				View child = getChildAt(i);
-				if (child != null && child.getVisibility() == View.VISIBLE
-						&& !(child instanceof TableHeader)
+				if (child != null && child.getVisibility() == View.VISIBLE && !(child instanceof TableHeader)
 						&& child.getHeight() > 0) {
 					if (isGroupEnd(i)) {
 						drawDividerOfGroupEnd(canvas, child);
@@ -122,9 +118,7 @@ public class TableView extends LinearLayout implements OnClickListener {
 				return;
 			}
 			final Rect bounds = new Rect();
-			bounds.left = getPaddingLeft()
-					+ getResources().getDimensionPixelOffset(
-							R.dimen.table_item_padding);
+			bounds.left = getPaddingLeft() + getItemPadding();
 			bounds.top = view.getBottom() - height;
 			bounds.right = getRight() - getLeft() - getPaddingRight();
 			bounds.bottom = view.getBottom();
@@ -133,9 +127,18 @@ public class TableView extends LinearLayout implements OnClickListener {
 		}
 	}
 
+	private int getItemPadding() {
+		return itemPadding;
+	}
+
+	private int itemPadding = getResources().getDimensionPixelOffset(R.dimen.table_item_padding);
+
+	public void setItemPadding(int padding) {
+		itemPadding = padding;
+	}
+
 	private void drawDividerOfGroupEnd(Canvas canvas, View view) {
-		Drawable divider = this.dividerOfGroupEnd == null ? this.divider
-				: this.dividerOfGroupEnd;
+		Drawable divider = this.dividerOfGroupEnd == null ? this.divider : this.dividerOfGroupEnd;
 		if (divider != null) {
 			int[] state = view.getDrawableState();
 			divider.setState(state);
@@ -212,8 +215,7 @@ public class TableView extends LinearLayout implements OnClickListener {
 	}
 
 	public Object getItemAtPosition(int position) {
-		return (adapter == null || position < 0) ? null : adapter
-				.getItem(position);
+		return (adapter == null || position < 0) ? null : adapter.getItem(position);
 	}
 
 	@Override
@@ -221,8 +223,7 @@ public class TableView extends LinearLayout implements OnClickListener {
 		super.onLayout(changed, l, t, r, b);
 		for (int i = 0; i < getChildCount(); i++) {
 			View child = getChildAt(i);
-			if (child != null && child.getVisibility() == View.VISIBLE
-					&& !(child instanceof AdapterView)) {
+			if (child != null && child.getVisibility() == View.VISIBLE && !(child instanceof AdapterView)) {
 				if (mClickListener != null) {
 					boolean isClickable = child.isClickable();
 					child.setOnClickListener(this);

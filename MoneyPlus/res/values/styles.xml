@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -27,6 +27,18 @@
     </style>
     
     
+    
+    <!-- textview -->
+    
+    <style name="ListBlackText" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textSize">@dimen/text_size_list</item>
+    </style>
+    
+    <style name="HintGrayText" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color_gray</item>
+        <item name="android:textSize">@dimen/text_size_hint</item>
+    </style>
     
     <!-- button -->
     <style name="BlueButton" parent="android:Widget.Button">
@@ -76,6 +88,28 @@
     <style name="SingleLineTableItem" parent="TableItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/single_line_height</item>
+    </style>
+    
+    
+    <style name="TableItemWithLine">
+        <item name="android:background">@drawable/table_view_item_with_line</item>
+    </style>
+    
+     <style name="TableItemWithPaddingLine" parent="TableItemWithLine">
+        <item name="android:paddingLeft">@dimen/table_item_padding</item>
+        <item name="android:paddingRight">@dimen/table_item_padding</item>
+    </style>
+    
+     <style name="SingleLineTableItemWithPaddingLine" parent="TableItemWithPaddingLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/single_line_height</item>
+    </style>
+    
+     <style name="CommonPadding">
+        <item name="android:paddingLeft">@dimen/table_item_padding</item>
+        <item name="android:paddingRight">@dimen/table_item_padding</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
     </style>
 
 </resources>

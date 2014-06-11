@@ -30,8 +30,12 @@ public class BaseTabPagerFragment extends BaseFragment implements OnTabChangeLis
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		return inflater.inflate(R.layout.tabs_pager_fragment, container, false);
+		return onSetView(inflater, container);
 	}
+	
+	public View onSetView(LayoutInflater inflater, ViewGroup container){
+    	return inflater.inflate(R.layout.tabs_pager_fragment,container,false);
+    }
 
 	public ViewPager viewPager() {
 		return mViewPager;

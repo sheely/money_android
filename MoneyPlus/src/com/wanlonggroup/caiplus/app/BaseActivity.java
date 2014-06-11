@@ -1,12 +1,16 @@
 package com.wanlonggroup.caiplus.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.Window;
+import android.widget.Toast;
 
-import com.damon.ds.actionbar.DSActionBar;
 import com.damon.ds.app.DSActivity;
+import com.damon.ds.util.DialogUtils;
+import com.damon.ds.widget.DSActionBar;
 import com.wanlonggroup.caiplus.R;
 
 public class BaseActivity extends DSActivity {
@@ -37,6 +41,8 @@ public class BaseActivity extends DSActivity {
 				}
 			});
 
+			actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);
+
 			setTitle(getTitle());
 		}
 
@@ -56,4 +62,64 @@ public class BaseActivity extends DSActivity {
 		actionBar.setTitle(title);
 	}
 
+	public void showShortToast(String message) {
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	}
+
+	private AlertDialog progressDialog;
+	int progressDialogCount;
+
+	public void showProgressDialog(String message) {
+		if (progressDialog == null || !progressDialog.isShowing()) {
+			progressDialog = DialogUtils.showProgressDialog(this, message, new DialogInterface.OnCancelListener() {
+
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					onProgressDialogCancel();
+
+				}
+			}, false);
+		} else {
+			progressDialog.setMessage(message);
+		}
+		progressDialogCount++;
+	}
+
+	public void dismissProgressDialog() {
+		progressDialogCount--;
+		if (progressDialogCount == 0 && progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
+	}
+
+	public void onProgressDialogCancel() {
+
+	}
+
+	public void showAlert(String message) {
+		showAlert("提示", message, false, null, null);
+	}
+	
+	private void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
+			DialogInterface.OnClickListener lCancel) {
+
+		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		};
+		if (lOk == null) {
+			lOk = listener;
+		}
+		if (lCancel == null) {
+			lCancel = listener;
+		}
+		if (!hasCancelBtn) {
+			DialogUtils.showAlert(this, message, title, "确定", false, lOk);
+		} else {
+			DialogUtils.showAlert(this, message, title, "确定", "取消", false, lOk, lCancel);
+		}
+	}
 }

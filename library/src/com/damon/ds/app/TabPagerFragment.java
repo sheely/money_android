@@ -32,6 +32,10 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	super.onCreateView(inflater, container, savedInstanceState);
+    	return onSetView(inflater, container);
+    }
+    
+    public View onSetView(LayoutInflater inflater, ViewGroup container){
     	return inflater.inflate(R.layout.tabs_pager_fragment,container,false);
     }
     

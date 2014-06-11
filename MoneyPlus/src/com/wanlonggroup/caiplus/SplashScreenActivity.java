@@ -2,6 +2,7 @@ package com.wanlonggroup.caiplus;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.animation.AlphaAnimation;
 
 import com.wanlonggroup.caiplus.app.BaseActivity;
@@ -32,6 +33,11 @@ public class SplashScreenActivity extends BaseActivity {
 
 	protected ActionBarType actionBarType() {
 		return ActionBarType.NONE;
+	}
+	
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		return true;
 	}
 
 }

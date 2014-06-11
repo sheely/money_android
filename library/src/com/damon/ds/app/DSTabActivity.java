@@ -14,9 +14,13 @@ public class DSTabActivity extends DSActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setContentView(R.layout.ds_tab_activity);
+		onSetContent();
 		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup();
+	}
+	
+	protected void onSetContent(){
+		setContentView(R.layout.ds_tab_activity);
 	}
 	
 	public void addTab(String title, Intent intent) {
