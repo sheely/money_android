@@ -3,18 +3,17 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#0000"
-    >
+    android:background="#0000" >
 
     <LinearLayout
         android:id="@+id/content"
-        android:gravity="center_vertical" 
         android:layout_width="fill_parent"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_centerVertical="true"
         android:layout_marginLeft="50dip"
         android:layout_marginRight="50dip"
         android:background="@drawable/custom_popview_bg"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <ProgressBar
@@ -22,7 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dip" />
+            android:layout_marginLeft="10dip"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/common_loading3" />
 
         <TextView
             android:id="@+id/message"
@@ -34,7 +36,7 @@
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <View
             android:id="@+id/divider"
@@ -44,9 +46,9 @@
 
         <ImageView
             android:id="@+id/btn_cancel"
-            android:layout_margin="5dip"
             android:layout_width="30dip"
             android:layout_height="30dip"
+            android:layout_margin="5dip"
             android:scaleType="centerInside"
             android:src="@drawable/btn_beautiful_progress_dialog_canel" />
     </LinearLayout>

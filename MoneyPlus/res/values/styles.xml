@@ -20,10 +20,11 @@
         <item name="android:windowTitleSize">45dip</item>
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
         <item name="android:listViewStyle">@style/CustomListView</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
     </style>
 
     <style name="CustomWindowTitleBackground">
-        <item name="android:background">#2780cb</item>
+        <item name="android:background">@color/actionbarBackground</item>
     </style>
     
     

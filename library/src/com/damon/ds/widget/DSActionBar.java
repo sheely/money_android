@@ -63,7 +63,7 @@ public class DSActionBar extends FrameLayout {
 
 	public void setDisplayHomeAsUpEnabled(boolean enable) {
 		if (homeAsUpContainer != null) {
-			homeAsUpContainer.setVisibility(enable ? VISIBLE : GONE);
+			homeAsUpContainer.setVisibility(enable ? VISIBLE : INVISIBLE);
 		}
 	}
 

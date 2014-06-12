@@ -1,6 +1,5 @@
 package com.wanlonggroup.caiplus.app;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 
 import com.damon.ds.app.DSActivity;
 import com.damon.ds.util.DialogUtils;
+import com.damon.ds.widget.BeautifulProgressDialog;
 import com.damon.ds.widget.DSActionBar;
 import com.wanlonggroup.caiplus.R;
 
@@ -52,7 +52,7 @@ public class BaseActivity extends DSActivity {
 		return ActionBarType.DSACTIONBAR;
 	}
 
-	protected DSActionBar getDSActionBar() {
+	protected DSActionBar actionBar() {
 		return actionBar;
 	}
 
@@ -66,8 +66,12 @@ public class BaseActivity extends DSActivity {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
-	private AlertDialog progressDialog;
+	private BeautifulProgressDialog progressDialog;
 	int progressDialogCount;
+	
+	public void showProgressDialog(){
+		showProgressDialog("加载中...");
+	}
 
 	public void showProgressDialog(String message) {
 		if (progressDialog == null || !progressDialog.isShowing()) {

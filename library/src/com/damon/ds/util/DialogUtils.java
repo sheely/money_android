@@ -10,7 +10,7 @@ import com.damon.ds.widget.BeautifulProgressDialog;
 
 public class DialogUtils {
 
-	public static AlertDialog showProgressDialog(Context context, String message,
+	public static BeautifulProgressDialog showProgressDialog(Context context, String message,
 			DialogInterface.OnCancelListener listener, boolean cancelable) {
 		BeautifulProgressDialog progressDialog = new BeautifulProgressDialog(context);
 		progressDialog.setCancelable(cancelable);

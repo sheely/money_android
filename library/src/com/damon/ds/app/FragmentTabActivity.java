@@ -48,7 +48,7 @@ public class FragmentTabActivity extends DSActivity {
 		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup();
 
-		mTabManager = new TabManager(this, mTabHost, R.layout.fragment_tabs);
+		mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
 
 		setTabWidgetBackground(0);
 	}
