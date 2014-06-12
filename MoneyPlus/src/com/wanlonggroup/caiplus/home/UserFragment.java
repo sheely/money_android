@@ -47,13 +47,7 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.my_calender) {
-			showAlert("dd");
-		} else if (v.getId() == R.id.my_concern) {
-			showProgressDialog();
-		}else if(v.getId() == R.id.my_team){
-			dismissProgressDialog();
-		}
+		
 	}
 
 }

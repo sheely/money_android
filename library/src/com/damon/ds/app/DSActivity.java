@@ -161,7 +161,7 @@ public class DSActivity extends FragmentActivity {
 					onProgressDialogCancel();
 
 				}
-			}, false);
+			}, true);
 		} else {
 			progressDialog.setMessage(message);
 		}
