@@ -1,4 +1,4 @@
-package com.wanlonggroup.caiplus.app;
+package com.damon.ds.app;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -8,11 +8,11 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.damon.ds.library.R;
 import com.damon.ds.util.ApkUtils;
 import com.damon.ds.util.Log;
-import com.wanlonggroup.caiplus.R;
 
-public class DebugActivity extends BaseActivity {
+public class DebugActivity extends DSActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

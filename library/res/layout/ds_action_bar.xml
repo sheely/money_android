@@ -2,7 +2,7 @@
 <com.damon.ds.widget.DSActionBar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ds_action_bar"
     android:layout_width="match_parent"
-    android:layout_height="45dip">
+    android:layout_height="@dimen/actionBarHeight">
 
     <FrameLayout
         android:id="@+id/ds_title_container"

@@ -12,7 +12,7 @@
         <ViewStub
             android:id="@+id/action_bar_stub"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/actionBarHeight"
             android:layout="@layout/ds_action_bar" />
 
         <TabWidget

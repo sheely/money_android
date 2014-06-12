@@ -11,6 +11,13 @@ public class CxHomeFragment extends BaseTabPagerFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
+		
+		setTitle("财信列表");
+	}
+	
+	@Override
+	protected boolean hasActionBar() {
+		return true;
 	}
 
 }

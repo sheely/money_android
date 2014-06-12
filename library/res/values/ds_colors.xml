@@ -17,6 +17,7 @@
 
 <resources>
 
+    
     <color name="red">#ff0000</color>
     <color name="blue">#5C869E</color>
     <color name="yellow">#ff7000</color>
@@ -25,5 +26,7 @@
     <color name="gray">#FFF0F0F0</color>
     <color name="orange">#ff8400</color>
     <color name="transparent">#00000000</color>
+    
+    <color name="actionbarBackground">#2780cb</color>
     
 </resources>

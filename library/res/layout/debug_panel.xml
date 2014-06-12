@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:text="debug_info"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/text_color_black" />
+        android:textColor="@color/black" />
 
 </LinearLayout>

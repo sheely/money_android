@@ -1,6 +1,7 @@
 package com.damon.ds.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -46,6 +47,17 @@ public class TableView extends LinearLayout implements OnClickListener {
 
 	public TableView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TableView);
+		divider = array.getDrawable(R.styleable.TableView_divider);
+		dividerOfGroupEnd = array.getDrawable(R.styleable.TableView_group_divider);
+		array.recycle();
+		
+		if (divider == null) {
+			divider = getResources().getDrawable(R.drawable.gray_horizontal_line);
+		}
+		if (dividerOfGroupEnd == null) {
+			dividerOfGroupEnd = getResources().getDrawable(R.drawable.gray_horizontal_line);
+		}
 		setOrientation(VERTICAL);
 	}
 

@@ -11,6 +11,13 @@ public class CyHomeFragment extends BasePtrListFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
+		
+		setTitle("聊天列表");
+	}
+	
+	@Override
+	protected boolean hasActionBar() {
+		return true;
 	}
 
 }

@@ -11,6 +11,13 @@ public class CqHomeFragment extends BaseTabPagerFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
+		
+		setTitle("财圈");
+	}
+	
+	@Override
+	protected boolean hasActionBar() {
+		return true;
 	}
 
 }

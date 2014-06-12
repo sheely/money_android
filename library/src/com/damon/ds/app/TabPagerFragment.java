@@ -20,7 +20,6 @@ import android.widget.TabWidget;
 import com.damon.ds.library.R;
 import com.damon.ds.widget.TabIndicator;
 
-
 public class TabPagerFragment extends DSFragment implements OnTabChangeListener {
     protected TabHost mTabHost;
     protected ViewPager mViewPager;
@@ -28,7 +27,6 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
     private OnTabChangeListener onTabChangeListener;
     private OnPageChangeListener onPageChangeListener;
 
-    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	super.onCreateView(inflater, container, savedInstanceState);
@@ -76,27 +74,24 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
         outState.putString("tab", mTabHost.getCurrentTabTag());
     }
 
-    public void addTab(String title, Class<?> clss, Bundle args) {
+	public void addTab(String title, Class<?> clss, Bundle args) {
 		addTab(title, 0, 0, clss, args);
 	}
-	
-	public void addTab(String title, int indicatorView, Class<?> clss,
-			Bundle args) {
+
+	public void addTab(String title, int indicatorView, Class<?> clss, Bundle args) {
 		addTab(title, 0, indicatorView, clss, args);
 	}
 
-    public void addTab(String title,int icon, int indicatorView, Class<?> clss,
-                       Bundle args) {
-        if (title == null) {
-            throw new IllegalArgumentException("title cann't be null!");
-        }
+	public void addTab(String title, int icon, int indicatorView, Class<?> clss, Bundle args) {
+		if (title == null) {
+			throw new IllegalArgumentException("title cann't be null!");
+		}
 
-        mTabsAdapter.addTab(
-                mTabHost.newTabSpec(title).setIndicator(
-                        new TabIndicator(getActivity(), title, icon, indicatorView)
-                                .createIndicatorView(mTabHost)), clss, args);
-    }
-
+		mTabsAdapter.addTab(
+				mTabHost.newTabSpec(title).setIndicator(
+						new TabIndicator(getActivity(), title, icon, indicatorView).createIndicatorView(mTabHost)),
+				clss, args);
+	}
 
     public void setTabsAdapter(TabsAdapter adapter) {
         mTabsAdapter = adapter;
@@ -117,13 +112,12 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
      * switch to the correct paged in the ViewPager whenever the selected tab
      * changes.
      */
-    public static class TabsAdapter extends FragmentPagerAdapter implements
-            ViewPager.OnPageChangeListener {
-        private final FragmentActivity mContext;
-        private final TabHost mTabHost;
-        private final TabPagerFragment mFragment;
-        private final ViewPager mViewPager;
-        private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+	public static class TabsAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
+		private final FragmentActivity mContext;
+		private final TabHost mTabHost;
+		private final TabPagerFragment mFragment;
+		private final ViewPager mViewPager;
+		private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
 
         static final class TabInfo {
             private final String tag;
@@ -162,61 +156,57 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
             }
         }
 
-        public TabsAdapter(TabPagerFragment fragment, TabHost tabHost,
-                           ViewPager pager) {
-            super(fragment.getActivity().getSupportFragmentManager());
-            mFragment = fragment;
-            mContext = fragment.getActivity();
-            mTabHost = tabHost;
-            mViewPager = pager;
-            mTabHost.setOnTabChangedListener(fragment);
-            mViewPager.setAdapter(this);
-            mViewPager.setOnPageChangeListener(this);
-        }
+		public TabsAdapter(TabPagerFragment fragment, TabHost tabHost, ViewPager pager) {
+			super(fragment.getActivity().getSupportFragmentManager());
+			mFragment = fragment;
+			mContext = fragment.getActivity();
+			mTabHost = tabHost;
+			mViewPager = pager;
+			mTabHost.setOnTabChangedListener(fragment);
+			mViewPager.setAdapter(this);
+			mViewPager.setOnPageChangeListener(this);
+		}
 
-        public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
-            tabSpec.setContent(new DummyTabFactory(mContext));
-            String tag = tabSpec.getTag();
+		public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
+			tabSpec.setContent(new DummyTabFactory(mContext));
+			String tag = tabSpec.getTag();
 
-            TabInfo info = new TabInfo(tag, clss, args);
-            mTabs.add(info);
-            mTabHost.addTab(tabSpec);
-            notifyDataSetChanged();
-        }
+			TabInfo info = new TabInfo(tag, clss, args);
+			mTabs.add(info);
+			mTabHost.addTab(tabSpec);
+			notifyDataSetChanged();
+		}
 
-        public void addTab(TabHost.TabSpec tabSpec, Fragment fragment,
-                           Bundle args) {
-            tabSpec.setContent(new DummyTabFactory(mContext));
-            String tag = tabSpec.getTag();
+		public void addTab(TabHost.TabSpec tabSpec, Fragment fragment, Bundle args) {
+			tabSpec.setContent(new DummyTabFactory(mContext));
+			String tag = tabSpec.getTag();
 
-            TabInfo info = new TabInfo(tag, fragment, args);
-            mTabs.add(info);
-            mTabHost.addTab(tabSpec);
-            notifyDataSetChanged();
-        }
+			TabInfo info = new TabInfo(tag, fragment, args);
+			mTabs.add(info);
+			mTabHost.addTab(tabSpec);
+			notifyDataSetChanged();
+		}
 
         @Override
         public int getCount() {
             return mTabs.size();
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            TabInfo info = mTabs.get(position);
-            if (info.fragment != null) {
-                return info.fragment;
-            }
-            return Fragment.instantiate(mContext, info.clss.getName(),
-                    info.args);
-        }
-
-        @Override
-        public void onPageScrolled(int position, float positionOffset,
-                                   int positionOffsetPixels) {
-        	if (mFragment.onPageChangeListener != null) {
-        		mFragment.onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+		@Override
+		public Fragment getItem(int position) {
+			TabInfo info = mTabs.get(position);
+			if (info.fragment != null) {
+				return info.fragment;
 			}
-        }
+			return Fragment.instantiate(mContext, info.clss.getName(), info.args);
+		}
+
+		@Override
+		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+			if (mFragment.onPageChangeListener != null) {
+				mFragment.onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+			}
+		}
 
         @Override
         public void onPageSelected(int position) {

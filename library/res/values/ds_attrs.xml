@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TableView">
+        <attr name="divider" format="reference" />
+        <attr name="group_divider" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="BasicSingleItem">
+        <attr name="item_icon" format="reference" />
+        
+        <attr name="item_title" format="string|reference" />
+        <attr name="item_titleSize" format="dimension|reference" />
+        <attr name="item_titleColor" format="reference" />
+        
+        <attr name="item_subTitle" format="string|reference" />
+        <attr name="item_subTitleSize" format="dimension|reference" />
+        <attr name="item_subTitleColor" format="reference" />
+        
+        <attr name="item_count" format="string|reference" />
+        <attr name="item_countSize" format="dimension|reference" />
+        <attr name="item_countColor" format="reference" />
+        
+        <attr name="item_clickable" format="boolean"/>
+    </declare-styleable>
+
+</resources>
