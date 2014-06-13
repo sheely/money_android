@@ -47,7 +47,13 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		
+		if(myCalender == v){
+			actionBar().hide();
+		}else if(myConcern == v){
+			actionBar().show();
+		}else if(myTeam == v){
+			showProgressDialog();
+		}
 	}
 
 }

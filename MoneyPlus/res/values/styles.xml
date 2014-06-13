@@ -60,6 +60,15 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
     
+    <style name="RedButton" parent="android:Widget.Button">
+        <item name="android:layout_height">40dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/btn_red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_list</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    
     <!-- list view  -->
     <style name="CustomListView" parent="android:Widget.AbsListView">
         <item name="android:listSelector">@drawable/list_item</item>

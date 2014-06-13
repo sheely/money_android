@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.damon.ds.library.R;
 import com.damon.ds.util.Pix2Utils;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 public class DSActionBar extends FrameLayout {
 
@@ -134,5 +135,36 @@ public class DSActionBar extends FrameLayout {
 		if (view != null) {
 			actionMenuContainer.removeView(view);
 		}
+	}
+
+	// =====hide or show===
+	private ObjectAnimator objectAnimator;
+
+	public void show() {
+		objectAnimator = ObjectAnimator.ofFloat(this, "y", 0);
+		objectAnimator.setDuration(400);
+		objectAnimator.start();
+		postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				setVisibility(View.VISIBLE);
+			}
+		}, 100);
+
+	}
+
+	public void hide() {
+		objectAnimator = ObjectAnimator.ofFloat(this, "y", -getHeight());
+		objectAnimator.setDuration(400);
+		objectAnimator.start();
+		postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				setVisibility(View.GONE);
+			}
+		}, 350);
+
 	}
 }

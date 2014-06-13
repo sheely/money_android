@@ -18,7 +18,8 @@
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tab_pager_widget_height"
+            android:background="@drawable/white_with_bottom_line_bg"
             android:orientation="horizontal" />
 
         <LinearLayout

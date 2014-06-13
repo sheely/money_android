@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/logout_btn"
-        style="@style/GreenButton"
+        style="@style/RedButton"
         android:layout_margin="15dip"
         android:text="退出登录" />
 

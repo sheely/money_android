@@ -265,4 +265,10 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
     public void onDetach() {
     	super.onDetach();
     }
+    
+    protected void setTabWidgetBackground(int drawableId) {
+		if (drawableId > 0) {
+			mTabHost.getTabWidget().setBackgroundResource(drawableId);
+		}
+	}
 }

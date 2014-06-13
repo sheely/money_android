@@ -22,7 +22,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,11 +49,11 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".home.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="首页"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
@@ -67,7 +67,6 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.damon.ds.app.DebugActivity"
             android:configChanges="orientation|keyboardHidden"

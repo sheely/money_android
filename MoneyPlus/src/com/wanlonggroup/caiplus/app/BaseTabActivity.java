@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 
-import com.damon.ds.library.R;
 import com.damon.ds.widget.TabIndicator;
+import com.wanlonggroup.caiplus.R;
 
 public class BaseTabActivity extends BaseActivity {
 	

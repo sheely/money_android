@@ -19,8 +19,12 @@
 
 <resources>
     
+    <dimen name="cover_corner_radius">3dp</dimen>
+    
     <dimen name="table_item_padding">15dp</dimen>
     
     <dimen name="actionBarHeight">50dip</dimen>
+    
+    <dimen name="tab_pager_widget_height">45dip</dimen>
 
 </resources>

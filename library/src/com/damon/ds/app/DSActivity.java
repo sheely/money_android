@@ -23,27 +23,22 @@ public class DSActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DSApplication.instance().activityOnCreate(this);
-		
+
 		if (actionBarType() == ActionBarType.NONE) {
 			getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			setContentView(new ViewStub(this));
-		} else {
+		} else if (actionBarType() == ActionBarType.CONTENT_DSACTIONBAR) {
+			ViewStub stub = (ViewStub) findViewById(R.id.action_bar_stub);
+			if (stub != null) {
+				stub.inflate();
+				initActionBar();
+			}
+		} else if (actionBarType() == ActionBarType.DSACTIONBAR) {
 			getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
 			setContentView(new ViewStub(this));
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.ds_action_bar);
 
-			actionBar = (DSActionBar) findViewById(R.id.ds_action_bar);
-			actionBar.setHomeAsUpListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					finish();
-				}
-			});
-
-			actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);
-
-			setTitle(getTitle());
+			initActionBar();
 		}
 	}
 
@@ -114,16 +109,15 @@ public class DSActivity extends FragmentActivity {
 	public void startActivityForResult(Intent intent, int requestCode) {
 		super.startActivityForResult(intent, requestCode);
 	}
-	
-	
-	//----actionbar-----
-	
+
+	// ----actionbar-----
+
 	protected enum ActionBarType {
-		DSACTIONBAR, NONE
+		DSACTIONBAR, NONE, CONTENT_DSACTIONBAR
 	}
 
 	private DSActionBar actionBar;
-	
+
 	protected ActionBarType actionBarType() {
 		return ActionBarType.DSACTIONBAR;
 	}
@@ -138,17 +132,31 @@ public class DSActivity extends FragmentActivity {
 		actionBar.setTitle(title);
 	}
 
-	
-	//-----toast and dialog----
-	
+	public void initActionBar() {
+		actionBar = (DSActionBar) findViewById(R.id.ds_action_bar);
+		actionBar.setBackgroundColor(getResources().getColor(R.color.actionbarBackground));
+		actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);
+		actionBar.setHomeAsUpListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+		setTitle(getTitle());
+	}
+
+	// -----toast and dialog----
+
 	public void showShortToast(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
 	private BeautifulProgressDialog progressDialog;
 	int progressDialogCount;
-	
-	public void showProgressDialog(){
+
+	public void showProgressDialog() {
 		showProgressDialog("加载中...");
 	}
 
@@ -182,7 +190,7 @@ public class DSActivity extends FragmentActivity {
 	public void showAlert(String message) {
 		showAlert("提示", message, false, null, null);
 	}
-	
+
 	private void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
 			DialogInterface.OnClickListener lCancel) {
 

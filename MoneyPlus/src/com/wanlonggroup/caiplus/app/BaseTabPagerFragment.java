@@ -17,8 +17,8 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 
-import com.damon.ds.library.R;
 import com.damon.ds.widget.TabIndicator;
+import com.wanlonggroup.caiplus.R;
 
 public class BaseTabPagerFragment extends BaseFragment implements OnTabChangeListener {
 	protected TabHost mTabHost;
@@ -57,7 +57,6 @@ public class BaseTabPagerFragment extends BaseFragment implements OnTabChangeLis
 		mViewPager = (ViewPager) view.findViewById(R.id.pager);
 		mViewPager.setOffscreenPageLimit(3);
 		mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-
 	}
 
 	@Override
@@ -264,5 +263,11 @@ public class BaseTabPagerFragment extends BaseFragment implements OnTabChangeLis
 	@Override
 	public void onDetach() {
 		super.onDetach();
+	}
+	
+	protected void setTabWidgetBackground(int drawableId) {
+		if (drawableId > 0) {
+			mTabHost.getTabWidget().setBackgroundResource(drawableId);
+		}
 	}
 }

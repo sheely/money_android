@@ -15,7 +15,6 @@ import com.damon.ds.library.R;
 import com.damon.ds.util.DialogUtils;
 import com.damon.ds.widget.BeautifulProgressDialog;
 import com.damon.ds.widget.DSActionBar;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class DSFragment extends Fragment {
 
@@ -50,17 +49,35 @@ public class DSFragment extends Fragment {
 		super.startActivityForResult(intent, requestCode);
 	}
 
-	private DSActionBar actionBar;
-	private ObjectAnimator objectAnimator;
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		initActionBar(view);
+	}
+
+	protected void setTitle(String title) {
+		if (actionBar != null) {
+			actionBar.setTitle(title);
+		}
+	}
+
+	// ---actionbar----
+	private DSActionBar actionBar;
+	protected boolean hasActionBar() {
+		return false;
+	}
+
+	protected final DSActionBar actionBar() {
+		return actionBar;
+	}
+
+	private void initActionBar(View actionBarContainerView) {
 		if (hasActionBar() || actionBarEnable) {
-			ViewStub stub = (ViewStub) view.findViewById(R.id.action_bar_stub);
+			ViewStub stub = (ViewStub) actionBarContainerView.findViewById(R.id.action_bar_stub);
 			if (stub != null) {
 				stub.inflate();
-				actionBar = (DSActionBar) view.findViewById(R.id.ds_action_bar);
+				actionBar = (DSActionBar) actionBarContainerView.findViewById(R.id.ds_action_bar);
 				if (actionBar != null) {
 					actionBar.setBackgroundColor(getResources().getColor(R.color.actionbarBackground));
 					actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);
@@ -78,53 +95,6 @@ public class DSFragment extends Fragment {
 				}
 			}
 		}
-	}
-	
-	protected void setTitle(String title){
-		if(actionBar != null){
-			actionBar.setTitle(title);
-		}
-	}
-
-	// ---actionbar----
-	protected boolean hasActionBar() {
-		return false;
-	}
-
-	protected void showActionBar() {
-		if (actionBar != null) {
-			objectAnimator = ObjectAnimator.ofFloat(actionBar, "y", 0);
-			objectAnimator.setDuration(400);
-			objectAnimator.start();
-			actionBar.postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					actionBar.setVisibility(View.VISIBLE);
-				}
-			}, 100);
-
-		}
-	}
-
-	protected void hideActionBar() {
-		if (actionBar != null) {
-			objectAnimator = ObjectAnimator.ofFloat(actionBar, "y", -actionBar.getHeight());
-			objectAnimator.setDuration(400);
-			objectAnimator.start();
-			actionBar.postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					actionBar.setVisibility(View.GONE);
-				}
-			}, 380);
-
-		}
-	}
-
-	protected final DSActionBar actionBar() {
-		return actionBar;
 	}
 
 	private boolean actionBarEnable = false;

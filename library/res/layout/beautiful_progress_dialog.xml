@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#0000" >
+    android:background="@color/transparent_mask" >
 
     <LinearLayout
         android:id="@+id/content"
