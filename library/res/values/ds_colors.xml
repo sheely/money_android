@@ -30,7 +30,7 @@
     <color name="silver">#CCCCCC</color>
     <color name="silver_white">#E6E6E6</color>
     <color name="transparent">#00000000</color>
-    <color name="transparent_mask">#40000000</color>
+    <color name="transparent_mask">#58000000</color>
     
     <color name="actionbarBackground">#2780cb</color>
     

@@ -50,7 +50,7 @@
             android:layout_height="30dip"
             android:layout_margin="5dip"
             android:scaleType="centerInside"
-            android:src="@drawable/btn_beautiful_progress_dialog_canel" />
+            android:src="@drawable/icon_close" />
     </LinearLayout>
 
 </RelativeLayout>
