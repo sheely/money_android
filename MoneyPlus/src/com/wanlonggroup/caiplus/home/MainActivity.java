@@ -20,9 +20,9 @@ public class MainActivity extends BaseFragmentTabActivity {
 		
 		setTabWidgetBackground(R.color.tab_widget_color);
 
-		addTab(CAIQUAN, R.drawable.ic_tab_cq, 0, CqHomeFragment.class, null);
 		addTab(CAIXIN, R.drawable.ic_tab_cx, 0, CxHomeFragment.class, null);
 		addTab(CAIYOU, R.drawable.ic_tab_cy, 0, CyHomeFragment.class, null);
+		addTab(CAIQUAN, R.drawable.ic_tab_cq, 0, CqHomeFragment.class, null);
 		addTab(ME, R.drawable.ic_tab_me, 0, UserFragment.class, null);
 	}
 

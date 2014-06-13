@@ -52,12 +52,15 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
-        mTabHost.setup();
-        mViewPager = (ViewPager) view.findViewById(R.id.pager);
-        mViewPager.setOffscreenPageLimit(3);
-        mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-
+       initView(view);
+    }
+    
+    public void initView(View containerView){
+    	 mTabHost = (TabHost) containerView.findViewById(android.R.id.tabhost);
+         mTabHost.setup();
+         mViewPager = (ViewPager) containerView.findViewById(R.id.pager);
+         mViewPager.setOffscreenPageLimit(3);
+         mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
     }
     
     @Override
