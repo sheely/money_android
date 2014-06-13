@@ -46,7 +46,7 @@ public class Log {
 	 */
 	public static final int ERROR = android.util.Log.ERROR;
 
-	private static String TAG_DEFAULT = "dianping";
+	private static String TAG_DEFAULT = "com.damon.ds";
 
 	/**
 	 * 检查当前是否需要输出对应的level。
