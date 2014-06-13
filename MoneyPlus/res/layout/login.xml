@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dip"
-                android:src="@drawable/login_icon_username" />
+                android:src="@drawable/icon_username" />
 
             <EditText
                 android:id="@+id/username"
@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/login_icon_close" />
+                android:src="@drawable/icon_close_rest" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dip"
-                android:src="@drawable/login_icon_password" />
+                android:src="@drawable/icon_password" />
 
             <EditText
                 android:id="@+id/password"
