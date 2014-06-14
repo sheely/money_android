@@ -93,6 +93,12 @@ public class DSActivity extends FragmentActivity {
 
 	@Override
 	protected void onDestroy() {
+		if (toast != null) {
+			toast.cancel();
+		}
+		if (progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
 		super.onDestroy();
 		DSApplication.instance().activityOnDestory(this);
 	}
@@ -149,8 +155,18 @@ public class DSActivity extends FragmentActivity {
 
 	// -----toast and dialog----
 
+	Toast toast;
+
 	public void showShortToast(String message) {
-		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		if (!isFinishing()) {
+			return;
+		}
+		if (toast == null) {
+			toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+		} else {
+			toast.setText(message);
+		}
+		toast.show();
 	}
 
 	private BeautifulProgressDialog progressDialog;
@@ -161,6 +177,9 @@ public class DSActivity extends FragmentActivity {
 	}
 
 	public void showProgressDialog(String message) {
+		if (!isFinishing()) {
+			return;
+		}
 		if (progressDialog == null || !progressDialog.isShowing()) {
 			progressDialog = DialogUtils.showProgressDialog(this, message, new DialogInterface.OnCancelListener() {
 

@@ -49,7 +49,6 @@ public class DSFragment extends Fragment {
 		super.startActivityForResult(intent, requestCode);
 	}
 
-
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -62,8 +61,20 @@ public class DSFragment extends Fragment {
 		}
 	}
 
+	@Override
+	public void onDestroy() {
+		if (toast != null) {
+			toast.cancel();
+		}
+		if (progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
+		super.onDestroy();
+	}
+
 	// ---actionbar----
 	private DSActionBar actionBar;
+
 	protected boolean hasActionBar() {
 		return false;
 	}
@@ -108,10 +119,18 @@ public class DSFragment extends Fragment {
 
 	// -----toast and dialog----
 
+	Toast toast;
+
 	public void showShortToast(String message) {
-		if (dsActivity != null && !dsActivity.isFinishing()) {
-			Toast.makeText(dsActivity, message, Toast.LENGTH_SHORT).show();
+		if (dsActivity == null || dsActivity.isFinishing()) {
+			return;
 		}
+		if (toast == null) {
+			toast = Toast.makeText(dsActivity, message, Toast.LENGTH_SHORT);
+		} else {
+			toast.setText(message);
+		}
+		toast.show();
 	}
 
 	private BeautifulProgressDialog progressDialog;
