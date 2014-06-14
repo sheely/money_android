@@ -3,14 +3,14 @@ package com.damon.ds.app;
 import java.util.UUID;
 
 import android.app.Activity;
-import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
 import com.damon.ds.util.Log;
+import com.next.app.StandardApplication;
 
-public class DSApplication extends Application {
+public class DSApplication extends StandardApplication {
 
 	private static DSApplication instance;
 	private String sessionId;
@@ -94,8 +94,6 @@ public class DSApplication extends Application {
 	public void onApplicationPause() {
 		Log.i("application", "onApplicationPause");
 	}
-
-
 
 	String sessionId() {
 		return sessionId;

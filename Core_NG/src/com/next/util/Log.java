@@ -46,7 +46,7 @@ public class Log {
 	 */
 	public static final int ERROR = android.util.Log.ERROR;
 
-	private static String TAG_DEFAULT = "mobilitychina";
+	private static String TAG_DEFAULT = "caiplus";
 
 	/**
 	 * 检查当前是否需要输出对应的level。
