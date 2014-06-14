@@ -3,12 +3,17 @@ package com.damon.ds.app;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
 import com.damon.ds.util.Log;
 import com.next.app.StandardApplication;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class DSApplication extends StandardApplication {
 
@@ -42,6 +47,24 @@ public class DSApplication extends StandardApplication {
 			Log.LEVEL = Integer.MAX_VALUE;
 		}
 
+		initImageLoader(getApplicationContext());
+	}
+
+	public static void initImageLoader(Context context) {
+		// This configuration tuning is custom. You can tune every option, you
+		// may tune some of them,
+		// or you can create default configuration by
+		// ImageLoaderConfiguration.createDefault(this);
+		// method.
+		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(context)
+				.threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory()
+				.discCacheFileNameGenerator(new Md5FileNameGenerator());
+		if (Log.isLoggable(Log.VERBOSE)) {
+			builder.writeDebugLogs();
+		}
+		ImageLoaderConfiguration config = builder.build();
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
 	}
 
 	//
