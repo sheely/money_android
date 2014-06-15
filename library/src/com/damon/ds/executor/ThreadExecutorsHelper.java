@@ -104,7 +104,7 @@ public class ThreadExecutorsHelper {
 
 		@Override
 		public Thread newThread(Runnable r) {
-			return new Thread(r, "AsyncTask #" + count.getAndIncrement());
+			return new Thread(r, "ThreadExecutorsHelper #" + count.getAndIncrement());
 		}
 	}
 }
