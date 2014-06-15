@@ -10,25 +10,34 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThreadExecutorFactory {
 
-	public static ThreadPoolExecutor create(int size, int maxSize,
-			int aliveSize, final String prefix) {
+	public static ThreadPoolExecutor create(int size, int maxSize, int aliveSize, final String prefix) {
 		BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>();
-
-		ThreadFactory threadFactory = new ThreadFactory() {
-			private final AtomicInteger mCount = new AtomicInteger(1);
-
-			public Thread newThread(Runnable r) {
-				return new Thread(r, prefix + " #" + mCount.getAndIncrement());
-			}
-		};
-
-		return new ThreadPoolExecutor(size, maxSize, aliveSize,
-				TimeUnit.SECONDS, workQueue, threadFactory);
+		return new ThreadPoolExecutor(size, maxSize, aliveSize, TimeUnit.SECONDS, workQueue,
+				new DSThreadFactory(prefix));
 	}
-	
-	public static ThreadPoolExecutor create(){
-		return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
-                60L, TimeUnit.SECONDS,
-                new SynchronousQueue<Runnable>());
+
+	public static ThreadPoolExecutor create() {
+		return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(),
+				new DSThreadFactory());
+	}
+
+	private static class DSThreadFactory implements ThreadFactory {
+		private final AtomicInteger count = new AtomicInteger(1);
+		private String prefix = "ThreadExecutorFactory";
+
+		public DSThreadFactory() {
+
+		}
+
+		public DSThreadFactory(String prefix) {
+			if (prefix != null && prefix.length() > 0) {
+				this.prefix = prefix;
+			}
+		}
+
+		@Override
+		public Thread newThread(Runnable r) {
+			return new Thread(r, prefix + " #" + count.getAndIncrement());
+		}
 	}
 }

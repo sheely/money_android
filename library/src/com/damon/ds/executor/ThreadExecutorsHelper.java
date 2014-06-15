@@ -100,7 +100,7 @@ public class ThreadExecutorsHelper {
 	}
 
 	private static class DSThreadFactory implements ThreadFactory {
-		private final AtomicInteger count = new AtomicInteger(1);;
+		private final AtomicInteger count = new AtomicInteger(1);
 
 		@Override
 		public Thread newThread(Runnable r) {
