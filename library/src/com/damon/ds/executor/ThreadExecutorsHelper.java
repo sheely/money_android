@@ -12,23 +12,38 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThreadExecutorsHelper {
 
-	private static final int poolSize;
-	private static final ThreadFactory concurrentThreadFactory;
-	private static final ExecutorService executorService;
-	private static final ScheduledExecutorService scheduledExecutorService;
+	private static int poolSize;
+	private static ThreadFactory concurrentThreadFactory;
+	private static ExecutorService executorService;
+	private static ScheduledExecutorService scheduledExecutorService;
 
 	static {
-		poolSize = Math.max(2, Runtime.getRuntime().availableProcessors() / 2);
+		poolSize = Math.max(2, Runtime.getRuntime().availableProcessors());
 		concurrentThreadFactory = new DSThreadFactory();
-		executorService = Executors.newFixedThreadPool(poolSize, concurrentThreadFactory);
-		scheduledExecutorService = Executors.newScheduledThreadPool(poolSize, concurrentThreadFactory);
+		init();
+	}
+
+	private static void init() {
+		if (executorService == null || executorService.isShutdown()) {
+			executorService = Executors.newFixedThreadPool(poolSize, concurrentThreadFactory);
+			scheduledExecutorService = Executors.newScheduledThreadPool(poolSize, concurrentThreadFactory);
+		}
+	}
+
+	public static void shutdown() {
+		if (executorService != null && !executorService.isShutdown()) {
+			executorService.shutdown();
+			scheduledExecutorService.shutdown();
+		}
 	}
 
 	public static Future<?> execute(Runnable runnable) {
+		init();
 		return executorService.submit(runnable);
 	}
 
 	public static ScheduledFuture<?> schedule(Callable<?> callable, long delay, TimeUnit unit) {
+		init();
 		return scheduledExecutorService.schedule(callable, delay, unit);
 	}
 
@@ -40,10 +55,12 @@ public class ThreadExecutorsHelper {
 	 * @return
 	 */
 	public static ScheduledFuture<?> schedule(Runnable runnable, long delay) {
+		init();
 		return schedule(runnable, delay, TimeUnit.MILLISECONDS);
 	}
 
 	public static ScheduledFuture<?> schedule(Runnable runnable, long delay, TimeUnit unit) {
+		init();
 		return scheduledExecutorService.schedule(runnable, delay, unit);
 	}
 
@@ -54,11 +71,13 @@ public class ThreadExecutorsHelper {
 	 *            MILLISECONDS
 	 */
 	public static ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, long delay) {
+		init();
 		return scheduleWithFixedDelay(runnable, delay, delay, TimeUnit.MILLISECONDS);
 	}
 
 	public static ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, long initialDelay, long delay,
 			TimeUnit unit) {
+		init();
 		return scheduledExecutorService.scheduleWithFixedDelay(runnable, initialDelay, delay, unit);
 	}
 
@@ -70,11 +89,13 @@ public class ThreadExecutorsHelper {
 	 * @return
 	 */
 	public static ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long period) {
+		init();
 		return scheduleAtFixedRate(runnable, period, period, TimeUnit.MILLISECONDS);
 	}
 
 	public static ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long initialDelay, long period,
 			TimeUnit unit) {
+		init();
 		return scheduledExecutorService.scheduleAtFixedRate(runnable, initialDelay, period, unit);
 	}
 
