@@ -32,6 +32,17 @@ public class ThreadExecutorsHelper {
 		return scheduledExecutorService.schedule(callable, delay, unit);
 	}
 
+	/**
+	 * 
+	 * @param runnable
+	 * @param delay
+	 *            MILLISECONDS
+	 * @return
+	 */
+	public static ScheduledFuture<?> schedule(Runnable runnable, long delay) {
+		return schedule(runnable, delay, TimeUnit.MILLISECONDS);
+	}
+
 	public static ScheduledFuture<?> schedule(Runnable runnable, long delay, TimeUnit unit) {
 		return scheduledExecutorService.schedule(runnable, delay, unit);
 	}
