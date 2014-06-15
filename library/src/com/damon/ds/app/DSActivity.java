@@ -32,6 +32,8 @@ public class DSActivity extends FragmentActivity {
 			if (stub != null) {
 				stub.inflate();
 				initActionBar();
+			}else{
+				throw new RuntimeException("actiontype (CONTENT_DSACTIONBAR) must has actionbar in contentview");
 			}
 		} else if (actionBarType() == ActionBarType.DSACTIONBAR) {
 			getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
