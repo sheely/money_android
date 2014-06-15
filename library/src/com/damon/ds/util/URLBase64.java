@@ -12,7 +12,6 @@ package com.damon.ds.util;
  * 
  * http://en.wikipedia.org/wiki/Base64#URL_applications
  * 
- * @author Yimin
  * 
  */
 public class URLBase64 {

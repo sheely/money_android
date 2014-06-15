@@ -63,9 +63,6 @@ public class DSFragment extends Fragment {
 
 	@Override
 	public void onDestroy() {
-		if (toast != null) {
-			toast.cancel();
-		}
 		if (progressDialog != null && progressDialog.isShowing()) {
 			progressDialog.dismiss();
 		}
@@ -119,18 +116,11 @@ public class DSFragment extends Fragment {
 
 	// -----toast and dialog----
 
-	Toast toast;
-
 	public void showShortToast(String message) {
 		if (dsActivity == null || dsActivity.isFinishing()) {
 			return;
 		}
-		if (toast == null) {
-			toast = Toast.makeText(dsActivity, message, Toast.LENGTH_SHORT);
-		} else {
-			toast.setText(message);
-		}
-		toast.show();
+		Toast.makeText(dsActivity, message, Toast.LENGTH_SHORT).show();
 	}
 
 	private BeautifulProgressDialog progressDialog;
