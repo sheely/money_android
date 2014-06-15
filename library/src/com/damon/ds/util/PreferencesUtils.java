@@ -13,11 +13,19 @@ public class PreferencesUtils {
 
 	private static String PREFERENCE_NAME = "com.damon.ds";
 	private static final String splitStr = "█";
+	private static SharedPreferences sharedPreferences;
 
 	public static void initSharedPreferenceName(String name) {
 		if (!TextUtils.isEmpty(name)) {
 			PREFERENCE_NAME = name;
 		}
+	}
+
+	private static SharedPreferences sharedPreferences(Context context) {
+		if (sharedPreferences == null) {
+			sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+		}
+		return sharedPreferences;
 	}
 
 	/**
@@ -32,8 +40,7 @@ public class PreferencesUtils {
 	 *         storage.
 	 */
 	public static boolean putString(Context context, String key, String value) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = sharedPreferences(context).edit();
 		editor.putString(key, value);
 		return editor.commit();
 	}
@@ -66,14 +73,12 @@ public class PreferencesUtils {
 	 *         is not a string
 	 */
 	public static String getString(Context context, String key, String defaultValue) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		return settings.getString(key, defaultValue);
+		return sharedPreferences(context).getString(key, defaultValue);
 	}
 
 	@SuppressLint("NewApi")
 	public static boolean putStringSet(Context context, String key, Set<String> values) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = sharedPreferences(context).edit();
 		if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
 			editor.putStringSet(key, values);
 		} else {
@@ -84,14 +89,13 @@ public class PreferencesUtils {
 
 	@SuppressLint("NewApi")
 	public static Set<String> getStringSet(Context context, String key, Set<String> defaultValue) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
 		if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
-			return settings.getStringSet(key, defaultValue);
+			return sharedPreferences(context).getStringSet(key, defaultValue);
 		} else {
-			if (!settings.contains(key)) {
+			if (!sharedPreferences(context).contains(key)) {
 				return defaultValue;
 			}
-			String setStr = settings.getString(key, "");
+			String setStr = sharedPreferences(context).getString(key, "");
 			return Collection2StrUtils.toSet(setStr, splitStr);
 		}
 	}
@@ -112,8 +116,7 @@ public class PreferencesUtils {
 	 *         storage.
 	 */
 	public static boolean putInt(Context context, String key, int value) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = sharedPreferences(context).edit();
 		editor.putInt(key, value);
 		return editor.commit();
 	}
@@ -146,8 +149,7 @@ public class PreferencesUtils {
 	 *         is not a int
 	 */
 	public static int getInt(Context context, String key, int defaultValue) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		return settings.getInt(key, defaultValue);
+		return sharedPreferences(context).getInt(key, defaultValue);
 	}
 
 	/**
@@ -162,8 +164,7 @@ public class PreferencesUtils {
 	 *         storage.
 	 */
 	public static boolean putLong(Context context, String key, long value) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = sharedPreferences(context).edit();
 		editor.putLong(key, value);
 		return editor.commit();
 	}
@@ -196,8 +197,7 @@ public class PreferencesUtils {
 	 *         is not a long
 	 */
 	public static long getLong(Context context, String key, long defaultValue) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		return settings.getLong(key, defaultValue);
+		return sharedPreferences(context).getLong(key, defaultValue);
 	}
 
 	/**
@@ -212,8 +212,7 @@ public class PreferencesUtils {
 	 *         storage.
 	 */
 	public static boolean putFloat(Context context, String key, float value) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = sharedPreferences(context).edit();
 		editor.putFloat(key, value);
 		return editor.commit();
 	}
@@ -246,8 +245,7 @@ public class PreferencesUtils {
 	 *         is not a float
 	 */
 	public static float getFloat(Context context, String key, float defaultValue) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		return settings.getFloat(key, defaultValue);
+		return sharedPreferences(context).getFloat(key, defaultValue);
 	}
 
 	/**
@@ -262,8 +260,7 @@ public class PreferencesUtils {
 	 *         storage.
 	 */
 	public static boolean putBoolean(Context context, String key, boolean value) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = sharedPreferences(context).edit();
 		editor.putBoolean(key, value);
 		return editor.commit();
 	}
@@ -296,7 +293,6 @@ public class PreferencesUtils {
 	 *         is not a boolean
 	 */
 	public static boolean getBoolean(Context context, String key, boolean defaultValue) {
-		SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-		return settings.getBoolean(key, defaultValue);
+		return sharedPreferences(context).getBoolean(key, defaultValue);
 	}
 }
