@@ -17,7 +17,7 @@ public class ThreadExecutorFactory {
 	}
 
 	public static ThreadPoolExecutor create() {
-		return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(),
+		return new ThreadPoolExecutor(2, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(),
 				new DSThreadFactory());
 	}
 
