@@ -1,5 +1,6 @@
 package com.damon.ds.executor;
 
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,10 +17,12 @@ public class ThreadExecutorsHelper {
 	private static ThreadFactory concurrentThreadFactory;
 	private static ExecutorService executorService;
 	private static ScheduledExecutorService scheduledExecutorService;
+	private static HashMap<Object, Future<?>> runnableMap;
 
 	static {
 		poolSize = Math.max(2, Runtime.getRuntime().availableProcessors());
 		concurrentThreadFactory = new DSThreadFactory();
+		runnableMap = new HashMap<Object, Future<?>>();
 		init();
 	}
 
@@ -30,21 +33,42 @@ public class ThreadExecutorsHelper {
 		}
 	}
 
-	public static void shutdown() {
+	public static void cancel(Runnable r, boolean myInterruptIfRunning) {
+		cancel_(r, myInterruptIfRunning);
+	}
+
+	public static void cancel(Callable<?> c, boolean myInterruptIfRunning) {
+		cancel_(c, myInterruptIfRunning);
+	}
+
+	private static void cancel_(Object obj, boolean myInterruptIfRunning) {
+		Future<?> future = runnableMap.get(obj);
+		if (future != null) {
+			future.cancel(myInterruptIfRunning);
+			runnableMap.remove(obj);
+		}
+	}
+
+	public static void shutdownNow() {
 		if (executorService != null && !executorService.isShutdown()) {
-			executorService.shutdown();
-			scheduledExecutorService.shutdown();
+			executorService.shutdownNow();
+			scheduledExecutorService.shutdownNow();
+			runnableMap.clear();
 		}
 	}
 
 	public static Future<?> execute(Runnable runnable) {
 		init();
-		return executorService.submit(runnable);
+		Future<?> future = executorService.submit(runnable);
+		runnableMap.put(runnable, future);
+		return future;
 	}
 
 	public static ScheduledFuture<?> schedule(Callable<?> callable, long delay, TimeUnit unit) {
 		init();
-		return scheduledExecutorService.schedule(callable, delay, unit);
+		ScheduledFuture<?> future = scheduledExecutorService.schedule(callable, delay, unit);
+		runnableMap.put(callable, future);
+		return future;
 	}
 
 	/**
@@ -55,13 +79,14 @@ public class ThreadExecutorsHelper {
 	 * @return
 	 */
 	public static ScheduledFuture<?> schedule(Runnable runnable, long delay) {
-		init();
 		return schedule(runnable, delay, TimeUnit.MILLISECONDS);
 	}
 
 	public static ScheduledFuture<?> schedule(Runnable runnable, long delay, TimeUnit unit) {
 		init();
-		return scheduledExecutorService.schedule(runnable, delay, unit);
+		ScheduledFuture<?> future = scheduledExecutorService.schedule(runnable, delay, unit);
+		runnableMap.put(runnable, future);
+		return future;
 	}
 
 	/**
@@ -71,14 +96,16 @@ public class ThreadExecutorsHelper {
 	 *            MILLISECONDS
 	 */
 	public static ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, long delay) {
-		init();
 		return scheduleWithFixedDelay(runnable, delay, delay, TimeUnit.MILLISECONDS);
 	}
 
 	public static ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, long initialDelay, long delay,
 			TimeUnit unit) {
 		init();
-		return scheduledExecutorService.scheduleWithFixedDelay(runnable, initialDelay, delay, unit);
+		ScheduledFuture<?> future = scheduledExecutorService
+				.scheduleWithFixedDelay(runnable, initialDelay, delay, unit);
+		runnableMap.put(runnable, future);
+		return future;
 	}
 
 	/**
@@ -89,14 +116,15 @@ public class ThreadExecutorsHelper {
 	 * @return
 	 */
 	public static ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long period) {
-		init();
 		return scheduleAtFixedRate(runnable, period, period, TimeUnit.MILLISECONDS);
 	}
 
 	public static ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long initialDelay, long period,
 			TimeUnit unit) {
 		init();
-		return scheduledExecutorService.scheduleAtFixedRate(runnable, initialDelay, period, unit);
+		ScheduledFuture<?> future = scheduledExecutorService.scheduleAtFixedRate(runnable, initialDelay, period, unit);
+		runnableMap.put(runnable, future);
+		return future;
 	}
 
 	private static class DSThreadFactory implements ThreadFactory {
