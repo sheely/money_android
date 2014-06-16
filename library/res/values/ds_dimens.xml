@@ -26,5 +26,7 @@
     <dimen name="actionBarHeight">50dip</dimen>
     
     <dimen name="tab_pager_widget_height">45dip</dimen>
+    
+    <dimen name="tab_host_widget_height">60dip</dimen>
 
 </resources>

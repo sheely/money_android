@@ -12,7 +12,7 @@
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tab_host_widget_height"
             android:layout_weight="0"
             android:orientation="horizontal"  />
 

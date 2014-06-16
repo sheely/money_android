@@ -1,8 +1,10 @@
 package com.damon.ds.util;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
 
 public class DSUtils {
 	
@@ -17,6 +19,21 @@ public class DSUtils {
 		DisplayMetrics dm = new DisplayMetrics();
 		context.getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.heightPixels;
+	}
+	
+	public static int getStatusBarHeight(Activity activity){
+		Rect rect = new Rect();
+		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+		return rect.top;
+	}
+	
+	public static int getTitleBarHeight(Activity activity){
+		int contentTop = activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+		return contentTop - getStatusBarHeight(activity);
+	}
+	
+	public static int getContentViewHeight(Activity activity){
+		return  activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getHeight();
 	}
 	
 	/**

@@ -29,6 +29,10 @@ public class DSFragment extends Fragment {
 		dsActivity = (DSActivity) activity;
 	}
 
+	protected DSActivity getDSActivity() {
+		return dsActivity;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
