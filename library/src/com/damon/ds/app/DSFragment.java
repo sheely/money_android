@@ -19,6 +19,8 @@ import com.damon.ds.widget.DSActionBar;
 public class DSFragment extends Fragment {
 
 	private DSActivity dsActivity;
+	
+	private CharSequence activiyTitle;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -27,10 +29,17 @@ public class DSFragment extends Fragment {
 			throw new IllegalArgumentException("DSFragment must attach to DSActivity!");
 		}
 		dsActivity = (DSActivity) activity;
+		activiyTitle = dsActivity.getTitle();
 	}
 
 	protected DSActivity getDSActivity() {
 		return dsActivity;
+	}
+	
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		dsActivity.setTitle(activiyTitle);
 	}
 
 	@Override

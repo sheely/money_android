@@ -134,7 +134,9 @@ public class DSActivity extends FragmentActivity {
 	@Override
 	public void setTitle(CharSequence title) {
 		super.setTitle(title);
-		actionBar.setTitle(title);
+		if(actionBar != null){
+			actionBar.setTitle(title);
+		}
 	}
 
 	public void initActionBar() {

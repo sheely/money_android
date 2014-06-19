@@ -20,7 +20,7 @@
         <attr name="item_countSize" format="dimension|reference" />
         <attr name="item_countColor" format="reference" />
         
-        <attr name="item_clickable" format="boolean"/>
+        <attr name="item_indicator" format="reference"/>
     </declare-styleable>
 
 </resources>

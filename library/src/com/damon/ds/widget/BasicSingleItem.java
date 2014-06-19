@@ -2,6 +2,7 @@ package com.damon.ds.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -25,7 +26,7 @@ public class BasicSingleItem extends LinearLayout {
 
 	public BasicSingleItem(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		inflate(context, R.layout.basic_single_item, this);
+		inflateLayout(context);
 		TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BasicSingleItem);
 
 		int iconResId = array.getResourceId(R.styleable.BasicSingleItem_item_icon, 0);
@@ -46,7 +47,7 @@ public class BasicSingleItem extends LinearLayout {
 		int countSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_countSize, defSize);
 		int countColor = array.getColor(R.styleable.BasicSingleItem_item_countColor, 0xff878787);
 		
-		boolean clickable = array.getBoolean(R.styleable.BasicSingleItem_item_clickable, true);
+		int indicatorId = array.getResourceId(R.styleable.BasicSingleItem_item_indicator,0);
 		array.recycle();
 
 		iconImageView = (ImageView) findViewById(R.id.icon);
@@ -68,11 +69,31 @@ public class BasicSingleItem extends LinearLayout {
 		setCountSize(countSize);
 
 		moreImageView = (ImageView) findViewById(R.id.more);
-		setClickable(clickable);
+		setIndicator(indicatorId);
+	}
+	
+	protected void inflateLayout(Context context) {
+		inflate(context, R.layout.basic_single_item, this);
 	}
 
 	public ImageView getLeftImageView() {
 		return iconImageView;
+	}
+	
+	public void setLeftImageViewEnable(boolean enabled){
+		iconImageView.setEnabled(enabled);
+	}
+	
+	public boolean isLeftImageViewEnabled(){
+		return iconImageView.isEnabled();
+	}
+	
+	public void setLeftImageViewSelected(boolean selected){
+		iconImageView.setSelected(selected);
+	}
+	
+	public boolean isLeftImageViewSelected(){
+		return iconImageView.isSelected();
 	}
 
 	public TextView getTitleView() {
@@ -90,6 +111,22 @@ public class BasicSingleItem extends LinearLayout {
 	public ImageView getRightImageView() {
 		return moreImageView;
 	}
+	
+	public void setRightImageViewEnable(boolean enabled){
+		moreImageView.setEnabled(enabled);
+	}
+	
+	public boolean isRightViewImageEnabled(){
+		return moreImageView.isEnabled();
+	}
+	
+	public void setRightImageViewSelected(boolean selected){
+		moreImageView.setSelected(selected);
+	}
+	
+	public boolean isRightImageViewSelected(){
+		return moreImageView.isSelected();
+	}
 
 	public void setLeftImageView(int resId) {
 		if (resId > 0) {
@@ -97,8 +134,12 @@ public class BasicSingleItem extends LinearLayout {
 		}
 		iconImageView.setVisibility(resId == 0 ? GONE : VISIBLE);
 	}
+	
+	public void setLeftImageView(Drawable icon){
+		iconImageView.setImageDrawable(icon);
+	}
 
-	public void setTitle(String title) {
+	public void setTitle(CharSequence title) {
 		titleTextView.setText(title);
 	}
 
@@ -110,7 +151,7 @@ public class BasicSingleItem extends LinearLayout {
 		titleTextView.setTextColor(color);
 	}
 
-	public void setSubTitle(String title) {
+	public void setSubTitle(CharSequence title) {
 		subTitleTextView.setText(title);
 		if (TextUtils.isEmpty(title)) {
 			subTitleTextView.setVisibility(GONE);
@@ -127,10 +168,7 @@ public class BasicSingleItem extends LinearLayout {
 		subTitleTextView.setTextColor(color);
 	}
 
-	public void setCount(String count) {
-		if (!TextUtils.isEmpty(count) && "0".equals(count.trim())) {
-			count = "";
-		}
+	public void setCount(CharSequence count) {
 		countTextView.setText(count);
 		if (TextUtils.isEmpty(count)) {
 			countTextView.setVisibility(GONE);
@@ -146,11 +184,28 @@ public class BasicSingleItem extends LinearLayout {
 	public void setCountColor(int value) {
 		countTextView.setTextColor(value);
 	}
-
+	
+	public void setIndicator(int drawableId){
+		if (drawableId > 0) {
+			moreImageView.setImageResource(drawableId);
+		}
+		moreImageView.setVisibility(drawableId == 0 ? GONE : VISIBLE);
+	}
+	
+	public void setIndicator(Drawable drawable){
+		moreImageView.setImageDrawable(drawable);
+	}
+	
 	@Override
 	public void setClickable(boolean clickable) {
 		super.setClickable(clickable);
-		moreImageView.setVisibility(clickable ? VISIBLE : GONE);
+		setLeftImageViewEnable(clickable);
+		setRightImageViewEnable(clickable);
+	}
+	
+	public void clearTitle(){
+		setTitle(null);
+		setSubTitle(null);
 	}
 
 }
