@@ -25,7 +25,7 @@ import android.view.View;
 import android.widget.TabHost;
 
 import com.damon.ds.library.R;
-import com.damon.ds.util.Log;
+import com.damon.ds.util.DSLog;
 import com.damon.ds.widget.TabIndicator;
 
 /**
@@ -183,16 +183,16 @@ public class FragmentTabActivity extends DSActivity {
 						newTab.fragment = Fragment.instantiate(mActivity,
 								newTab.clss.getName(), newTab.args);
 						ft.add(mContainerId, newTab.fragment, newTab.tag);
-						Log.i(LOG_TAG, "onTabChanged with tabId:" + tabId
+						DSLog.i(LOG_TAG, "onTabChanged with tabId:" + tabId
 								+ ", newTab.fragment is null, newTab.tag is "
 								+ newTab.tag);
 					} else {
 						ft.show(newTab.fragment);
-						Log.i(LOG_TAG, "onTabChanged with tabId:" + tabId
+						DSLog.i(LOG_TAG, "onTabChanged with tabId:" + tabId
 								+ ", show fragment success");
 					}
 				} else {
-					Log.i(LOG_TAG, "onTabChanged with tabId:" + tabId
+					DSLog.i(LOG_TAG, "onTabChanged with tabId:" + tabId
 							+ ", newTab is null");
 				}
 

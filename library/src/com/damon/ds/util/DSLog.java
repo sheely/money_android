@@ -12,7 +12,7 @@ package com.damon.ds.util;
  * w/warning：用以打印不太正常但是还不是错误的日志。<br>
  * e/error：用以打印出现错误的日志，一般用以表示错误导致功能无法继续运行。<br>
  */
-public class Log {
+public class DSLog {
 	/**
 	 * 当前的输出等级，当n>=LEVEL时才会输出<br>
 	 * 如果当前为调试模式，默认应该设置为i/info<br>

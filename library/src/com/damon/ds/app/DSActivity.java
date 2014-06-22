@@ -228,7 +228,7 @@ public class DSActivity extends FragmentActivity {
 	}
 
 	public void showProgressDialog(String message) {
-		if (!isFinishing()) {
+		if (isFinishing()) {
 			return;
 		}
 		if (progressDialog == null || !progressDialog.isShowing()) {

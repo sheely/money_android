@@ -8,7 +8,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 
 public class StandardApplication extends Application {
 
-	private static StandardApplication _instance;
+	protected static StandardApplication _instance;
 	private PackageInfo packInfo;
 
 	public void onCreate() {

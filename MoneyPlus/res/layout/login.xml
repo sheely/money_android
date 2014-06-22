@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_sub_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -44,9 +43,11 @@
                 android:text="username" />
 
             <ImageView
+                android:id="@+id/username_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_close_rest" />
+                android:src="@drawable/icon_close_rest"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,8 +69,14 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="密码"
-                android:singleLine="true"
-                android:text="password" />
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/pwd_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_close_rest"
+                android:visibility="gone" />
         </LinearLayout>
     </com.damon.ds.widget.TableView>
 
@@ -86,7 +93,7 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
-        android:indeterminateDrawable="@drawable/common_loading3" 
-        android:visibility="gone"/>
+        android:indeterminateDrawable="@drawable/common_loading3"
+        android:visibility="gone" />
 
 </LinearLayout>

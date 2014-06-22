@@ -24,8 +24,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TabHost;
 
-import com.damon.ds.util.Log;
 import com.damon.ds.widget.TabIndicator;
+import com.next.util.Log;
 import com.wanlonggroup.caiplus.R;
 
 /**

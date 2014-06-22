@@ -8,16 +8,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.damon.ds.util.Log;
+import com.damon.ds.util.DSLog;
 import com.next.app.StandardApplication;
+import com.next.util.Log;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class DSApplication extends StandardApplication {
 
-	private static DSApplication instance;
+	protected static DSApplication instance;
 	private String sessionId;
 
 	public static DSApplication instance() {
@@ -42,8 +42,10 @@ public class DSApplication extends StandardApplication {
 
 		if ((getApplicationInfo().flags & 2) != 0) {
 			// ApplicationInfo.FLAG_DEBUGGABLE
+			DSLog.LEVEL = DSLog.VERBOSE;
 			Log.LEVEL = Log.VERBOSE;
 		} else {
+			DSLog.LEVEL = Integer.MAX_VALUE;
 			Log.LEVEL = Integer.MAX_VALUE;
 		}
 
@@ -59,7 +61,7 @@ public class DSApplication extends StandardApplication {
 		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(context)
 				.threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory()
 				.discCacheFileNameGenerator(new Md5FileNameGenerator());
-		if (Log.isLoggable(Log.VERBOSE)) {
+		if (DSLog.isLoggable(DSLog.VERBOSE)) {
 			builder.writeDebugLogs();
 		}
 		ImageLoaderConfiguration config = builder.build();
@@ -77,7 +79,7 @@ public class DSApplication extends StandardApplication {
 	 * 在第一个Activity.onCreate()调用之前被调用
 	 */
 	public void onApplicationStart() {
-		Log.i("application", "onApplicationStart");
+		DSLog.i("application", "onApplicationStart");
 
 		sessionId = UUID.randomUUID().toString();
 	}
@@ -90,7 +92,7 @@ public class DSApplication extends StandardApplication {
 	 * 只有一直按Back退出才会触发
 	 */
 	public void onApplicationStop() {
-		Log.i("application", "onApplicationStop");
+		DSLog.i("application", "onApplicationStop");
 		sessionId = null;
 	}
 
@@ -103,7 +105,7 @@ public class DSApplication extends StandardApplication {
 	 * onApplicationStop
 	 */
 	public void onApplicationResume() {
-		Log.i("application", "onApplicationResume");
+		DSLog.i("application", "onApplicationResume");
 	}
 
 	/**
@@ -115,7 +117,7 @@ public class DSApplication extends StandardApplication {
 	 * onApplicationStop
 	 */
 	public void onApplicationPause() {
-		Log.i("application", "onApplicationPause");
+		DSLog.i("application", "onApplicationPause");
 	}
 
 	String sessionId() {

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.damon.ds.library.R;
 import com.damon.ds.util.ApkUtils;
-import com.damon.ds.util.Log;
+import com.damon.ds.util.DSLog;
 
 public class DebugActivity extends DSActivity {
 	
@@ -57,7 +57,7 @@ public class DebugActivity extends DSActivity {
 
 			((TextView) findViewById(R.id.debug_info)).setText(s.toString());
 		} catch (Exception e) {
-			Log.e(e.getLocalizedMessage());
+			DSLog.e(e.getLocalizedMessage());
 		}
 	}
 }
