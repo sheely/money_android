@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cp="http://schemas.android.com/apk/res/com.wanlonggroup.caiplus"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line" >
+
+            <ImageView
+                android:id="@+id/team_icon"
+                android:layout_width="100dip"
+                android:layout_height="80dip"
+                android:layout_marginRight="8dip"
+                android:src="@drawable/app_logo" />
+
+            <TextView
+                android:id="@+id/team_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/team_icon"
+                android:text="审计二人组"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/team_name"
+                android:layout_marginTop="20dip"
+                android:layout_toRightOf="@id/team_icon"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="行业分类: "
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_info" />
+
+                <TextView
+                    android:id="@+id/category_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="会计事务"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_info" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="团队简介" />
+
+        <TextView
+            android:id="@+id/desc"
+            style="@style/SingleLineTableItemWithPaddingLine"
+            android:gravity="center_vertical"
+            android:text="最佳审计组合，尤其擅长快消行业"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_info" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="团队成员" />
+
+        <com.damon.ds.widget.TableView
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" >
+
+            <com.damon.ds.widget.BasicSingleItem
+                style="@style/SingleLineTableItemWithPadding"
+                cp:item_icon="@drawable/icon_username"
+                cp:item_subTitle="发起人"
+                cp:item_subTitleColor="@color/text_color_orange"
+                cp:item_title="张三" />
+            <com.damon.ds.widget.BasicSingleItem
+                style="@style/SingleLineTableItemWithPadding"
+                cp:item_icon="@drawable/icon_username"
+                cp:item_subTitleColor="@color/text_color_orange"
+                cp:item_title="李四" />
+            <com.damon.ds.widget.BasicSingleItem
+                style="@style/SingleLineTableItemWithPadding"
+                cp:item_icon="@drawable/icon_username"
+                cp:item_subTitleColor="@color/text_color_orange"
+                cp:item_title="peter" />
+        </com.damon.ds.widget.TableView>
+    </LinearLayout>
+
+</ScrollView>

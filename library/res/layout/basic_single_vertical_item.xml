@@ -8,13 +8,13 @@
 
     <ImageView
         android:id="@+id/icon"
+        android:layout_marginRight="8dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dip"
         android:layout_weight="1"
         android:orientation="vertical" >
 

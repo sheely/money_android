@@ -4,8 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewStub;
@@ -19,6 +21,21 @@ import com.damon.ds.widget.DSActionBar;
 
 public class DSActivity extends FragmentActivity {
 
+	private final Handler mHander = new Handler() {
+
+		public void handleMessage(android.os.Message msg) {
+			if (msg.what == 1) {
+				Fragment fragment = getSupportFragmentManager().findFragmentById(android.R.id.content);
+				if(fragment instanceof DSFragment){
+					((DSFragment)fragment).invalidateActionBar();;
+				}else{
+					invalidateActionBar();
+				}
+			}
+		};
+
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,13 +44,15 @@ public class DSActivity extends FragmentActivity {
 		if (actionBarType() == ActionBarType.NONE) {
 			getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			setContentView(new ViewStub(this));
+			actionBar = new DSActionBar(this);
 		} else if (actionBarType() == ActionBarType.CONTENT_DSACTIONBAR) {
 			ViewStub stub = (ViewStub) findViewById(R.id.action_bar_stub);
 			if (stub != null) {
 				stub.inflate();
 				initActionBar();
-			}else{
-				throw new RuntimeException("actiontype (CONTENT_DSACTIONBAR) must has actionbar in contentview");
+			} else {
+				throw new RuntimeException(
+						"actiontype (CONTENT_DSACTIONBAR) must has actionbar in contentview wrap up by viewstub with  id=action_bar_stub");
 			}
 		} else if (actionBarType() == ActionBarType.DSACTIONBAR) {
 			getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
@@ -41,6 +60,37 @@ public class DSActivity extends FragmentActivity {
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.ds_action_bar);
 
 			initActionBar();
+		}
+		
+		getSupportFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener() {
+			
+			@Override
+			public void onBackStackChanged() {
+				mHander.sendEmptyMessageDelayed(1, 300);
+			}
+		});
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		invalidateActionBar();
+	}
+
+	public final void invalidateActionBar() {
+		onCreateActionBar(actionBar);
+	}
+
+	public void onCreateActionBar(DSActionBar actionBar) {
+
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+			popFragment(android.R.id.content);
+		}else if(canBack()){
+			super.onBackPressed();
 		}
 	}
 
@@ -67,18 +117,25 @@ public class DSActivity extends FragmentActivity {
 
 	public boolean popFragment(int containerViewId) {
 		Fragment fragment = getSupportFragmentManager().findFragmentById(containerViewId);
-		if (fragment != null) {
-			return getSupportFragmentManager().popBackStackImmediate();
-		}
-		return false;
+		return popFragment(fragment);
 	}
 
 	public boolean popFragment(String tag) {
 		Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-		if (fragment != null) {
-			return getSupportFragmentManager().popBackStackImmediate();
+		return popFragment(fragment);
+	}
+
+	public boolean popFragment(Fragment fragment) {
+		if (fragment instanceof DSFragment) {
+			if (!((DSFragment) fragment).canBack()) {
+				return false;
+			}
 		}
-		return false;
+		return getSupportFragmentManager().popBackStackImmediate();
+	}
+
+	public boolean canBack() {
+		return true;
 	}
 
 	@Override
@@ -134,7 +191,7 @@ public class DSActivity extends FragmentActivity {
 	@Override
 	public void setTitle(CharSequence title) {
 		super.setTitle(title);
-		if(actionBar != null){
+		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
 	}
@@ -147,7 +204,7 @@ public class DSActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				finish();
+				onBackPressed();
 			}
 		});
 

@@ -32,12 +32,14 @@ public class BasicSingleItem extends LinearLayout {
 		int iconResId = array.getResourceId(R.styleable.BasicSingleItem_item_icon, 0);
 
 		String title = array.getString(R.styleable.BasicSingleItem_item_title);
+		String titleHint = array.getString(R.styleable.BasicSingleItem_item_titleHint);
 		int defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18, getResources()
 				.getDisplayMetrics());
 		int titleSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_titleSize, defSize);
 		int titleColor = array.getColor(R.styleable.BasicSingleItem_item_titleColor, 0xff323232);
 
 		String subTitle = array.getString(R.styleable.BasicSingleItem_item_subTitle);
+		String subTitleHint = array.getString(R.styleable.BasicSingleItem_item_subTitleHint);
 		defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics());
 		int subTitleSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_subTitleSize, defSize);
 		int subTitleColor = array.getColor(R.styleable.BasicSingleItem_item_subTitleColor, 0xff878787);
@@ -57,11 +59,13 @@ public class BasicSingleItem extends LinearLayout {
 		setTitle(title);
 		setTitleSize(titleSize);
 		setTitleColor(titleColor);
+		setTitleHint(titleHint);
 
 		subTitleTextView = (TextView) findViewById(R.id.subtitle);
 		setSubTitle(subTitle);
 		setSubTitleSize(subTitleSize);
 		setSubTitleColor(subTitleColor);
+		setSubTitleHint(subTitleHint);
 
 		countTextView = (TextView) findViewById(R.id.count);
 		setCount(count);
@@ -142,6 +146,10 @@ public class BasicSingleItem extends LinearLayout {
 	public void setTitle(CharSequence title) {
 		titleTextView.setText(title);
 	}
+	
+	public void setTitleHint(CharSequence hint){
+		titleTextView.setHint(hint);
+	}
 
 	public void setTitleSize(int size) {
 		titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
@@ -158,6 +166,10 @@ public class BasicSingleItem extends LinearLayout {
 		} else {
 			subTitleTextView.setVisibility(VISIBLE);
 		}
+	}
+	
+	public void setSubTitleHint(CharSequence hint){
+		subTitleTextView.setHint(hint);
 	}
 
 	public void setSubTitleSize(int size) {

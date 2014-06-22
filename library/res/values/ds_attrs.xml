@@ -9,10 +9,12 @@
         <attr name="item_icon" format="reference" />
         
         <attr name="item_title" format="string|reference" />
+        <attr name="item_titleHint" format="string|reference" />
         <attr name="item_titleSize" format="dimension|reference" />
         <attr name="item_titleColor" format="reference" />
         
         <attr name="item_subTitle" format="string|reference" />
+        <attr name="item_subTitleHint" format="string|reference" />
         <attr name="item_subTitleSize" format="dimension|reference" />
         <attr name="item_subTitleColor" format="reference" />
         

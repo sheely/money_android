@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line" >
+
+            <ImageView
+                android:id="@+id/cpy_icon"
+                android:layout_width="100dip"
+                android:layout_height="80dip"
+                android:layout_marginRight="8dip"
+                android:src="@drawable/app_logo" />
+
+            <TextView
+                android:id="@+id/cpy_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/cpy_icon"
+                android:text="胜天国际咨询有限公司"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cpy_name"
+                android:layout_marginTop="20dip"
+                android:layout_toRightOf="@id/cpy_icon"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="行业分类: "
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_info" />
+
+                <TextView
+                    android:id="@+id/category_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="信息技术咨询"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_info" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="公司简介" />
+
+        <TextView
+            android:id="@+id/desc"
+            style="@style/SingleLineTableItemWithPaddingLine"
+            android:gravity="center_vertical"
+            android:text="酒店管理咨询行业领导者"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_info" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="服务产品" />
+
+        <TextView
+            android:id="@+id/server_product"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
+            android:gravity="center_vertical"
+            android:text="招商\n酒店管理咨询行业领导者"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_info" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="案例客户" />
+
+        <TextView
+            android:id="@+id/server_product"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
+            android:gravity="center_vertical"
+            android:text="希尔顿\n如家快捷"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_info" />
+    </LinearLayout>
+
+</ScrollView>

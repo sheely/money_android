@@ -68,6 +68,75 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".cx.CxDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财信详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cxdetail"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".cx.CxReviewDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财信留言"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cxreviewdetail"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".cq.CqCompanyDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="公司详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cqcompanydetail"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".cq.CqTeamDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="团队详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cqteamdetail"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.damon.ds.app.DebugActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Debug"

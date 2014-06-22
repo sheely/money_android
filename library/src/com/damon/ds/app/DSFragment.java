@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Toast;
 
+import com.damon.ds.app.DSActivity.ActionBarType;
 import com.damon.ds.library.R;
 import com.damon.ds.util.DialogUtils;
 import com.damon.ds.widget.BeautifulProgressDialog;
@@ -19,7 +20,7 @@ import com.damon.ds.widget.DSActionBar;
 public class DSFragment extends Fragment {
 
 	private DSActivity dsActivity;
-	
+
 	private CharSequence activiyTitle;
 
 	@Override
@@ -35,11 +36,15 @@ public class DSFragment extends Fragment {
 	protected DSActivity getDSActivity() {
 		return dsActivity;
 	}
-	
+
 	@Override
 	public void onDetach() {
 		super.onDetach();
 		dsActivity.setTitle(activiyTitle);
+	}
+
+	public boolean canBack() {
+		return true;
 	}
 
 	@Override
@@ -93,8 +98,18 @@ public class DSFragment extends Fragment {
 		return actionBar;
 	}
 
+	public final void invalidateActionBar() {
+		onCreateActionBar(actionBar);
+	}
+	
+	public void onCreateActionBar(DSActionBar actionBar) {
+
+	}
+
 	private void initActionBar(View actionBarContainerView) {
-		if (hasActionBar() || actionBarEnable) {
+		if (dsActivity.actionBarType() == ActionBarType.DSACTIONBAR) {
+			actionBar = dsActivity.actionBar();
+		} else if (hasActionBar() || actionBarEnable) {
 			ViewStub stub = (ViewStub) actionBarContainerView.findViewById(R.id.action_bar_stub);
 			if (stub != null) {
 				stub.inflate();
@@ -115,6 +130,8 @@ public class DSFragment extends Fragment {
 					});
 				}
 			}
+		}else{
+			actionBar = new DSActionBar(dsActivity);
 		}
 	}
 
