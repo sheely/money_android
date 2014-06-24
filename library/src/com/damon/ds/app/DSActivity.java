@@ -74,7 +74,7 @@ public class DSActivity extends FragmentActivity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		invalidateActionBar();
+		mHander.sendEmptyMessageDelayed(1, 300);
 	}
 
 	public final void invalidateActionBar() {

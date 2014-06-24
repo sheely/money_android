@@ -101,7 +101,7 @@ public class DSFragment extends Fragment {
 	public final void invalidateActionBar() {
 		onCreateActionBar(actionBar);
 	}
-	
+
 	public void onCreateActionBar(DSActionBar actionBar) {
 
 	}
@@ -122,15 +122,13 @@ public class DSFragment extends Fragment {
 						@Override
 						public void onClick(View v) {
 							if (dsActivity != null && !dsActivity.isFinishing()) {
-								if (!dsActivity.popFragment()) {
-									dsActivity.finish();
-								}
+								dsActivity.onBackPressed();
 							}
 						}
 					});
 				}
 			}
-		}else{
+		} else {
 			actionBar = new DSActionBar(dsActivity);
 		}
 	}
@@ -140,7 +138,11 @@ public class DSFragment extends Fragment {
 	public final void setActionBarEnable(boolean enable) {
 		actionBarEnable = enable;
 		if (actionBar != null) {
-			actionBar.setVisibility(enable ? View.VISIBLE : View.GONE);
+			if (enable) {
+				actionBar.show();
+			} else {
+				actionBar.hide();
+			}
 		}
 	}
 

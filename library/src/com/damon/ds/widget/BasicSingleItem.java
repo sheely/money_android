@@ -52,27 +52,27 @@ public class BasicSingleItem extends LinearLayout {
 		int indicatorId = array.getResourceId(R.styleable.BasicSingleItem_item_indicator,0);
 		array.recycle();
 
-		iconImageView = (ImageView) findViewById(R.id.icon);
+		iconImageView = (ImageView) findViewById(R.id.s_icon);
 		setLeftImageView(iconResId);
 
-		titleTextView = (TextView) findViewById(R.id.title);
+		titleTextView = (TextView) findViewById(R.id.s_title);
 		setTitle(title);
 		setTitleSize(titleSize);
 		setTitleColor(titleColor);
 		setTitleHint(titleHint);
 
-		subTitleTextView = (TextView) findViewById(R.id.subtitle);
+		subTitleTextView = (TextView) findViewById(R.id.s_subtitle);
 		setSubTitle(subTitle);
 		setSubTitleSize(subTitleSize);
 		setSubTitleColor(subTitleColor);
 		setSubTitleHint(subTitleHint);
 
-		countTextView = (TextView) findViewById(R.id.count);
+		countTextView = (TextView) findViewById(R.id.s_count);
 		setCount(count);
 		setCountColor(countColor);
 		setCountSize(countSize);
 
-		moreImageView = (ImageView) findViewById(R.id.more);
+		moreImageView = (ImageView) findViewById(R.id.s_more);
 		setIndicator(indicatorId);
 	}
 	

@@ -10,7 +10,7 @@
         android:width="1.0px"
         android:color="@color/light_gray" />
 
-    <solid android:color="@color/light_gray" />
+    <solid android:color="@color/dark_gray" />
 
     <corners android:radius="@dimen/cover_corner_radius" />
 
