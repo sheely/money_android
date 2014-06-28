@@ -3,6 +3,7 @@ package com.damon.ds.app;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -62,9 +63,9 @@ public class DSFragment extends Fragment {
 		return inflater.inflate(android.R.layout.simple_list_item_1, container, false);
 	}
 
-	@Override
-	public void startActivityForResult(Intent intent, int requestCode) {
-		super.startActivityForResult(intent, requestCode);
+	public void startActivity(String urlSchema) {
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema));
+		startActivity(intent);
 	}
 
 	@Override
@@ -197,7 +198,7 @@ public class DSFragment extends Fragment {
 		showAlert("提示", message, false, null, null);
 	}
 
-	private void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
+	public void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
 			DialogInterface.OnClickListener lCancel) {
 		if (dsActivity == null || dsActivity.isFinishing()) {
 			return;

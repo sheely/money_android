@@ -1,5 +1,6 @@
 package com.wanlonggroup.caiplus.home;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,11 +49,16 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(myCalender == v){
-			actionBar().hide();
 		}else if(myConcern == v){
-			actionBar().show();
 		}else if(myTeam == v){
-			showProgressDialog();
+		}else if(logoutBtn == v){
+			showAlert("提示", "确认退出?", true, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					accountService().logout();
+				}
+			}, null);
 		}
 	}
 

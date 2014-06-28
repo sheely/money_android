@@ -17,6 +17,7 @@ import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
+import com.wanlonggroup.caiplus.model.CPObject;
 
 public class LoginActivity extends BaseActivity implements ITaskListener {
 
@@ -68,26 +69,16 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 		SHEnvironment.getInstance().setLoginId(userNameText.getText().toString());
 		SHEnvironment.getInstance().setPassword(passwordText.getText().toString());
 
-		loginTask = new SHPostTaskM();
-		loginTask.setUrl(DEFAULT_API_URL);
-		loginTask.setListener(this);
-		loginTask.getTaskArgs().put("requestType", "login");
+		loginTask = getTask(DEFAULT_API_URL+"milogin.do",this);
 		loginTask.start();
 		showProgressDialog();
-	}
-
-	@Override
-	public void onProgressDialogCancel() {
-		if (loginTask != null) {
-			loginTask.cancel(true);
-			loginTask = null;
-		}
 	}
 
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		loginTask = null;
+		accountService().update(CPObject.fromObject(task.getResult()));
 		startActivity("cp://home");
 		finish();
 	}

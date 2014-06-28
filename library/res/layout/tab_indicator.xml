@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/DsActionBar"
+    style="@style/tab_widget_item"
     android:gravity="center"
     android:orientation="vertical" >
 

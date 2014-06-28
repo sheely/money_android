@@ -12,7 +12,11 @@ public class SplashScreenActivity extends BaseActivity {
 	private final Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			if (msg.what == 1) {
-				startActivity("cp://login");
+				if (!isLogined()) {
+					startActivity("cp://login");
+				} else {
+					startActivity("cp://home");
+				}
 				finish();
 			}
 
@@ -34,7 +38,7 @@ public class SplashScreenActivity extends BaseActivity {
 	protected ActionBarType actionBarType() {
 		return ActionBarType.NONE;
 	}
-	
+
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		return true;

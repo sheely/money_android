@@ -160,17 +160,10 @@ public class DSActivity extends FragmentActivity {
 	}
 
 	public void startActivity(String urlSchema) {
-		startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema)), -1);
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema));
+		startActivity(intent);
 	}
 
-	public void startActivity(String urlSchema, int requestCode) {
-		startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema)), requestCode);
-	}
-
-	@Override
-	public void startActivityForResult(Intent intent, int requestCode) {
-		super.startActivityForResult(intent, requestCode);
-	}
 
 	// ----actionbar-----
 
@@ -261,7 +254,7 @@ public class DSActivity extends FragmentActivity {
 		showAlert("提示", message, false, null, null);
 	}
 
-	private void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
+	public void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
 			DialogInterface.OnClickListener lCancel) {
 
 		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
