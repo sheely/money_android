@@ -1,11 +1,12 @@
-package com.damon.ds.widget;
+package com.damon.ds.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TableRow;
 
-public abstract class CustomGridViewAdapter extends BaseAdapter {
+import com.damon.ds.widget.CustomGridView;
+
+public abstract class CustomGridViewAdapter extends BasicAdapter {
 
 	public abstract int getColumnCount();
 

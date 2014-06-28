@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.damon.ds.widget.LoadingErrorView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:hint="网络连接失败 点击重新加载"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_gray"
+        android:textSize="14sp" />
+
+</com.damon.ds.widget.LoadingErrorView>

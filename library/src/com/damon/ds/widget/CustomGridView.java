@@ -14,6 +14,7 @@ import android.widget.Adapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.damon.ds.adapter.CustomGridViewAdapter;
 import com.damon.ds.library.R;
 
 public class CustomGridView extends TableLayout implements View.OnClickListener {
