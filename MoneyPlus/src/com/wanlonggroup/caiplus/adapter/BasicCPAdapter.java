@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 import com.damon.ds.adapter.BasicAdapter;
 import com.damon.ds.app.DSObject;
 import com.damon.ds.widget.LoadingErrorView;
-import com.wanlonggroup.caiplus.model.CPObject;
 
 public abstract class BasicCPAdapter extends BasicAdapter {
-	protected ArrayList<CPObject> dsList;
+	protected ArrayList<DSObject> dsList;
 	protected boolean isEnd;
 	protected String errorMsg;
 	protected int nextStartIndex;
@@ -21,7 +20,7 @@ public abstract class BasicCPAdapter extends BasicAdapter {
 	protected int startIndex;
 
 	public BasicCPAdapter() {
-		dsList = new ArrayList<CPObject>();
+		dsList = new ArrayList<DSObject>();
 	}
 
 	@Override
@@ -113,19 +112,19 @@ public abstract class BasicCPAdapter extends BasicAdapter {
 
 	public abstract void loadNextData(int startIndex);
 
-	public void appendList(CPObject[] arr) {
+	public void appendList(DSObject[] arr) {
 		appendList(arr, true, null);
 	}
 
-	public void appendList(CPObject[] arr, String errorMsg) {
+	public void appendList(DSObject[] arr, String errorMsg) {
 		appendList(arr, true, errorMsg);
 	}
 	
-	public void appendList(CPObject[] arr, boolean isEnd){
+	public void appendList(DSObject[] arr, boolean isEnd){
 		appendList(arr, isEnd, null);
 	}
 
-	public void appendList(CPObject[] arr, boolean isEnd, String errorMsg) {
+	public void appendList(DSObject[] arr, boolean isEnd, String errorMsg) {
 		this.isEnd = isEnd;
 		this.errorMsg = errorMsg;
 		this.startIndex += this.dsList.size();

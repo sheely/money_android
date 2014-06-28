@@ -11,14 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.damon.ds.app.DSObject;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
-import com.wanlonggroup.caiplus.model.CPObject;
-import com.wanlonggroup.caiplus.model.ModeName;
+import com.wanlonggroup.caiplus.model.CPModeName;
 
 public class LoginActivity extends BaseActivity implements ITaskListener {
 
@@ -67,10 +67,8 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 			passwordText.requestFocus();
 			return;
 		}
-		SHEnvironment.getInstance().setLoginId(
-			userNameText.getText().toString());
-		SHEnvironment.getInstance().setPassword(
-			passwordText.getText().toString());
+		SHEnvironment.getInstance().setLoginId(userNameText.getText().toString());
+		SHEnvironment.getInstance().setPassword(passwordText.getText().toString());
 
 		loginTask = getTask(DEFAULT_API_URL + "milogin.do", this);
 		loginTask.start();
@@ -81,8 +79,8 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		loginTask = null;
-		CPObject cpUser = new CPObject(ModeName.USER).fromJson(task.getResult());
-		accountService().update(cpUser.fromJson(task.getResult()));
+		DSObject dsUser = new DSObject(CPModeName.USER).fromJson(task.getResult());
+		accountService().update(dsUser);
 		startActivity("cp://home");
 		finish();
 	}
@@ -124,14 +122,12 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	final TextWatcher textWatcher = new TextWatcher() {
 
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 		}
 
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 		}
 

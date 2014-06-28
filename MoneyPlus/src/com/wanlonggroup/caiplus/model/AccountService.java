@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.damon.ds.app.DSObject;
+
 
 public class AccountService {
 
@@ -34,7 +36,7 @@ public class AccountService {
 		return prefs.getString("sessionId", "");
 	}
 
-	public void update(CPObject userProfile) {
+	public void update(DSObject userProfile) {
 		String id = id();
 		if (userProfile != null) {
 			prefs.edit().putString("name", userProfile.getString("name")).putString(

@@ -1,5 +1,6 @@
 package com.damon.ds.app;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -10,7 +11,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.next.util.Log;
+import com.damon.ds.io.DSStreamReader;
+import com.damon.ds.io.DSStreamWriter;
 
 public class DSObject implements Parcelable {
 
@@ -19,13 +21,20 @@ public class DSObject implements Parcelable {
 	protected JSONObject jsonObj;
 	protected String objName;
 
-	public DSObject() {
+	public DSObject(String objName) {
+		this.objName = objName;
 		jsonObj = new JSONObject();
 	}
 
-	public DSObject(String objName) {
-		this();
-		this.objName = objName;
+	public DSObject(byte[] bytes) {
+		DSStreamReader dr = new DSStreamReader(bytes);
+		try {
+			objName = dr.readString();
+			jsonObj = new JSONObject(dr.readString());
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
+
 	}
 
 	public static final Parcelable.Creator<DSObject> CREATOR = new Parcelable.Creator<DSObject>() {
@@ -53,52 +62,72 @@ public class DSObject implements Parcelable {
 	public String getString(String name) {
 		return jsonObj.optString(name);
 	}
-	
-	public void put(String name,String value){
+
+	public void put(String name, String value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
-	
-	public void put(String name,int value){
+
+	public int getInt(String name) {
+		return jsonObj.optInt(name);
+	}
+
+	public void put(String name, int value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
-	
-	public void put(String name,long value){
+
+	public long getLong(String name) {
+		return jsonObj.optLong(name);
+	}
+
+	public void put(String name, long value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
-	
-	public void put(String name,Object value){
+
+	public Object getObject(String name) {
+		return jsonObj.opt(name);
+	}
+
+	public void put(String name, Object value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
-	
-	public void put(String name,double value){
+
+	public double getDouble(String name) {
+		return jsonObj.optDouble(name);
+	}
+
+	public void put(String name, double value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
-	
-	public void put(String name,boolean value){
+
+	public boolean getBoolean(String name) {
+		return jsonObj.optBoolean(name);
+	}
+
+	public void put(String name, boolean value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
 
@@ -106,11 +135,27 @@ public class DSObject implements Parcelable {
 		return jsonObj.optJSONObject(name);
 	}
 
+	public void put(String name, JSONObject json) {
+		try {
+			jsonObj.put(name, json);
+		} catch (JSONException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
 	public JSONArray getJSONArray(String name) {
 		return jsonObj.optJSONArray(name);
 	}
 
-	public DSObject getObject(String name) {
+	public void put(String name, JSONArray arr) {
+		try {
+			jsonObj.put(name, arr);
+		} catch (JSONException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	public DSObject getDSObject(String name) {
 		if (jsonObj.has(name)) {
 			DSObject cpObject = new DSObject(name);
 			return cpObject.fromJson(jsonObj.optJSONObject(name));
@@ -118,46 +163,85 @@ public class DSObject implements Parcelable {
 		return null;
 	}
 
-	public DSObject[] getArray(String name) {
+	public void put(DSObject obj) {
+		try {
+			if (TextUtils.isEmpty(obj.objName)) {
+				throw new IllegalArgumentException("the obj must has ojbname");
+			}
+			jsonObj.put(obj.objName, obj.jsonObj);
+		} catch (JSONException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	public DSObject[] getArray(String name, String objName) {
 		while (jsonObj.has(name)) {
 			JSONArray array = jsonObj.optJSONArray(name);
 			if (array == null) {
 				break;
 			}
+			if (TextUtils.isEmpty(objName)) {
+				objName = name;
+			}
 			int len = array.length();
 			DSObject[] objs = new DSObject[len];
 			for (int i = 0; i < len; i++) {
-				objs[i] = new DSObject(name).fromJson(array.optJSONObject(i));
+				objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
 			}
 			return objs;
 		}
 		return null;
 	}
 
-	public ArrayList<DSObject> getList(String name) {
+	public void put(DSObject[] arr) {
+		for (DSObject obj : arr) {
+			put(obj);
+		}
+	}
+
+	public ArrayList<DSObject> getList(String name, String objName) {
 		while (jsonObj.has(name)) {
 			JSONArray array = jsonObj.optJSONArray(name);
 			if (array == null) {
 				break;
 			}
+			if (TextUtils.isEmpty(objName)) {
+				objName = name;
+			}
 			int len = array.length();
 			ArrayList<DSObject> list = new ArrayList<DSObject>(len);
 			for (int i = 0; i < len; i++) {
-				list.add(new DSObject(name).fromJson(array.optJSONObject(i)));
+				list.add(new DSObject(objName).fromJson(array.optJSONObject(i)));
 			}
 			return list;
 		}
 		return null;
 	}
 
-	public DSObject(Parcel in) {
+	public void put(ArrayList<DSObject> list) {
+		for (DSObject obj : list) {
+			put(obj);
+		}
+	}
+
+	public byte[] toByteArray() {
+		DSStreamWriter dw = new DSStreamWriter();
+		try {
+			dw.writeString(objName);
+			dw.writeString(jsonObj.toString());
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+		return dw.toByteArray();
+	}
+
+	private DSObject(Parcel in) {
 		this.objName = in.readString();
 		String jsonStr = in.readString();
 		try {
 			jsonObj = new JSONObject(jsonStr);
 		} catch (JSONException e) {
-			jsonObj = new JSONObject();
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
 
@@ -175,10 +259,12 @@ public class DSObject implements Parcelable {
 		this.jsonObj = json;
 		return this;
 	}
-	
-	public DSObject fromJson(Object obj){
-		if(obj instanceof JSONObject){
+
+	public DSObject fromJson(Object obj) {
+		if (obj instanceof JSONObject) {
 			this.jsonObj = (JSONObject) obj;
+		} else {
+			throw new IllegalArgumentException("obj must be instanceof JSONObject");
 		}
 		return this;
 	}
@@ -187,16 +273,25 @@ public class DSObject implements Parcelable {
 		try {
 			jsonObj = new JSONObject(json);
 		} catch (JSONException e) {
-			jsonObj = new JSONObject();
-			printException(e);
+			throw new IllegalArgumentException(e);
 		}
 		return this;
 	}
-	
-	private void printException(Exception e){
-		if (e != null) {
-			Log.e(TAG, e.getLocalizedMessage());
+
+	public <T extends DSObject> T convertToSubInstance(Class<T> classOfT) {
+		try {
+			T t = classOfT.getDeclaredConstructor(String.class).newInstance(objName);
+			t.objName = objName;
+			t.jsonObj = jsonObj;
+			return t;
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return objName + ":" + super.toString();
 	}
 
 }
