@@ -18,6 +18,7 @@ import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPObject;
+import com.wanlonggroup.caiplus.model.ModeName;
 
 public class LoginActivity extends BaseActivity implements ITaskListener {
 
@@ -66,10 +67,12 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 			passwordText.requestFocus();
 			return;
 		}
-		SHEnvironment.getInstance().setLoginId(userNameText.getText().toString());
-		SHEnvironment.getInstance().setPassword(passwordText.getText().toString());
+		SHEnvironment.getInstance().setLoginId(
+			userNameText.getText().toString());
+		SHEnvironment.getInstance().setPassword(
+			passwordText.getText().toString());
 
-		loginTask = getTask(DEFAULT_API_URL+"milogin.do",this);
+		loginTask = getTask(DEFAULT_API_URL + "milogin.do", this);
 		loginTask.start();
 		showProgressDialog();
 	}
@@ -78,7 +81,8 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		loginTask = null;
-		accountService().update(CPObject.fromObject(task.getResult()));
+		CPObject cpUser = new CPObject(ModeName.USER).fromJson(task.getResult());
+		accountService().update(cpUser.fromJson(task.getResult()));
 		startActivity("cp://home");
 		finish();
 	}
@@ -120,23 +124,23 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	final TextWatcher textWatcher = new TextWatcher() {
 
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
 
 		}
 
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
 
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			deleteUsername
-					.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
-							: View.INVISIBLE);
-			deletePwd
-					.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
-							: View.INVISIBLE);
+			deleteUsername.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
+					: View.INVISIBLE);
+			deletePwd.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
+					: View.INVISIBLE);
 		}
 	};
 
@@ -144,12 +148,10 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 
 		@Override
 		public void onFocusChange(View v, boolean hasFocus) {
-			deleteUsername
-					.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
-							: View.INVISIBLE);
-			deletePwd
-					.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
-							: View.INVISIBLE);
+			deleteUsername.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
+					: View.INVISIBLE);
+			deletePwd.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
+					: View.INVISIBLE);
 
 		}
 	};

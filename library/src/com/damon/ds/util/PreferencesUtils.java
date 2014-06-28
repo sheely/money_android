@@ -82,7 +82,7 @@ public class PreferencesUtils {
 		if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
 			editor.putStringSet(key, values);
 		} else {
-			editor.putString(key, Collection2StrUtils.toStr(values, splitStr));
+			editor.putString(key, Collection2Utils.toStr(values, splitStr));
 		}
 		return editor.commit();
 	}
@@ -96,7 +96,7 @@ public class PreferencesUtils {
 				return defaultValue;
 			}
 			String setStr = sharedPreferences(context).getString(key, "");
-			return Collection2StrUtils.toSet(setStr, splitStr);
+			return Collection2Utils.toSet(setStr, splitStr);
 		}
 	}
 

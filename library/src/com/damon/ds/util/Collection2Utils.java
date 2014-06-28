@@ -8,7 +8,7 @@ import java.util.Set;
 
 import android.text.TextUtils;
 
-public class Collection2StrUtils {
+public class Collection2Utils {
 
 	public static String toStr(final Collection<String> source, String split) {
 		if (isEmpty(source)) {
