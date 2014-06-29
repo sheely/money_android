@@ -324,7 +324,7 @@ public class DSObject implements Parcelable {
 
 	@Override
 	public String toString() {
-		return objName + ":" + super.toString();
+		return objName + ":" + jsonObj.toString();
 	}
 
 	@Override
