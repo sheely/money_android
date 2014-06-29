@@ -164,7 +164,14 @@ public class DSObject implements Parcelable {
 	}
 
 	public DSObject getDSObject(String name) {
+		return getDSObject(name, name);
+	}
+
+	public DSObject getDSObject(String name, String objName) {
 		if (jsonObj.has(name)) {
+			if (TextUtils.isEmpty(objName)) {
+				objName = name;
+			}
 			DSObject cpObject = new DSObject(name);
 			return cpObject.fromJson(jsonObj.optJSONObject(name));
 		}
@@ -181,6 +188,10 @@ public class DSObject implements Parcelable {
 			throw new IllegalArgumentException(e);
 		}
 		return this;
+	}
+
+	public DSObject[] getArray(String name) {
+		return getArray(name, name);
 	}
 
 	public DSObject[] getArray(String name, String objName) {
@@ -207,6 +218,10 @@ public class DSObject implements Parcelable {
 			put(obj);
 		}
 		return this;
+	}
+
+	public ArrayList<DSObject> getList(String name) {
+		return getList(name, name);
 	}
 
 	public ArrayList<DSObject> getList(String name, String objName) {
@@ -267,6 +282,9 @@ public class DSObject implements Parcelable {
 	}
 
 	public DSObject fromJson(JSONObject json) {
+		if (json == null) {
+			json = new JSONObject();
+		}
 		this.jsonObj = json;
 		return this;
 	}
@@ -303,6 +321,29 @@ public class DSObject implements Parcelable {
 	@Override
 	public String toString() {
 		return objName + ":" + super.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		return objName.hashCode() + jsonObj.toString().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof DSObject)) {
+			return false;
+		}
+		DSObject an = (DSObject) o;
+		if (!objName.equals(an.objName)) {
+			return false;
+		}
+		if (!jsonObj.toString().equals(an.jsonObj.toString())) {
+			return false;
+		}
+		return true;
 	}
 
 }

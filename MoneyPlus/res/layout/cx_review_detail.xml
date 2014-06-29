@@ -1,148 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:cp="http://schemas.android.com/apk/res/com.wanlonggroup.caiplus"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".cx.CxDetailActivity" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <ViewStub
+        android:id="@+id/action_bar_stub"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="@dimen/actionBarHeight"
+        android:layout="@layout/ds_action_bar" />
 
-        <com.damon.ds.widget.TableView
+    <include
+        android:id="@+id/detail_header"
+        layout="@layout/cx_detail_header" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/click_gray" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:background="@color/main_bg" />
 
-            <com.damon.ds.widget.BasicItem
-                android:id="@+id/title_item"
-                style="@style/BasicItemStyle"
-                cp:item_subTitle="寻找有大型展馆经验"
-                cp:item_title="财信" />
+        <FrameLayout
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/empty_textview"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/single_line_height"
-                android:background="@drawable/table_view_item"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <com.damon.ds.widget.BasicItem
-                    android:id="@+id/publish_item"
-                    style="@style/BasicItemStyle"
-                    android:layout_width="0dip"
-                    android:layout_weight="1"
-                    cp:item_subTitle="王大伟"
-                    cp:item_title="发布者" />
-
-                <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gray_vertical_line" />
-
-                <TextView
-                    android:id="@+id/check_pub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip"
-                    android:text="查看"
-                    android:textColor="@color/text_color_blue"
-                    android:textSize="@dimen/text_size_list" />
-            </LinearLayout>
-
-            <com.damon.ds.widget.BasicItem
-                android:id="@+id/category_item"
-                style="@style/BasicItemStyle"
-                cp:item_subTitle="工程造价"
-                cp:item_title="分类" />
-        </com.damon.ds.widget.TableView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/single_line_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/check_attach"
-                android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="10dip"
-                android:text="查看附件"
-                android:textColor="@color/text_color_blue"
-                android:textSize="@dimen/text_size_list" />
-
-            <View
-                android:layout_width="1px"
-                android:layout_height="match_parent"
-                android:background="@drawable/gray_vertical_line" />
-
-            <TextView
-                android:id="@+id/input_some"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="10dip"
-                android:text="输入执行信息"
-                android:textColor="@color/text_color_blue"
-                android:textSize="@dimen/text_size_list" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/blue_horizontal_line" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/click_gray" />
-
-        <com.damon.ds.widget.TableView
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" >
-
-            <com.damon.ds.widget.BasicSingleVerticalItem
-                style="@style/BasicItemStyle"
-                android:background="@color/transparent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dip"
-                android:paddingTop="10dip"
-                cp:item_icon="@drawable/icon_username"
-                cp:item_subTitle="很好"
-                cp:item_title="刘飞扬" />
-
-            <com.damon.ds.widget.BasicSingleVerticalItem
-                style="@style/BasicItemStyle"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:paddingBottom="10dip"
-                android:paddingTop="10dip"
-                cp:item_icon="@drawable/icon_username"
-                cp:item_subTitle="很好"
-                cp:item_title="刘飞扬" />
-        </com.damon.ds.widget.TableView>
-
-        <View
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </FrameLayout>
+    </FrameLayout>
+    
+    <View
             android:layout_width="match_parent"
             android:layout_height="2px"
             android:background="@drawable/gray_horizontal_line" />
 
-        <Button
-            android:id="@+id/review_btn"
-            style="@style/BlueButton"
-            android:layout_marginBottom="10dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginTop="10dip"
-            android:text="发布留言" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/pub_btn"
+        style="@style/BlueButton"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="10dip"
+        android:text="发布留言" />
 
-</ScrollView>
+</LinearLayout>

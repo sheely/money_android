@@ -79,7 +79,6 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
-		loginTask = null;
 		DSObject dsUser = DSObjectFactory.create(CPModeName.USER, task.getResult());
 		accountService().update(dsUser);
 		startActivity("cp://home");
@@ -89,9 +88,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	@Override
 	public void onTaskFailed(SHTask task) {
 		dismissProgressDialog();
-		loginTask = null;
 		task.getRespInfo().show(this);
-		;
 	}
 
 	@Override

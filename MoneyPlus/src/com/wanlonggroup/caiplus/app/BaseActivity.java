@@ -9,11 +9,16 @@ import com.damon.ds.app.DSActivity;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.util.SHEnvironment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
 
 public class BaseActivity extends DSActivity implements AccountListener{
-
+	
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	protected static DisplayImageOptions displayOptions = DisplayImageOptions.createSimple();
+	
 	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
 
 	@Override
