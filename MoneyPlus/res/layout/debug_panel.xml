@@ -15,6 +15,22 @@
             android:layout_margin="15dip"
             android:text="选择服务器环境" />
 
+        <EditText
+            android:id="@+id/open_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:text="cp://home"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/open"
+            style="@style/GreenButton"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:text="打开" />
+
         <TextView
             android:id="@+id/debug_info"
             android:layout_width="match_parent"

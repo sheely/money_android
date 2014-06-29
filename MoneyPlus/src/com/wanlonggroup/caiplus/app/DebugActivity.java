@@ -3,11 +3,13 @@ package com.wanlonggroup.caiplus.app;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
@@ -22,6 +24,8 @@ public class DebugActivity extends com.damon.ds.app.DebugActivity implements OnC
 		super.onCreate(arg0);
 		domainBtn = (Button) findViewById(R.id.domain);
 		domainBtn.setOnClickListener(this);
+		
+		findViewById(R.id.open).setOnClickListener(this);
 		
 		updateView();
 	}
@@ -52,6 +56,20 @@ public class DebugActivity extends com.damon.ds.app.DebugActivity implements OnC
 
 			});
 			builder.show();
+		}else if(v.getId() == R.id.open){
+			String text = ((EditText)findViewById(R.id.open_url)).getText().toString();
+			try{
+				if(TextUtils.isEmpty(text)){
+					return;
+				}
+				if(!text.startsWith("cp://")){
+					text = "cp://" + text;
+				}
+				startActivity(text);
+			}catch(Exception e){
+				showShortToast("can not open "+ text);
+			}
+			
 		}
 	}
 	
