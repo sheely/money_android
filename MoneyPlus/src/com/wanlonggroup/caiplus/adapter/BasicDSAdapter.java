@@ -11,7 +11,7 @@ import com.damon.ds.adapter.BasicAdapter;
 import com.damon.ds.app.DSObject;
 import com.damon.ds.widget.LoadingErrorView;
 
-public abstract class BasicCPAdapter extends BasicAdapter {
+public abstract class BasicDSAdapter extends BasicAdapter {
 	protected ArrayList<DSObject> dsList;
 	protected boolean isEnd;
 	protected String errorMsg;
@@ -19,7 +19,7 @@ public abstract class BasicCPAdapter extends BasicAdapter {
 	protected int recordCount;
 	protected int startIndex;
 
-	public BasicCPAdapter() {
+	public BasicDSAdapter() {
 		dsList = new ArrayList<DSObject>();
 	}
 

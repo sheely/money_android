@@ -63,96 +63,104 @@ public class DSObject implements Parcelable {
 		return jsonObj.optString(name);
 	}
 
-	public void put(String name, String value) {
+	public DSObject put(String name, String value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public int getInt(String name) {
 		return jsonObj.optInt(name);
 	}
 
-	public void put(String name, int value) {
+	public DSObject put(String name, int value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public long getLong(String name) {
 		return jsonObj.optLong(name);
 	}
 
-	public void put(String name, long value) {
+	public DSObject put(String name, long value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public Object getObject(String name) {
 		return jsonObj.opt(name);
 	}
 
-	public void put(String name, Object value) {
+	public DSObject put(String name, Object value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public double getDouble(String name) {
 		return jsonObj.optDouble(name);
 	}
 
-	public void put(String name, double value) {
+	public DSObject put(String name, double value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public boolean getBoolean(String name) {
 		return jsonObj.optBoolean(name);
 	}
 
-	public void put(String name, boolean value) {
+	public DSObject put(String name, boolean value) {
 		try {
 			this.jsonObj.put(name, value);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public JSONObject getJSONObject(String name) {
 		return jsonObj.optJSONObject(name);
 	}
 
-	public void put(String name, JSONObject json) {
+	public DSObject put(String name, JSONObject json) {
 		try {
 			jsonObj.put(name, json);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public JSONArray getJSONArray(String name) {
 		return jsonObj.optJSONArray(name);
 	}
 
-	public void put(String name, JSONArray arr) {
+	public DSObject put(String name, JSONArray arr) {
 		try {
 			jsonObj.put(name, arr);
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public DSObject getDSObject(String name) {
@@ -163,7 +171,7 @@ public class DSObject implements Parcelable {
 		return null;
 	}
 
-	public void put(DSObject obj) {
+	public DSObject put(DSObject obj) {
 		try {
 			if (TextUtils.isEmpty(obj.objName)) {
 				throw new IllegalArgumentException("the obj must has ojbname");
@@ -172,6 +180,7 @@ public class DSObject implements Parcelable {
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}
+		return this;
 	}
 
 	public DSObject[] getArray(String name, String objName) {
@@ -193,10 +202,11 @@ public class DSObject implements Parcelable {
 		return null;
 	}
 
-	public void put(DSObject[] arr) {
+	public DSObject put(DSObject[] arr) {
 		for (DSObject obj : arr) {
 			put(obj);
 		}
+		return this;
 	}
 
 	public ArrayList<DSObject> getList(String name, String objName) {
@@ -218,10 +228,11 @@ public class DSObject implements Parcelable {
 		return null;
 	}
 
-	public void put(ArrayList<DSObject> list) {
+	public DSObject put(ArrayList<DSObject> list) {
 		for (DSObject obj : list) {
 			put(obj);
 		}
+		return this;
 	}
 
 	public byte[] toByteArray() {

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.damon.ds.app.DSObject;
+import com.damon.ds.util.DSObjectFactory;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -79,7 +80,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		loginTask = null;
-		DSObject dsUser = new DSObject(CPModeName.USER).fromJson(task.getResult());
+		DSObject dsUser = DSObjectFactory.create(CPModeName.USER, task.getResult());
 		accountService().update(dsUser);
 		startActivity("cp://home");
 		finish();
