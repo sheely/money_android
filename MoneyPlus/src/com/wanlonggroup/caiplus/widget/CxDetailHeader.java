@@ -41,4 +41,15 @@ public class CxDetailHeader extends LinearLayout {
 		publishItem.setSubTitle(dsCaixin.getString("oppoPublisher"));
 	}
 
+	public void setMode(HeaderMode mode) {
+		if (mode == HeaderMode.exec) {
+			lookPub.setVisibility(GONE);
+			findViewById(R.id.layer).setVisibility(GONE);
+		}
+	}
+
+	public enum HeaderMode {
+		common, exec
+	}
+
 }

@@ -12,6 +12,7 @@ public class CaiPlusApplication extends DSApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		acccountServie();
 		PreferencesUtils.initSharedPreferenceName(getPackageName());
 	}
 	

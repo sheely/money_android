@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cp="http://schemas.android.com/apk/res/com.wanlonggroup.caiplus"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detail_header"
+        layout="@layout/cx_detail_header" />
+
+    <include layout="@layout/common_divide_view" />
+
+    <com.damon.ds.widget.TableView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.damon.ds.widget.BasicSingleItem
+            android:id="@+id/start_time"
+            style="@style/BasicSingleItemStyleNoIndicator"
+            cp:item_subTitle="2014/02/09"
+            cp:item_title="执行时间" />
+
+        <com.damon.ds.widget.BasicSingleItem
+            android:id="@+id/end_time"
+            style="@style/BasicSingleItemStyleNoIndicator"
+            cp:item_subTitle="2014/09/09"
+            cp:item_title="结束时间" />
+
+        <com.damon.ds.widget.BasicSingleItem
+            android:id="@+id/location"
+            style="@style/BasicSingleItemStyleNoIndicator"
+            cp:item_subTitle="中国"
+            cp:item_title="执行地点" />
+
+        <com.damon.ds.widget.BasicSingleItem
+            android:id="@+id/budget"
+            style="@style/BasicSingleItemStyleNoIndicator"
+            cp:item_subTitle="100w"
+            cp:item_title="预算资金" />
+
+        <com.damon.ds.widget.BasicSingleItem
+            android:id="@+id/remark"
+            style="@style/BasicSingleItemStyleNoIndicator"
+            cp:item_title="备注" />
+    </com.damon.ds.widget.TableView>
+
+</LinearLayout>

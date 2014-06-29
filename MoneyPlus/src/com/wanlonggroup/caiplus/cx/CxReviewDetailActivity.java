@@ -12,7 +12,6 @@ import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
 import com.damon.ds.widget.BasicSingleVerticalItem;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -21,7 +20,7 @@ import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.widget.CxDetailHeader;
 
-public class CxReviewDetailActivity extends BasePtrListActivity implements ITaskListener, OnClickListener {
+public class CxReviewDetailActivity extends BasePtrListActivity implements OnClickListener {
 
 	DSObject dsCaixin;
 	DSObject dsLeavemessages;
@@ -53,7 +52,7 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 
 	SHPostTaskM queryTask;
 
-	void queryCaixin() {
+	void queryMessages() {
 		queryTask = getTask(DEFAULT_API_URL + "queryLmList.do", this);
 //		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
 		queryTask.getTaskArgs().put("oppoId", "fdsfdsf133131");
@@ -79,16 +78,6 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 	public void onTaskFailed(SHTask task) {
 		dismissProgressDialog();
 		adapter.appendList(null, task.getRespInfo().getMessage());
-	}
-
-	@Override
-	public void onTaskUpdateProgress(SHTask task, int count, int total) {
-
-	}
-
-	@Override
-	public void onTaskTry(SHTask task) {
-
 	}
 
 	class Adapter extends BasicDSAdapter {
@@ -123,7 +112,7 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 
 		@Override
 		public void loadNextData(int startIndex) {
-			queryCaixin();
+			queryMessages();
 		}
 
 	}

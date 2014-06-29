@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
-import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
@@ -21,7 +20,7 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class LoginActivity extends BaseActivity implements ITaskListener {
+public class LoginActivity extends BaseActivity {
 
 	private Button loginBtn;
 	private EditText userNameText, passwordText;
@@ -85,21 +84,6 @@ public class LoginActivity extends BaseActivity implements ITaskListener {
 		finish();
 	}
 
-	@Override
-	public void onTaskFailed(SHTask task) {
-		dismissProgressDialog();
-		task.getRespInfo().show(this);
-	}
-
-	@Override
-	public void onTaskUpdateProgress(SHTask task, int count, int total) {
-
-	}
-
-	@Override
-	public void onTaskTry(SHTask task) {
-
-	}
 
 	final OnClickListener onClickListener = new OnClickListener() {
 

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
-import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -17,7 +16,7 @@ import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.widget.CxDetailHeader;
 
-public class CxDetailActivity extends BaseActivity implements OnClickListener, ITaskListener {
+public class CxDetailActivity extends BaseActivity implements OnClickListener {
 
 	DSObject dsCaixin;
 	String caixinId;
@@ -83,22 +82,7 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener, I
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		dsCaixin = DSObjectFactory.create(CPModeName.CAIXIN_ITEM).fromJson(task.getResult());
-	}
-
-	@Override
-	public void onTaskFailed(SHTask task) {
-		dismissProgressDialog();
-		task.getRespInfo().show(this);
-	}
-
-	@Override
-	public void onTaskUpdateProgress(SHTask task, int count, int total) {
-
-	}
-
-	@Override
-	public void onTaskTry(SHTask task) {
-
+		updateView();
 	}
 
 }

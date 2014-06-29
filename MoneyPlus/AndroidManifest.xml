@@ -5,7 +5,7 @@
     android:versionName="1.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -99,6 +99,23 @@
 
                 <data
                     android:host="cxreviewdetail"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".cx.CxExecuteInfoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="执行信息"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cxexecuteinfo"
                     android:scheme="cp" />
             </intent-filter>
         </activity>
