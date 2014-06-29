@@ -138,7 +138,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.damon.ds.app.DebugActivity"
+            android:name="com.wanlonggroup.caiplus.app.DebugActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Debug"
             android:screenOrientation="portrait"

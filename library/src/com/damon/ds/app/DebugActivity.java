@@ -17,8 +17,12 @@ public class DebugActivity extends DSActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.debug_panel);
+		onSetContentView();
 		debugInfo();
+	}
+	
+	public void onSetContentView(){
+		setContentView(R.layout.debug_panel);
 	}
 	
 	public void debugInfo() {

@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.damon.ds.app.DSActivity;
 import com.next.intf.ITaskListener;
@@ -13,14 +15,16 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
+import com.wanlonggroup.caiplus.util.ConfigSwitch;
+import com.wanlonggroup.caiplus.util.Environment;
 
 public class BaseActivity extends DSActivity implements AccountListener{
+	
+	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
 	
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected static DisplayImageOptions displayOptions = DisplayImageOptions.createSimple();
 	
-	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,8 +60,9 @@ public class BaseActivity extends DSActivity implements AccountListener{
 			oldTaks.cancel(true);
 		}
 		SHPostTaskM task = new SHPostTaskM();
-		task.setUrl(url);
+		task.setUrl(ConfigSwitch.instance().wrapDomain(url));
 		task.setListener(listener);
+		taskMap.put(url, task);
 		return task;
 	}
 	
@@ -77,6 +82,22 @@ public class BaseActivity extends DSActivity implements AccountListener{
 			task.cancel(true);
 		}
 		super.onDestroy();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (Environment.isDebug()) {
+			menu.addSubMenu(0, 0, 0, "debug");
+		}
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == 0) {
+			startActivity("cp://debug");
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

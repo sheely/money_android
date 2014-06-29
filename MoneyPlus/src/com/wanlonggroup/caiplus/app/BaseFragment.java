@@ -13,8 +13,11 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
+import com.wanlonggroup.caiplus.util.ConfigSwitch;
 
 public class BaseFragment extends DSFragment implements AccountListener {
+	
+	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
 	
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected static DisplayImageOptions displayOptions = DisplayImageOptions.createSimple();
@@ -56,8 +59,9 @@ public class BaseFragment extends DSFragment implements AccountListener {
 			oldTaks.cancel(true);
 		}
 		SHPostTaskM task = new SHPostTaskM();
-		task.setUrl(url);
+		task.setUrl(ConfigSwitch.instance().wrapDomain(url));
 		task.setListener(listener);
+		taskMap.put(url, task);
 		return task;
 	}
 

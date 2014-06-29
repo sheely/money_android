@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
 import com.damon.ds.widget.BasicSingleVerticalItem;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -29,11 +30,13 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.cx_review_detail);
 		dsCaixin = getIntent().getParcelableExtra("caixin");
-
 		setupView();
 	}
+
+	protected void onSetContentView() {
+		setContentView(R.layout.cx_review_detail);
+	};
 
 	CxDetailHeader cxDetailHeader;
 	Button pubButton;
@@ -42,7 +45,8 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 		cxDetailHeader = (CxDetailHeader) findViewById(R.id.detail_header);
 		pubButton = (Button) findViewById(R.id.pub_btn);
 		pubButton.setOnClickListener(this);
-		
+
+		listView.setMode(Mode.DISABLED);
 		adapter = new Adapter();
 		listView.setAdapter(adapter);
 	}
@@ -51,9 +55,9 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 
 	void queryCaixin() {
 		queryTask = getTask(DEFAULT_API_URL + "queryLmList.do", this);
-		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
+//		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
+		queryTask.getTaskArgs().put("oppoId", "fdsfdsf133131");
 		queryTask.start();
-		showProgressDialog();
 	}
 
 	@Override
@@ -88,7 +92,7 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements ITask
 	}
 
 	class Adapter extends BasicDSAdapter {
-		
+
 		@Override
 		public View getCPItemView(int position, View convertView, ViewGroup parent) {
 			DSObject message = (DSObject) getItem(position);

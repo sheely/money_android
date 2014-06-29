@@ -117,7 +117,7 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 	}
 
 	public void appendList(DSObject[] arr, String errorMsg) {
-		appendList(arr, true, errorMsg);
+		appendList(arr, TextUtils.isEmpty(errorMsg), errorMsg);
 	}
 	
 	public void appendList(DSObject[] arr, boolean isEnd){
