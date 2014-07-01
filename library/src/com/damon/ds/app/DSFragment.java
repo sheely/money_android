@@ -87,6 +87,12 @@ public class DSFragment extends Fragment {
 		}
 		super.onDestroy();
 	}
+	
+	public void finish(){
+		if(!getFragmentManager().popBackStackImmediate()){
+			getActivity().finish();
+		}
+	}
 
 	// ---actionbar----
 	private DSActionBar actionBar;

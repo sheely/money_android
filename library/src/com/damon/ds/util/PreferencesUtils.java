@@ -14,10 +14,11 @@ public class PreferencesUtils {
 	private static String PREFERENCE_NAME = "com.damon.ds";
 	private static final String splitStr = "█";
 	private static SharedPreferences sharedPreferences;
-
+	
 	public static void initSharedPreferenceName(String name) {
-		if (!TextUtils.isEmpty(name)) {
+		if (!TextUtils.isEmpty(name) && !PREFERENCE_NAME.equals(name)) {
 			PREFERENCE_NAME = name;
+			sharedPreferences = null;
 		}
 	}
 

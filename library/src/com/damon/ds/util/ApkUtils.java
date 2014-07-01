@@ -126,22 +126,5 @@ public class ApkUtils {
 		}
 		return imei;
 	}
-
-	private static SharedPreferences sharedPreferences;
-
-	public static SharedPreferences sharedPreferences() {
-		if (sharedPreferences == null) {
-			sharedPreferences = sharePreferences(DSApplication.instance().getPackageName(), Context.MODE_PRIVATE);
-		}
-		return sharedPreferences;
-	}
-
-	public static SharedPreferences sharePreferences(String name) {
-		return sharePreferences(name, Context.MODE_PRIVATE);
-	}
-
-	public static SharedPreferences sharePreferences(String name, int mode) {
-		Context context = DSApplication.instance();
-		return context.getSharedPreferences(name, mode);
-	}
+	
 }
