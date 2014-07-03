@@ -19,7 +19,8 @@ public class CaiPlusApplication extends DSApplication {
 	public AccountService acccountServie(){
 		if(accountService == null){
 			accountService = new AccountService(getApplicationContext());
-			SHEnvironment.getInstance().setSession(accountService.sessionId());
+			SHEnvironment.getInstance().setLoginId(accountService.name());
+			SHEnvironment.getInstance().setPassword(accountService.password());
 		}
 		return accountService;
 	}

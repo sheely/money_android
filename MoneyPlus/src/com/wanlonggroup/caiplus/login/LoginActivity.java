@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
+import com.damon.ds.util.StringUtils;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
@@ -68,7 +69,7 @@ public class LoginActivity extends BaseActivity {
 			return;
 		}
 		SHEnvironment.getInstance().setLoginId(userNameText.getText().toString());
-		SHEnvironment.getInstance().setPassword(passwordText.getText().toString());
+		SHEnvironment.getInstance().setPassword(StringUtils.MD5Encode(passwordText.getText().toString()));
 
 		loginTask = getTask(DEFAULT_API_URL + "milogin.do", this);
 		loginTask.start();
@@ -78,12 +79,18 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
-		DSObject dsUser = DSObjectFactory.create(CPModeName.USER, task.getResult());
+		DSObject dsUser = DSObjectFactory.create(CPModeName.USER, task.getResult()).put("password",
+			SHEnvironment.getInstance().getPassword());
 		accountService().update(dsUser);
 		startActivity("cp://home");
 		finish();
 	}
 
+	@Override
+	public void onTaskFailed(SHTask task) {
+		accountService().clear();
+		super.onTaskFailed(task);
+	}
 
 	final OnClickListener onClickListener = new OnClickListener() {
 

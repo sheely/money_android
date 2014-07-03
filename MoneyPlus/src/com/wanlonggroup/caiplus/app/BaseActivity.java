@@ -37,7 +37,7 @@ public class BaseActivity extends DSActivity implements AccountListener,ITaskLis
 	}
 
 	protected boolean isLogined() {
-		return !TextUtils.isEmpty(accountService().sessionId());
+		return !TextUtils.isEmpty(accountService().id());
 	}
 
 	@Override

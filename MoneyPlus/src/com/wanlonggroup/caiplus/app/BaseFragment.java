@@ -33,7 +33,7 @@ public class BaseFragment extends DSFragment implements AccountListener {
 	}
 
 	protected boolean isLogined() {
-		return !TextUtils.isEmpty(accountService().sessionId());
+		return !TextUtils.isEmpty(accountService().id());
 	}
 
 	@Override
