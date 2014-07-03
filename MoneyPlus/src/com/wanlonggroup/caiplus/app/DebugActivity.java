@@ -42,7 +42,7 @@ public class DebugActivity extends com.damon.ds.app.DebugActivity implements OnC
 	@Override
 	public void onClick(View v) {
 		if (domainBtn == v) {
-			final String[] items = new String[] { "Germmy", "None"};
+			final String[] items = new String[] { "Germmy","WANDEJUN", "None"};
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, items);
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("选择服务器环境");

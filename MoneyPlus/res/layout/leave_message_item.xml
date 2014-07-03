@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     cp:item_icon="@drawable/icon_username"
+    cp:item_indicator="@drawable/icon_username"
     cp:item_title="老板"
     cp:item_subTitle="fdfa代发地方"/>
     

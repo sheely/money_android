@@ -53,6 +53,8 @@ public class ConfigSwitch {
 		switch (type) {
 		case GERMMY:
 			domainMap.put("http://cjcapp.nat123.net:21414/myStruts1/", "http://germmyapp.nat123.net/myStruts1/");
+		case WANDEJUN:
+			domainMap.put("http://cjcapp.nat123.net:21414/myStruts1/", "http://112.124.22.156:18080/myStruts1/");
 			break;
 		default:
 			break;
@@ -61,7 +63,7 @@ public class ConfigSwitch {
 	}
 
 	public enum DomainType {
-		NONE(-1), GERMMY(0);
+		NONE(-1), GERMMY(0), WANDEJUN(1);
 
 		private int type;
 
@@ -73,6 +75,8 @@ public class ConfigSwitch {
 			switch (type) {
 			case 0:
 				return GERMMY;
+			case 1:
+				return WANDEJUN;
 			default:
 				return NONE;
 			}
