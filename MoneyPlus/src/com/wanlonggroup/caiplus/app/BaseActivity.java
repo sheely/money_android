@@ -56,10 +56,15 @@ public class BaseActivity extends DSActivity implements AccountListener, ITaskLi
 	private HashMap<String, SHPostTaskM> taskMap = new HashMap<String, SHPostTaskM>();
 
 	public SHPostTaskM getTask(String url, ITaskListener listener) {
-		SHPostTaskM oldTaks = findTask(url);
-		if (oldTaks != null) {
-			oldTaks.cancel(true);
+		try{
+			SHPostTaskM oldTaks = findTask(url);
+			if (oldTaks != null) {
+				oldTaks.cancel(true);
+			}
+		}catch(Exception e){
+			
 		}
+		
 		SHPostTaskM task = new SHPostTaskM();
 		task.setUrl(ConfigSwitch.instance().wrapDomain(url));
 		task.setListener(listener);
@@ -80,7 +85,13 @@ public class BaseActivity extends DSActivity implements AccountListener, ITaskLi
 	protected void onDestroy() {
 		accountService().removeListener(this);
 		for (SHPostTaskM task : taskMap.values()) {
-			task.cancel(true);
+			try{
+				if (task != null) {
+					task.cancel(true);
+				}
+			}catch(Exception e){
+				
+			}
 		}
 		super.onDestroy();
 	}

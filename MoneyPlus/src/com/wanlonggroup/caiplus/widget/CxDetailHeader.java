@@ -5,24 +5,29 @@ import com.damon.ds.widget.BasicItem;
 import com.wanlonggroup.caiplus.R;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
 public class CxDetailHeader extends LinearLayout {
 
+	Context mContext;
+
 	DSObject dsCaixin;
 
 	public CxDetailHeader(Context context) {
-		super(context);
+		this(context, null);
 	}
 
 	public CxDetailHeader(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		mContext = context;
 	}
 
 	BasicItem titleItem, publishItem, cateItem;
-	View lookPub, lookAttach, inputSome;
+	View lookPub, lookAttach, lookComment, inputSome;
 
 	@Override
 	protected void onFinishInflate() {
@@ -33,6 +38,16 @@ public class CxDetailHeader extends LinearLayout {
 		lookPub = findViewById(R.id.look_pub);
 		lookAttach = findViewById(R.id.look_attach);
 		inputSome = findViewById(R.id.input_some);
+		lookComment = findViewById(R.id.look_comment);
+		lookComment.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxcommentlist"));
+				intent.putExtra("caixin", dsCaixin);
+				mContext.startActivity(intent);
+			}
+		});
 	}
 
 	public void setDetail(DSObject dsCaixin) {

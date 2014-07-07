@@ -18,7 +18,6 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
-import com.wanlonggroup.caiplus.widget.CxDetailHeader;
 
 public class CxReviewDetailActivity extends BasePtrListActivity implements OnClickListener {
 
@@ -37,11 +36,9 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements OnCli
 		setContentView(R.layout.cx_review_detail);
 	};
 
-	CxDetailHeader cxDetailHeader;
 	Button pubButton;
 
 	void setupView() {
-		cxDetailHeader = (CxDetailHeader) findViewById(R.id.detail_header);
 		pubButton = (Button) findViewById(R.id.pub_btn);
 		pubButton.setOnClickListener(this);
 
@@ -54,8 +51,7 @@ public class CxReviewDetailActivity extends BasePtrListActivity implements OnCli
 
 	void queryMessages() {
 		queryTask = getTask(DEFAULT_API_URL + "queryLmList.do", this);
-//		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
-		queryTask.getTaskArgs().put("oppoId", "fdsfdsf133131");
+		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
 		queryTask.start();
 	}
 

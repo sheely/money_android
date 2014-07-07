@@ -10,15 +10,6 @@
         android:layout_height="@dimen/actionBarHeight"
         android:layout="@layout/ds_action_bar" />
 
-    <include
-        android:id="@+id/detail_header"
-        layout="@layout/cx_detail_header" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/click_gray" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -45,19 +36,38 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
     </FrameLayout>
-    
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="@drawable/gray_horizontal_line" />
 
-    <Button
-        android:id="@+id/pub_btn"
-        style="@style/BlueButton"
-        android:layout_marginBottom="10dip"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
-        android:layout_marginTop="10dip"
-        android:text="发布留言" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@drawable/gray_horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <EditText
+            android:id="@+id/input_message"
+            android:layout_width="0dip"
+            style="@style/ListBlackText"
+            android:hint="say something"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="5dip" />
+
+        <Button
+            android:id="@+id/pub_btn"
+            style="@style/GreenButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:padding="10dip"
+            android:text="发送" />
+    </LinearLayout>
 
 </LinearLayout>

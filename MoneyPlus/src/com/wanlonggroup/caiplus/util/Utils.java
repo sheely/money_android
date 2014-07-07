@@ -9,11 +9,11 @@ import com.damon.ds.app.DSObject;
 
 public class Utils {
 
-	public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINESE);
-	public static final DateFormat dateFormat1 = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINESE);
-	public static final DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINESE);
-	public static final DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
-	public static final DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.CHINESE);
+	public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+	public static final DateFormat dateFormat1 = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA);
+	public static final DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+	public static final DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+	public static final DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.CHINA);
 
 	public static String formate(String dateString) {
 		try {

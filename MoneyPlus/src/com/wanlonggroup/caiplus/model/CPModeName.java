@@ -12,5 +12,9 @@ public class CPModeName {
 	
 	public static final String CAIXIN_LEAVE_MESSAGE_ITEM = "leaveMessage";
 	
+	public static final String CAIXIN_COMMENT_LIST = "leaveComments";
+	
+	public static final String CAIXIN_COMMENT_ITEM = "leaveComment";
+	
 	
 }

@@ -67,7 +67,23 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="10dip"
-            android:text="查看附件"
+            android:text="附件"
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_list" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@drawable/gray_vertical_line" />
+        
+        <TextView
+            android:id="@+id/look_comment"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="评论"
             android:textColor="@color/text_color_blue"
             android:textSize="@dimen/text_size_list" />
 
@@ -83,7 +99,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="10dip"
-            android:text="输入执行信息"
+            android:text="执行信息"
             android:textColor="@color/text_color_blue"
             android:textSize="@dimen/text_size_list" />
     </LinearLayout>

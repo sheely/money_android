@@ -1,5 +1,7 @@
 package com.wanlonggroup.caiplus.cx;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -29,12 +31,7 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener {
 			caixinId = dsCaixin.getString("oppoId");
 		}
 		if (TextUtils.isEmpty(caixinId)) {
-			caixinId = getIntent().getStringExtra("id");
-		}
-		if (TextUtils.isEmpty(caixinId)) {
-			if(getIntent().getData() != null){
-				caixinId = getIntent().getData().getQueryParameter("id");
-			}
+			caixinId = getStringParam("oppoId");
 		}
 		if (TextUtils.isEmpty(caixinId)) {
 			showShortToast("缺少必要参数!");
@@ -75,7 +72,9 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		startActivity("cp://cxreviewdetail");
+		Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cxreviewdetail"));
+		intent.putExtra("caixin", dsCaixin);
+		startActivity(intent);
 	}
 
 	@Override
