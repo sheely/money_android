@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.TextUtils;
 
 public class AndroidUtils {
 	private AndroidUtils() {
@@ -108,5 +109,43 @@ public class AndroidUtils {
 
 	public static boolean isEmulator() {
 		return Build.MODEL.equals("sdk") || Build.MODEL.equals("google_sdk");
+	}
+	
+	/**
+	 * 版本号比较
+	 * 
+	 * @param a
+	 * @param b
+	 * @return if a = b return 0; a > b return 1;a < b return -1
+	 */
+	public static int compareVersion(String a, String b) {
+		if (a.equals(b)) {
+			return 0;
+		}
+		int[] target = versionNames(a);
+		int[] current = versionNames(b);
+		int len = Math.min(current.length, target.length);
+		for (int i = 0; i < len; i++) {
+			if (current[i] == target[i]) {
+				continue;
+			}
+			return target[i] > current[i] ? 1 : -1;
+		}
+		if (target.length == current.length) {
+			return 0;
+		}
+		return target.length > current.length ? 1 : -1;
+	}
+
+	private static int[] versionNames(String versionName) {
+		if (TextUtils.isEmpty(versionName)) {
+			return null;
+		}
+		String[] names = versionName.split("\\.");
+		int[] intName = new int[names.length];
+		for (int i = 0; i < names.length; i++) {
+			intName[i] = Integer.valueOf(names[i].trim());
+		}
+		return intName;
 	}
 }

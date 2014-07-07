@@ -27,14 +27,17 @@ public class DSObject implements Parcelable {
 	}
 
 	public DSObject(byte[] bytes) {
-		DSStreamReader dr = new DSStreamReader(bytes);
+		this(bytes, 0, bytes.length);
+	}
+
+	public DSObject(byte[] bytes, int offset, int lenght) {
+		DSStreamReader dr = new DSStreamReader(bytes, offset, lenght);
 		try {
 			objName = dr.readString();
 			jsonObj = new JSONObject(dr.readString());
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
 		}
-
 	}
 
 	public static final Parcelable.Creator<DSObject> CREATOR = new Parcelable.Creator<DSObject>() {
@@ -58,8 +61,8 @@ public class DSObject implements Parcelable {
 		}
 		return this.objName.equals(objName);
 	}
-	
-	public JSONObject getRootJsonObject(){
+
+	public JSONObject getRootJsonObject() {
 		return jsonObj;
 	}
 

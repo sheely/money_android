@@ -38,6 +38,13 @@ public class DSFragment extends Fragment {
 		return dsActivity;
 	}
 
+	public boolean isActivityFinish() {
+		if (dsActivity == null || dsActivity.isFinishing()) {
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public void onDetach() {
 		super.onDetach();
@@ -87,10 +94,12 @@ public class DSFragment extends Fragment {
 		}
 		super.onDestroy();
 	}
-	
-	public void finish(){
-		if(!getFragmentManager().popBackStackImmediate()){
-			getActivity().finish();
+
+	public void finish() {
+		if (canBack()) {
+			if (!getFragmentManager().popBackStackImmediate()) {
+				getActivity().finish();
+			}
 		}
 	}
 
@@ -106,6 +115,7 @@ public class DSFragment extends Fragment {
 	}
 
 	public final void invalidateActionBar() {
+		actionBar.removeAllAction();
 		onCreateActionBar(actionBar);
 	}
 
@@ -116,7 +126,7 @@ public class DSFragment extends Fragment {
 	private void initActionBar(View actionBarContainerView) {
 		if (dsActivity.actionBarType() == ActionBarType.DSACTIONBAR) {
 			actionBar = dsActivity.actionBar();
-		} else if (hasActionBar() || actionBarEnable) {
+		} else if (hasActionBar()) {
 			ViewStub stub = (ViewStub) actionBarContainerView.findViewById(R.id.action_bar_stub);
 			if (stub != null) {
 				stub.inflate();
@@ -128,7 +138,7 @@ public class DSFragment extends Fragment {
 
 						@Override
 						public void onClick(View v) {
-							if (dsActivity != null && !dsActivity.isFinishing()) {
+							if (!isActivityFinish()) {
 								dsActivity.onBackPressed();
 							}
 						}
@@ -140,23 +150,10 @@ public class DSFragment extends Fragment {
 		}
 	}
 
-	private boolean actionBarEnable = false;
-
-	public final void setActionBarEnable(boolean enable) {
-		actionBarEnable = enable;
-		if (actionBar != null) {
-			if (enable) {
-				actionBar.show();
-			} else {
-				actionBar.hide();
-			}
-		}
-	}
-
 	// -----toast and dialog----
 
 	public void showShortToast(String message) {
-		if (dsActivity == null || dsActivity.isFinishing()) {
+		if (isActivityFinish()) {
 			return;
 		}
 		Toast.makeText(dsActivity, message, Toast.LENGTH_SHORT).show();
@@ -170,19 +167,19 @@ public class DSFragment extends Fragment {
 	}
 
 	public void showProgressDialog(String message) {
-		if (dsActivity == null || dsActivity.isFinishing()) {
+		if (isActivityFinish()) {
 			return;
 		}
 		if (progressDialog == null || !progressDialog.isShowing()) {
 			progressDialog = DialogUtils.showProgressDialog(dsActivity, message,
-					new DialogInterface.OnCancelListener() {
+				new DialogInterface.OnCancelListener() {
 
-						@Override
-						public void onCancel(DialogInterface dialog) {
-							onProgressDialogCancel();
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						onProgressDialogCancel();
 
-						}
-					}, true);
+					}
+				}, true);
 		} else {
 			progressDialog.setMessage(message);
 		}
@@ -206,7 +203,7 @@ public class DSFragment extends Fragment {
 
 	public void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
 			DialogInterface.OnClickListener lCancel) {
-		if (dsActivity == null || dsActivity.isFinishing()) {
+		if (isActivityFinish()) {
 			return;
 		}
 

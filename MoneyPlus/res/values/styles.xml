@@ -36,6 +36,16 @@
         <item name="android:textSize">@dimen/text_size_list</item>
     </style>
     
+    <style name="InfoBlackText" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textSize">@dimen/text_size_info</item>
+    </style>
+    
+    <style name="InfoGrayText" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color_gray</item>
+        <item name="android:textSize">@dimen/text_size_info</item>
+    </style>
+    
     <style name="HintGrayText" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color_gray</item>
         <item name="android:textSize">@dimen/text_size_hint</item>

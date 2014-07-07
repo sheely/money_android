@@ -136,6 +136,10 @@ public class DSActionBar extends FrameLayout {
 			actionMenuContainer.removeView(view);
 		}
 	}
+	
+	public void removeAllAction(){
+		actionMenuContainer.removeAllViews();
+	}
 
 	// =====hide or show===
 	private ObjectAnimator objectAnimator;

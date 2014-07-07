@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.damon.ds.app.DSFragment;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
+import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -15,13 +16,13 @@ import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
 
-public class BaseFragment extends DSFragment implements AccountListener {
-	
+public class BaseFragment extends DSFragment implements AccountListener, ITaskListener {
+
 	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
-	
+
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected static DisplayImageOptions displayOptions = DisplayImageOptions.createSimple();
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,9 +40,8 @@ public class BaseFragment extends DSFragment implements AccountListener {
 	@Override
 	public final void onAccountChanged(AccountService sender) {
 		if (isLogined()) {
-			SHEnvironment.getInstance().setSession(accountService().sessionId());
-		} else {
-			SHEnvironment.getInstance().setSession("");
+			SHEnvironment.getInstance().setLoginId(sender.name());
+			SHEnvironment.getInstance().setPassword(sender.password());
 		}
 
 		onAccountChanged();
@@ -55,8 +55,13 @@ public class BaseFragment extends DSFragment implements AccountListener {
 
 	public SHPostTaskM getTask(String url, ITaskListener listener) {
 		SHPostTaskM oldTaks = findTask(url);
-		if (oldTaks != null) {
-			oldTaks.cancel(true);
+		try{
+			if (oldTaks != null) {
+				oldTaks.cancel(true);
+				taskMap.remove(url);
+			}
+		}catch(Exception e){
+			
 		}
 		SHPostTaskM task = new SHPostTaskM();
 		task.setUrl(ConfigSwitch.instance().wrapDomain(url));
@@ -89,6 +94,27 @@ public class BaseFragment extends DSFragment implements AccountListener {
 				getActivity().finish();
 			}
 		}
+	}
+	
+	@Override
+	public void onTaskFinished(SHTask task) throws Exception {
+		dismissProgressDialog();
+	}
+
+	@Override
+	public void onTaskFailed(SHTask task) {
+		dismissProgressDialog();
+		task.getRespInfo().show(getActivity());
+	}
+
+	@Override
+	public void onTaskUpdateProgress(SHTask task, int count, int total) {
+
+	}
+
+	@Override
+	public void onTaskTry(SHTask task) {
+
 	}
 
 }

@@ -14,21 +14,24 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.damon.ds.ext.DSHandler;
 import com.damon.ds.library.R;
 import com.damon.ds.util.DialogUtils;
+import com.damon.ds.util.URLBase64;
 import com.damon.ds.widget.BeautifulProgressDialog;
 import com.damon.ds.widget.DSActionBar;
 
 public class DSActivity extends FragmentActivity {
 
-	private final Handler mHander = new Handler() {
+	private final Handler mHander = new DSHandler(this) {
 
-		public void handleMessage(android.os.Message msg) {
+		public void handleRealMessage(android.os.Message msg) {
 			if (msg.what == 1) {
 				Fragment fragment = getSupportFragmentManager().findFragmentById(android.R.id.content);
-				if(fragment instanceof DSFragment){
-					((DSFragment)fragment).invalidateActionBar();;
-				}else{
+				if (fragment instanceof DSFragment) {
+					((DSFragment) fragment).invalidateActionBar();
+					;
+				} else {
 					invalidateActionBar();
 				}
 			}
@@ -61,9 +64,9 @@ public class DSActivity extends FragmentActivity {
 
 			initActionBar();
 		}
-		
+
 		getSupportFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener() {
-			
+
 			@Override
 			public void onBackStackChanged() {
 				mHander.sendEmptyMessageDelayed(1, 300);
@@ -89,7 +92,7 @@ public class DSActivity extends FragmentActivity {
 	public void onBackPressed() {
 		if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 			popFragment(android.R.id.content);
-		}else if(canBack()){
+		} else if (canBack()) {
 			super.onBackPressed();
 		}
 	}
@@ -155,15 +158,14 @@ public class DSActivity extends FragmentActivity {
 		if (progressDialog != null && progressDialog.isShowing()) {
 			progressDialog.dismiss();
 		}
-		super.onDestroy();
 		DSApplication.instance().activityOnDestory(this);
+		super.onDestroy();
 	}
 
 	public void startActivity(String urlSchema) {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema));
 		startActivity(intent);
 	}
-
 
 	// ----actionbar-----
 
@@ -275,6 +277,76 @@ public class DSActivity extends FragmentActivity {
 		} else {
 			DialogUtils.showAlert(this, message, title, "确定", "取消", false, lOk, lCancel);
 		}
+	}
+
+	// ====get parameters
+
+	public int getIntParam(String name, int defaultValue) {
+		Intent i = getIntent();
+		try {
+			Uri uri = i.getData();
+			if (uri != null) {
+				String val = uri.getQueryParameter(name);
+				return Integer.parseInt(val);
+			}
+		} catch (Exception e) {
+		}
+
+		return i.getIntExtra(name, defaultValue);
+	}
+
+	public int getIntParam(String name) {
+		return getIntParam(name, 0);
+	}
+
+	public String getStringParam(String name) {
+		Intent i = getIntent();
+		try {
+			Uri uri = i.getData();
+			if (uri != null) {
+				String val = uri.getQueryParameter(name);
+				if (val != null)
+					return val;
+			}
+		} catch (Exception e) {
+		}
+
+		return i.getStringExtra(name);
+	}
+
+	public double getDoubleParam(String name, double defaultValue) {
+		Intent i = getIntent();
+		try {
+			Uri uri = i.getData();
+			if (uri != null) {
+				String val = uri.getQueryParameter(name);
+				return Double.parseDouble(val);
+			}
+		} catch (Exception e) {
+		}
+
+		return i.getDoubleExtra(name, defaultValue);
+	}
+
+	public double getDoubleParam(String name) {
+		return getDoubleParam(name, 0);
+	}
+
+	public DSObject getObjectParam(String name) {
+		Intent i = getIntent();
+		try {
+			Uri uri = i.getData();
+			if (uri != null) {
+				String val = uri.getQueryParameter(name);
+				if (val != null) {
+					byte[] bytes = URLBase64.decode(val);
+					return new DSObject(bytes);
+				}
+			}
+		} catch (Exception e) {
+		}
+
+		return i.getParcelableExtra(name);
 	}
 
 }

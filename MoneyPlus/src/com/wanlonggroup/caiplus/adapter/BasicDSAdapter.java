@@ -64,7 +64,7 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 	public int getViewTypeCount() {
 		return 4;
 	}
-
+	
 	@Override
 	public int getItemViewType(int position) {
 		Object object = getItem(position);

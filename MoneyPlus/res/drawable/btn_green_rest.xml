@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--
+    I know the android:radius is useless here but it's needed to fix an old bug:
+    http://code.google.com/p/android/issues/detail?id=939
+    -->
+
+    <stroke
+        android:width="1.0px"
+        android:color="#62ca3f" />
+
+    <solid android:color="#62ca3f" />
+
+    <corners android:radius="3dp" />
+
+</shape>

@@ -19,19 +19,19 @@ import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
 import com.wanlonggroup.caiplus.util.Environment;
 
-public class BaseActivity extends DSActivity implements AccountListener,ITaskListener{
-	
+public class BaseActivity extends DSActivity implements AccountListener, ITaskListener {
+
 	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
-	
+
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected static DisplayImageOptions displayOptions = DisplayImageOptions.createSimple();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		accountService().addListener(this);
 	}
-	
+
 	protected AccountService accountService() {
 		return ((CaiPlusApplication) getApplication()).acccountServie();
 	}
@@ -42,22 +42,22 @@ public class BaseActivity extends DSActivity implements AccountListener,ITaskLis
 
 	@Override
 	public final void onAccountChanged(AccountService sender) {
-		if(isLogined()){
-			SHEnvironment.getInstance().setSession(accountService().sessionId());
-		}else{
-			SHEnvironment.getInstance().setSession("");
+		if (isLogined()) {
+			SHEnvironment.getInstance().setLoginId(sender.name());
+			SHEnvironment.getInstance().setPassword(sender.password());
 		}
 		onAccountChanged();
 	}
-	
-	protected void onAccountChanged(){
-		
+
+	protected void onAccountChanged() {
+
 	}
-	
+
 	private HashMap<String, SHPostTaskM> taskMap = new HashMap<String, SHPostTaskM>();
-	public SHPostTaskM getTask(String url,ITaskListener listener){
+
+	public SHPostTaskM getTask(String url, ITaskListener listener) {
 		SHPostTaskM oldTaks = findTask(url);
-		if(oldTaks != null){
+		if (oldTaks != null) {
 			oldTaks.cancel(true);
 		}
 		SHPostTaskM task = new SHPostTaskM();
@@ -66,25 +66,25 @@ public class BaseActivity extends DSActivity implements AccountListener,ITaskLis
 		taskMap.put(url, task);
 		return task;
 	}
-	
-	public SHPostTaskM findTask(String url){
-		for(String taskUrl : taskMap.keySet()){
-			if(taskUrl.equals(url)){
+
+	public SHPostTaskM findTask(String url) {
+		for (String taskUrl : taskMap.keySet()) {
+			if (taskUrl.equals(url)) {
 				return taskMap.get(taskUrl);
 			}
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		accountService().removeListener(this);
-		for(SHPostTaskM task : taskMap.values()){
+		for (SHPostTaskM task : taskMap.values()) {
 			task.cancel(true);
 		}
 		super.onDestroy();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (Environment.isDebug()) {
@@ -114,12 +114,12 @@ public class BaseActivity extends DSActivity implements AccountListener,ITaskLis
 
 	@Override
 	public void onTaskUpdateProgress(SHTask task, int count, int total) {
-		
+
 	}
 
 	@Override
 	public void onTaskTry(SHTask task) {
-		
+
 	}
 
 }
