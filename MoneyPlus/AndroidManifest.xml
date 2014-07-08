@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.wanlonggroup.caiplus.bz.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="登陆"
             android:launchMode="singleTop"
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.MainActivity"
+            android:name="com.wanlonggroup.caiplus.bz.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="首页"
             android:launchMode="singleTop"
@@ -69,7 +69,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".cx.CxDetailActivity"
+            android:name="com.wanlonggroup.caiplus.bz.CxDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财信详情"
             android:screenOrientation="portrait"
@@ -86,7 +86,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".cx.CxReviewDetailActivity"
+            android:name="com.wanlonggroup.caiplus.bz.CxReviewDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财信留言"
             android:screenOrientation="portrait"
@@ -104,7 +104,7 @@
         </activity>
         
          <activity
-            android:name=".cx.CxCommentListActivity"
+            android:name="com.wanlonggroup.caiplus.bz.CxCommentListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财信评论"
             android:screenOrientation="portrait"
@@ -121,7 +121,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".cx.CxExecuteInfoActivity"
+            android:name="com.wanlonggroup.caiplus.bz.AttachmentListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财信评论"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cxattachlist"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.CxExecuteInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="执行信息"
             android:screenOrientation="portrait"
@@ -139,7 +156,7 @@
         </activity>
         
         <activity
-            android:name=".cq.CqCompanyDetailActivity"
+            android:name="com.wanlonggroup.caiplus.bz.CqCompanyDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="公司详情"
             android:screenOrientation="portrait"
@@ -156,7 +173,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".cq.CqTeamDetailActivity"
+            android:name="com.wanlonggroup.caiplus.bz.CqTeamDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="团队详情"
             android:screenOrientation="portrait"

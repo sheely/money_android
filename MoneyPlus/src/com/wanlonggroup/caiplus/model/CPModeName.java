@@ -16,5 +16,9 @@ public class CPModeName {
 	
 	public static final String CAIXIN_COMMENT_ITEM = "leaveComment";
 	
+	public static final String CAIXIN_ATTACH_LIST = "attachments";
+	
+	public static final String CAIXIN_ATTACH_ITEM = "attachment";
+	
 	
 }

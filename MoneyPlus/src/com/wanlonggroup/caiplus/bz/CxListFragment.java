@@ -1,4 +1,4 @@
-package com.wanlonggroup.caiplus.cx;
+package com.wanlonggroup.caiplus.bz;
 
 import android.content.Intent;
 import android.net.Uri;

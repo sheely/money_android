@@ -1,4 +1,4 @@
-package com.wanlonggroup.caiplus.cq;
+package com.wanlonggroup.caiplus.bz;
 
 public class TeamCqListFragment extends CqListFragment {
 

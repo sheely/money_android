@@ -1,6 +1,7 @@
-package com.wanlonggroup.caiplus.cx;
+package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,18 @@ import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class CxCommentListActivity extends BasePtrListActivity {
+public class AttachmentListActivity extends BasePtrListActivity {
 
-	DSObject dsCaixin;
+	String oppoId;
+	String attachType;
+	DSObject dsAttachments;
 	Adapter adapter;
-	DSObject dsComments;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dsCaixin = getIntent().getParcelableExtra("caixin");
+		oppoId = getStringParam("oppoid");
+		attachType = getStringParam("attachtype");
 
 		listView.setMode(Mode.DISABLED);
 		adapter = new Adapter();
@@ -34,17 +37,18 @@ public class CxCommentListActivity extends BasePtrListActivity {
 
 	SHPostTaskM queryTask;
 
-	void queryComment() {
-		queryTask = getTask(DEFAULT_API_URL + "queryCommentsList.do", this);
-		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
+	void queryAttachments() {
+		queryTask = getTask(DEFAULT_API_URL + "queryAttachment.do", this);
+		queryTask.getTaskArgs().put("oppoId", oppoId);
+		queryTask.getTaskArgs().put("attachmentType", attachType);
 		queryTask.start();
 	}
 
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
-		dsComments = DSObjectFactory.create(CPModeName.CAIXIN_COMMENT_LIST).fromJson(task.getResult());
-		adapter.appendList(dsComments.getArray(CPModeName.CAIXIN_COMMENT_LIST, CPModeName.CAIXIN_COMMENT_ITEM));
+		dsAttachments = DSObjectFactory.create(CPModeName.CAIXIN_LIST).fromJson(task.getResult());
+		adapter.appendList(dsAttachments.getArray(CPModeName.CAIXIN_LIST, CPModeName.CAIXIN_ATTACH_ITEM));
 	}
 
 	@Override
@@ -55,34 +59,32 @@ public class CxCommentListActivity extends BasePtrListActivity {
 
 	class Adapter extends BasicDSAdapter {
 
-		public String getCommentTypeName(int position) {
-			DSObject comment = (DSObject) getItem(position);
-			if ("1".equals(comment.getString("commenterType"))) {
-				return "承接人评论：";
+		public String getAttachName(int position) {
+			DSObject attach = (DSObject) getItem(position);
+			String url = attach.getString("attachmentUrl");
+			if (!TextUtils.isEmpty(url)) {
+				int index = url.lastIndexOf("/");
+				if (index > 0) {
+					return url.substring(index + 1);
+				}
 			}
-			if ("2".equals(comment.getString("commenterType"))) {
-				return "执行人评论：";
-			}
-
-			return "";
+			return url;
 		}
 
 		@Override
 		public View getCPItemView(int position, View convertView, ViewGroup parent) {
-			DSObject comment = (DSObject) getItem(position);
 			if (convertView == null) {
-				convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.leave_comment_item, parent,
-					false);
+				convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.common_basic_single_item,
+					parent, false);
 			}
-			BasicSingleVerticalItem commentItem = (BasicSingleVerticalItem) convertView;
-			commentItem.setTitle(getCommentTypeName(position));
-			commentItem.setSubTitle(comment.getString("commentContent"));
+			BasicSingleVerticalItem item = (BasicSingleVerticalItem) convertView;
+			item.setTitle(getAttachName(position));
 			return convertView;
 		}
 
 		@Override
 		public void loadNextData(int startIndex) {
-			queryComment();
+			queryAttachments();
 		}
 
 	}

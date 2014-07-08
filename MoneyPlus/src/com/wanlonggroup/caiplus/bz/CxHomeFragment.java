@@ -1,14 +1,10 @@
-package com.wanlonggroup.caiplus.home;
+package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseTabPagerFragment;
-import com.wanlonggroup.caiplus.cx.AllCxListFragment;
-import com.wanlonggroup.caiplus.cx.BidCxListFragment;
-import com.wanlonggroup.caiplus.cx.JoinCxListFragment;
-import com.wanlonggroup.caiplus.cx.PublishCxListFragment;
 
 public class CxHomeFragment extends BaseTabPagerFragment {
 	

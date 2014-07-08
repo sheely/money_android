@@ -1,4 +1,4 @@
-package com.wanlonggroup.caiplus.login;
+package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
 import android.text.Editable;

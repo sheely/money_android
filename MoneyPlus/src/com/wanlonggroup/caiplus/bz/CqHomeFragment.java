@@ -1,4 +1,4 @@
-package com.wanlonggroup.caiplus.home;
+package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,8 +9,6 @@ import android.widget.TabHost;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseTabPagerFragment;
-import com.wanlonggroup.caiplus.cq.CompanyCqListFragment;
-import com.wanlonggroup.caiplus.cq.TeamCqListFragment;
 
 public class CqHomeFragment extends BaseTabPagerFragment {
 	

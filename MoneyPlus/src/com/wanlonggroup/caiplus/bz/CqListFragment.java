@@ -1,4 +1,4 @@
-package com.wanlonggroup.caiplus.cq;
+package com.wanlonggroup.caiplus.bz;
 
 import com.wanlonggroup.caiplus.app.BasePtrListFragment;
 

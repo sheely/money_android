@@ -37,7 +37,19 @@ public class CxDetailHeader extends LinearLayout {
 		cateItem = (BasicItem) findViewById(R.id.category_item);
 		lookPub = findViewById(R.id.look_pub);
 		lookAttach = findViewById(R.id.look_attach);
+		lookAttach.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxattachlist"));
+				intent.putExtra("oppoid", dsCaixin.getString("oppoId"));
+				intent.putExtra("attachtype", "2");
+				mContext.startActivity(intent);
+			}
+		});
+		
 		inputSome = findViewById(R.id.input_some);
+		
 		lookComment = findViewById(R.id.look_comment);
 		lookComment.setOnClickListener(new View.OnClickListener() {
 

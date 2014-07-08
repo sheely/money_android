@@ -1,16 +1,16 @@
-package com.wanlonggroup.caiplus.cq;
+package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 
-public class CqTeamDetailActivity extends BaseActivity{
+public class CqCompanyDetailActivity extends BaseActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.cq_team_detail);
+		setContentView(R.layout.cq_company_detail);
 	}
 
 }
