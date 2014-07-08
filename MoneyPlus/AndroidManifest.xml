@@ -86,6 +86,23 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.wanlonggroup.caiplus.bz.QueryCxActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="查找财信"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="querycx"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.wanlonggroup.caiplus.bz.CxReviewDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财信留言"

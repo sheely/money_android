@@ -57,8 +57,7 @@ public class CxExecuteInfoActivity extends BaseActivity {
 
 	void queryInfo() {
 		queryTask = getTask(DEFAULT_API_URL + "queryexecuteinfodetail.do", this);
-//		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
-		queryTask.getTaskArgs().put("oppoId", "fdsfdsf133131");
+		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
 		queryTask.start();
 		showProgressDialog();
 	}

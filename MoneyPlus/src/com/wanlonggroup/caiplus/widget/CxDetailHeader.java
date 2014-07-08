@@ -1,15 +1,15 @@
 package com.wanlonggroup.caiplus.widget;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.widget.BasicItem;
-import com.wanlonggroup.caiplus.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.damon.ds.app.DSObject;
+import com.damon.ds.widget.BasicItem;
+import com.wanlonggroup.caiplus.R;
 
 public class CxDetailHeader extends LinearLayout {
 
@@ -27,7 +27,7 @@ public class CxDetailHeader extends LinearLayout {
 	}
 
 	BasicItem titleItem, publishItem, cateItem;
-	View lookPub, lookAttach, lookComment, inputSome;
+	View lookPub, lookAttach, lookComment, executeInfo;
 
 	@Override
 	protected void onFinishInflate() {
@@ -36,6 +36,14 @@ public class CxDetailHeader extends LinearLayout {
 		publishItem = (BasicItem) findViewById(R.id.publish_item);
 		cateItem = (BasicItem) findViewById(R.id.category_item);
 		lookPub = findViewById(R.id.look_pub);
+		lookPub.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		
 		lookAttach = findViewById(R.id.look_attach);
 		lookAttach.setOnClickListener(new View.OnClickListener() {
 
@@ -48,7 +56,16 @@ public class CxDetailHeader extends LinearLayout {
 			}
 		});
 		
-		inputSome = findViewById(R.id.input_some);
+		executeInfo = findViewById(R.id.execute_info);
+		executeInfo.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxexecuteinfo"));
+				intent.putExtra("caixin", dsCaixin);
+				mContext.startActivity(intent);
+			}
+		});
 		
 		lookComment = findViewById(R.id.look_comment);
 		lookComment.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +87,6 @@ public class CxDetailHeader extends LinearLayout {
 
 	public void setMode(HeaderMode mode) {
 		if (mode == HeaderMode.exec) {
-			lookPub.setVisibility(GONE);
 			findViewById(R.id.layer).setVisibility(GONE);
 		}
 	}

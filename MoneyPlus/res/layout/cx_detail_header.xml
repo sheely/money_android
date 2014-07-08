@@ -93,7 +93,7 @@
             android:background="@drawable/gray_vertical_line" />
 
         <TextView
-            android:id="@+id/input_some"
+            android:id="@+id/execute_info"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"

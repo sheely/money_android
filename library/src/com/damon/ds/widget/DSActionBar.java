@@ -3,6 +3,7 @@ package com.damon.ds.widget;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -35,11 +36,11 @@ public class DSActionBar extends FrameLayout {
 		homeAsUpContainer = (FrameLayout) findViewById(R.id.ds_home_as_up_container);
 		actionMenuContainer = (LinearLayout) findViewById(R.id.ds_action_bar_menu);
 
-		titleView = (TextView) findViewById(R.id.title);
+		titleView = (TextView) findViewById(R.id.ds_title);
 		if (titleView == null) {
 			titleView = (TextView) findViewById(android.R.id.title);
 		}
-		subTitleView = (TextView) findViewById(R.id.subtitle);
+		subTitleView = (TextView) findViewById(R.id.ds_subtitle);
 
 		homeAsUp = (ImageButton) findViewById(R.id.ds_home_as_up);
 	}
@@ -114,6 +115,9 @@ public class DSActionBar extends FrameLayout {
 		if (view == null || actionMenuContainer == null) {
 			return;
 		}
+		if (view.getLayoutParams() instanceof LinearLayout.LayoutParams) {
+			((LinearLayout.LayoutParams) view.getLayoutParams()).gravity = Gravity.CENTER_VERTICAL;
+		}
 		view.setOnClickListener(listener);
 		view.setTag(tag);
 		final int index = actionMenuContainer.getChildCount();
@@ -136,8 +140,8 @@ public class DSActionBar extends FrameLayout {
 			actionMenuContainer.removeView(view);
 		}
 	}
-	
-	public void removeAllAction(){
+
+	public void removeAllAction() {
 		actionMenuContainer.removeAllViews();
 	}
 

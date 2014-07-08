@@ -10,7 +10,7 @@
         android:layout_height="match_parent" >
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/ds_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -21,7 +21,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/subtitle"
+            android:id="@+id/ds_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"

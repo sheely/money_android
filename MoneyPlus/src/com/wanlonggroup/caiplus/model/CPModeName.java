@@ -8,6 +8,10 @@ public class CPModeName {
 	
 	public static final String CAIXIN_ITEM = "opportunity";
 	
+	public static final String CAIXIN_TYPE_LIST = "oppoTypes";
+	
+	public static final String CAIXIN_TYPE_ITEM = "oppoType";
+	
 	public static final String CAIXIN_LEAVE_MESSAGE_LIST = "leaveMessages";
 	
 	public static final String CAIXIN_LEAVE_MESSAGE_ITEM = "leaveMessage";

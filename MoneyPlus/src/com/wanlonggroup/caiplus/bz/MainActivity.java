@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import com.damon.ds.widget.BadgeView;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
 
@@ -17,7 +18,7 @@ public class MainActivity extends BaseFragmentTabActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setTabWidgetBackground(R.color.tab_widget_color);
 
 		addTab(CAIXIN, R.drawable.ic_tab_cx, 0, CxHomeFragment.class, null);
@@ -32,6 +33,20 @@ public class MainActivity extends BaseFragmentTabActivity {
 
 	protected ActionBarType actionBarType() {
 		return ActionBarType.NONE;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setBadgeView();
+	}
+
+	BadgeView messageView;
+
+	void setBadgeView() {
+		messageView = new BadgeView(this, mTabHost.getTabWidget(), 1);
+		messageView.setText("2");
+		messageView.show();
 	}
 
 	private long lastQuitTime;
