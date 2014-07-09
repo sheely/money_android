@@ -213,7 +213,19 @@ public class DSObject implements Parcelable {
 			int len = array.length();
 			DSObject[] objs = new DSObject[len];
 			for (int i = 0; i < len; i++) {
-				objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
+				try {
+					Object tmp = array.opt(i);
+					if (tmp instanceof String) {
+						JSONObject obj = new JSONObject();
+						obj.put(objName, tmp);
+						objs[i] = new DSObject(objName).fromJson(obj);
+					} else {
+						objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
+					}
+				} catch (Exception e) {
+					objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
+
+				}
 			}
 			return objs;
 		}
@@ -243,7 +255,19 @@ public class DSObject implements Parcelable {
 			int len = array.length();
 			ArrayList<DSObject> list = new ArrayList<DSObject>(len);
 			for (int i = 0; i < len; i++) {
-				list.add(new DSObject(objName).fromJson(array.optJSONObject(i)));
+				try {
+					Object tmp = array.opt(i);
+					if (tmp instanceof String) {
+						JSONObject obj = new JSONObject();
+						obj.put(objName, tmp);
+						list.add(new DSObject(objName).fromJson(obj));
+					} else {
+						list.add(new DSObject(objName).fromJson(array.optJSONObject(i)));
+					}
+				} catch (Exception e) {
+					list.add(new DSObject(objName).fromJson(array.optJSONObject(i)));
+
+				}
 			}
 			return list;
 		}
@@ -297,7 +321,9 @@ public class DSObject implements Parcelable {
 	}
 
 	public DSObject fromJson(Object obj) {
-		if (obj instanceof JSONObject) {
+		if (obj instanceof String) {
+			return fromJson((String) obj);
+		} else if (obj instanceof JSONObject) {
 			this.jsonObj = (JSONObject) obj;
 		} else {
 			throw new IllegalArgumentException("obj must be instanceof JSONObject");
@@ -307,7 +333,12 @@ public class DSObject implements Parcelable {
 
 	public DSObject fromJson(String json) {
 		try {
-			jsonObj = new JSONObject(json);
+			if (!TextUtils.isEmpty(json)) {
+				if (!json.startsWith("{")) {
+					json = "{" + json + "}";
+				}
+				jsonObj = new JSONObject(json);
+			}
 		} catch (JSONException e) {
 			throw new IllegalArgumentException(e);
 		}

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.widget.BasicSingleVerticalItem;
+import com.damon.ds.widget.BasicSingleItem;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -77,7 +77,7 @@ public class AttachmentListActivity extends BasePtrListActivity {
 				convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.common_basic_single_item,
 					parent, false);
 			}
-			BasicSingleVerticalItem item = (BasicSingleVerticalItem) convertView;
+			BasicSingleItem item = (BasicSingleItem) convertView;
 			item.setTitle(getAttachName(position));
 			return convertView;
 		}

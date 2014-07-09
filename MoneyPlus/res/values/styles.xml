@@ -41,6 +41,11 @@
         <item name="android:textSize">@dimen/text_size_info</item>
     </style>
     
+    <style name="InfoWhiteText" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textSize">@dimen/text_size_info</item>
+    </style>
+    
     <style name="InfoGrayText" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color_gray</item>
         <item name="android:textSize">@dimen/text_size_info</item>

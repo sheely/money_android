@@ -13,6 +13,8 @@ public class JoinCxListFragment extends CxListFragment {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
 		cxlistReq.getTaskArgs().put("statusWithMe", 3);
 		cxlistReq.getTaskArgs().put("oppoType", "");
+		cxlistReq.getTaskArgs().put("bossName", "");
+		cxlistReq.getTaskArgs().put("oppoTitle", "");
 		cxlistReq.start();
 		return cxlistReq;
 	}

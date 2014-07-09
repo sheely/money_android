@@ -24,5 +24,7 @@ public class CPModeName {
 	
 	public static final String CAIXIN_ATTACH_ITEM = "attachment";
 	
+	public static final String CY_DETAIL = "cydetail";
+	
 	
 }

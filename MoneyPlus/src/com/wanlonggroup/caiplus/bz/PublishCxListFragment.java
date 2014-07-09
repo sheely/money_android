@@ -18,6 +18,8 @@ public class PublishCxListFragment extends CxListFragment {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
 		cxlistReq.getTaskArgs().put("statusWithMe", 1);
 		cxlistReq.getTaskArgs().put("oppoType", "");
+		cxlistReq.getTaskArgs().put("bossName", "");
+		cxlistReq.getTaskArgs().put("oppoTitle", "");
 		cxlistReq.start();
 		return cxlistReq;
 	}

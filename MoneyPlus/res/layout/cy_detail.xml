@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cp="http://schemas.android.com/apk/res/com.wanlonggroup.caiplus"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dip" >
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_username" />
+
+            <TextView
+                android:id="@+id/username"
+                style="@style/ListBlackText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/icon"
+                android:text="张三" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/icon"
+                android:layout_alignLeft="@id/username"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/username"
+                    style="@style/InfoWhiteText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_green"
+                    android:drawableLeft="@drawable/icon_username"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dip"
+                    android:text="加关注" />
+
+                <TextView
+                    android:id="@+id/send_cx"
+                    style="@style/InfoWhiteText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dip"
+                    android:background="@drawable/btn_blue"
+                    android:drawableLeft="@drawable/icon_username"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dip"
+                    android:text="发财信" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="基本资料" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/company_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="万隆集团"
+            cp:item_title="公司：" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/job_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="咨询总监"
+            cp:item_title="职务：" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/email_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="ad@163.com"
+            cp:item_title="邮箱：" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/mobile_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="123456789"
+            cp:item_title="电话：" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/dash_line" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/charge_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="2000/小时"
+            cp:item_title="收费标准：" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/degree_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="博士"
+            cp:item_title="收费标准：" />
+
+        <com.damon.ds.widget.BasicItem
+            android:id="@+id/college_item"
+            style="@style/BasicItemStyle"
+            cp:item_subTitle="复旦大学"
+            cp:item_title="收费标准：" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/dash_line" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="职称和职业资格" />
+
+        <TextView
+            android:id="@+id/techonologyTitle"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
+            android:lineSpacingMultiplier="1.2"
+            android:text="资深风险管理专家\n投资项目分析师"
+            android:textSize="@dimen/text_size_list" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="任职经历" />
+
+        <TextView
+            android:id="@+id/personalExperience"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
+            android:lineSpacingMultiplier="1.2"
+            android:text="某房地产企业\n副总经理\n上海商业集团"
+            android:textSize="@dimen/text_size_list" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="服务客户" />
+
+        <TextView
+            android:id="@+id/personalClients"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
+            android:lineSpacingMultiplier="1.2"
+            android:text="制造业\n房地主酒店业\n中国北车集团股份"
+            android:textSize="@dimen/text_size_list" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="个人技能" />
+
+        <com.damon.ds.widget.TableView
+            android:id="@+id/personalSkills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="成功案例" />
+
+        <com.damon.ds.widget.TableView
+            android:id="@+id/successfulCases"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:text="日历" />
+
+        <com.damon.ds.widget.TableView
+            android:id="@+id/myTasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</ScrollView>

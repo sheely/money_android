@@ -40,7 +40,9 @@ public class CxDetailHeader extends LinearLayout {
 			
 			@Override
 			public void onClick(View v) {
-				
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cydetail"));
+				intent.putExtra("publisherid", dsCaixin.getString("oppoPublisherId"));
+				mContext.startActivity(intent);
 			}
 		});
 		
