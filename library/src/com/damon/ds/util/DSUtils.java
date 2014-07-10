@@ -1,7 +1,14 @@
 package com.damon.ds.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Rect;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -60,6 +67,36 @@ public class DSUtils {
 		} else {
 			return false;
 		}
+	}
+	
+	public static String parseImgPath(final Context mContext,Uri uri) {
+		String path = null;
+		if (uri != null) {
+			if ("file".equals(uri.getScheme())) {
+				String s = null;
+				try {
+					s = URLDecoder.decode(uri.toString().replaceFirst("file://", ""), "utf-8");
+				} catch (UnsupportedEncodingException e) {
+				}
+				return s;
+			}
+			String[] proj = { MediaStore.Images.Media.DATA }; 
+			Cursor cursor = mContext.getContentResolver().query(uri, proj, null, null, null);
+			if (cursor == null)
+				return null;
+			try {
+				cursor.moveToFirst();
+				path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+
+			} catch (Exception e) {
+				DSLog.e("parseImgPath", e.getLocalizedMessage());
+			} finally {
+				if (cursor != null) {
+					cursor.close();
+				}
+			}
+		}
+		return path;
 	}
 
 }

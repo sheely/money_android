@@ -335,6 +335,9 @@ public class DSObject implements Parcelable {
 		try {
 			if (!TextUtils.isEmpty(json)) {
 				if (!json.startsWith("{")) {
+					if (json.indexOf(":") < 0) {
+						json = "value:" + json;
+					}
 					json = "{" + json + "}";
 				}
 				jsonObj = new JSONObject(json);
