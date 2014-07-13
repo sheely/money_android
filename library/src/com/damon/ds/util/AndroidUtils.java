@@ -16,13 +16,20 @@ package com.damon.ds.util;
  * limitations under the License.
  */
 
+import java.io.File;
+import java.io.IOException;
+
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 
 public class AndroidUtils {
+
+	private static final String TAG = AndroidUtils.class.getSimpleName();
+
 	private AndroidUtils() {
 	}
 
@@ -41,8 +48,7 @@ public class AndroidUtils {
 			PackageManager packageManager = context.getPackageManager();
 			PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
 			applicationName = context.getString(packageInfo.applicationInfo.labelRes);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			DSLog.w("Failed to get version number.", e.getLocalizedMessage());
 			applicationName = "";
 		}
@@ -65,8 +71,7 @@ public class AndroidUtils {
 			PackageManager packageManager = context.getPackageManager();
 			PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
 			versionName = packageInfo.versionName;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			DSLog.w("Failed to get version number.", e.getLocalizedMessage());
 			versionName = "";
 		}
@@ -89,8 +94,7 @@ public class AndroidUtils {
 			PackageManager packageManager = context.getPackageManager();
 			PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
 			versionCode = Integer.toString(packageInfo.versionCode);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			DSLog.w("Failed to get version code.", e.getLocalizedMessage());
 			versionCode = "";
 		}
@@ -101,8 +105,7 @@ public class AndroidUtils {
 	public static int getSdkVersion() {
 		try {
 			return Build.VERSION.class.getField("SDK_INT").getInt(null);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return 3;
 		}
 	}
@@ -110,7 +113,7 @@ public class AndroidUtils {
 	public static boolean isEmulator() {
 		return Build.MODEL.equals("sdk") || Build.MODEL.equals("google_sdk");
 	}
-	
+
 	/**
 	 * 版本号比较
 	 * 
@@ -147,5 +150,59 @@ public class AndroidUtils {
 			intName[i] = Integer.valueOf(names[i].trim());
 		}
 		return intName;
+	}
+
+	public static File getCacheDirectory(Context context) {
+		return getCacheDirectory(context, true);
+	}
+
+	public static File getCacheDirectory(Context context, boolean preferExternal) {
+		File appCacheDir = null;
+		if ((preferExternal) && ("mounted".equals(Environment.getExternalStorageState()))
+				&& (hasExternalStoragePermission(context))) {
+			appCacheDir = getExternalCacheDir(context);
+		}
+		if (appCacheDir == null) {
+			appCacheDir = context.getCacheDir();
+		}
+		if (appCacheDir == null) {
+			String cacheDirPath = "/data/data/" + context.getPackageName() + "/cache/";
+			DSLog.w(TAG,
+				String.format("Can't define system cache directory! '%s' will be used.", new Object[] { cacheDirPath }));
+			appCacheDir = new File(cacheDirPath);
+		}
+		return appCacheDir;
+	}
+
+	private static boolean hasExternalStoragePermission(Context context) {
+		int perm = context.checkCallingOrSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+		return (perm == 0);
+	}
+
+	private static File getExternalCacheDir(Context context) {
+		File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data");
+		File appCacheDir = new File(new File(dataDir, context.getPackageName()), "cache");
+		if (!(appCacheDir.exists())) {
+			if (!(appCacheDir.mkdirs())) {
+				DSLog.w("Unable to create external cache directory");
+				return null;
+			}
+			try {
+				new File(appCacheDir, ".nomedia").createNewFile();
+			} catch (IOException e) {
+				DSLog.i(TAG, String.format("Can't create \".nomedia\" file in application external cache directory",
+					new Object[0]));
+			}
+		}
+		return appCacheDir;
+	}
+	
+	public static void checkmod(String permission, String path) {
+		try {
+			String command = "chmod " + permission + " " + path;
+			Runtime runtime = Runtime.getRuntime();
+			runtime.exec(command);
+		} catch (IOException e) {
+		}
 	}
 }

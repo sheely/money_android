@@ -1,12 +1,21 @@
 package com.wanlonggroup.caiplus.bz;
 
+import java.io.File;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.damon.ds.app.DSObject;
+import com.damon.ds.download.impl.DefaultDownloadTask;
+import com.damon.ds.download.intf.DownloadListener;
+import com.damon.ds.download.intf.DownloadTask;
+import com.damon.ds.util.AndroidUtils;
 import com.damon.ds.util.DSObjectFactory;
 import com.damon.ds.widget.BasicSingleItem;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -16,6 +25,7 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.wanlonggroup.caiplus.util.Utils;
 
 public class AttachmentListActivity extends BasePtrListActivity {
 
@@ -56,6 +66,105 @@ public class AttachmentListActivity extends BasePtrListActivity {
 		dismissProgressDialog();
 		adapter.appendList(null, task.getRespInfo().getMessage());
 	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Object obj = (DSObject) parent.getItemAtPosition(position);
+		if (Utils.isDSObject(obj, CPModeName.CAIXIN_ATTACH_ITEM)) {
+			DSObject dsObject = (DSObject) obj;
+			downloadPdf(dsObject);
+		}
+	}
+
+	DefaultDownloadTask task;
+
+	void downloadPdf(DSObject attach) {
+		File file = getDownloadFile(attach);
+		if(file != null){
+			openPdf(file);
+		}else{
+			if (task != null) {
+				task.cancel(true);
+				dismissProgressDialog();
+			}
+			task = new DefaultDownloadTask(this, AndroidUtils.getCacheDirectory(this), PdfDownloadListener);
+			task.start(attach.getString("attachmentUrl"));
+			showProgressDialog();
+		}
+	}
+
+	void openPdf(File pdfFile) {
+		AndroidUtils.checkmod("777", pdfFile.getAbsolutePath());
+		
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(android.content.Intent.ACTION_VIEW);
+		String type = "application/pdf";
+		intent.setDataAndType(Uri.fromFile(pdfFile), type);
+		startActivity(Intent.createChooser(intent, "选择程序"));
+	}
+
+	File getDownloadFile(DSObject attach) {
+		String url = attach.getString("attachmentUrl");
+		if (!TextUtils.isEmpty(url)) {
+			int index = url.lastIndexOf("/");
+			if (index > 0) {
+				url = url.substring(index + 1);
+			}
+		}
+		File file = new File(AndroidUtils.getCacheDirectory(this), url);
+		if (file.exists() && !file.isDirectory()) {
+			return file;
+		}
+		return null;
+	}
+
+	private final DownloadListener PdfDownloadListener = new DownloadListener() {
+
+		@Override
+		public void onStart(DownloadTask task) {
+
+		}
+
+		@Override
+		public void onDoing(DownloadTask task, int progress) {
+
+		}
+
+		@Override
+		public void onPause(DownloadTask task, String message) {
+
+		}
+
+		@Override
+		public void onResume(DownloadTask task) {
+
+		}
+
+		@Override
+		public void onSuccess(DownloadTask task) {
+			dismissProgressDialog();
+			
+
+			Intent intent = new Intent();
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			String type = "application/pdf";
+			intent.setDataAndType(Uri.fromFile(task.downloadFile()), type);
+			startActivity(Intent.createChooser(intent, "选择程序"));
+		}
+
+		@Override
+		public void onFailed(DownloadTask task, String message) {
+
+		}
+
+		@Override
+		public void onCancel(DownloadTask task) {
+
+		}
+
+	};
 
 	class Adapter extends BasicDSAdapter {
 
