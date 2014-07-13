@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/table_view_item_with_line"
             android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.2"
             android:text="招商\n酒店管理咨询行业领导者"
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_info" />
@@ -89,13 +90,14 @@
             android:text="案例客户" />
 
         <TextView
-            android:id="@+id/server_product"
+            android:id="@+id/server_client"
             style="@style/CommonPadding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/table_view_item_with_line"
             android:gravity="center_vertical"
             android:text="希尔顿\n如家快捷"
+            android:lineSpacingMultiplier="1.2"   
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_info" />
     </LinearLayout>

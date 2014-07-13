@@ -19,7 +19,7 @@ import com.wanlonggroup.caiplus.app.BasePtrListFragment;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.util.Utils;
 
-public class CxListFragment extends BasePtrListFragment {
+public abstract class CxListFragment extends BasePtrListFragment {
 
 	CXListAdapter adapter;
 
@@ -29,13 +29,9 @@ public class CxListFragment extends BasePtrListFragment {
 		listView.setAdapter(adapter);
 	};
 
-	SHPostTaskM createQueryTask() {
-		return null;
-	}
+	abstract SHPostTaskM createQueryTask();
 
-	CXListAdapter createAdapter() {
-		return new CXListAdapter();
-	}
+	abstract CXListAdapter createAdapter();
 
 	void queryList() {
 		SHPostTaskM task = createQueryTask();

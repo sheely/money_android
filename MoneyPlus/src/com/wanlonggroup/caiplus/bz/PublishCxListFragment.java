@@ -1,5 +1,7 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +11,15 @@ import android.widget.TextView;
 
 import com.damon.ds.app.DSObject;
 import com.next.net.SHPostTaskM;
+import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.util.Utils;
 
 public class PublishCxListFragment extends CxListFragment {
-
+	
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
-		cxlistReq.getTaskArgs().put("statusWithMe", 1);
+		cxlistReq.getTaskArgs().put("statusWithMe", 0);
 		cxlistReq.getTaskArgs().put("oppoType", "");
 		cxlistReq.getTaskArgs().put("bossName", "");
 		cxlistReq.getTaskArgs().put("oppoTitle", "");
@@ -52,6 +55,9 @@ public class PublishCxListFragment extends CxListFragment {
 			holder.type.setText("类别：" + dsCx.getString("oppoType"));
 			holder.pubTime.setText("发布：" + Utils.formate(dsCx.getString("publishTime")));
 			holder.status.setText("状态：" + dsCx.getString("oppoStatus"));
+			holder.button1.setTag(dsCx);
+			holder.button2.setTag(dsCx);
+			holder.button3.setTag(dsCx);
 			if ("已关闭".equals(dsCx.getString("oppoStatus"))) {
 				holder.button1.setText("打开财信");
 				holder.button1.setBackgroundResource(R.drawable.btn_blue);
@@ -66,8 +72,66 @@ public class PublishCxListFragment extends CxListFragment {
 					goCxDetail(dsCx);
 				}
 			});
+			
+			holder.button1.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					openOrClose(dsCx);
+				}
+			});
+			holder.button2.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxcommentlist"));
+					intent.putExtra("caixin", dsCx);
+					startActivity(intent);
+				}
+			});
+			holder.button3.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxexecuteinfo"));
+					intent.putExtra("caixin", dsCx);
+					startActivity(intent);
+				}
+			});
 			return convertView;
 		}
 	}
-
+	
+	SHPostTaskM openOrCloseTask;
+	void openOrClose(DSObject dsCx){
+		openOrCloseTask = getTask(DEFAULT_API_URL+"miOpenOppo.do", this);
+		openOrCloseTask.getTaskArgs().put("oppoId", dsCx.getString("oppoId"));
+		if ("已关闭".equals(dsCx.getString("oppoStatus"))) {
+			openOrCloseTask.getTaskArgs().put("targetStatus", 1);
+		}else{
+			openOrCloseTask.getTaskArgs().put("targetStatus", 0);
+		}
+		openOrCloseTask.start();
+		showProgressDialog();
+	}
+	
+	@Override
+	public void onTaskFinished(SHTask task) throws Exception {
+		dismissProgressDialog();
+		if(task == openOrCloseTask){
+			adapter.notifyDataSetChanged();
+		}else{
+			super.onTaskFinished(task);
+		}
+	}
+	
+	@Override
+	public void onTaskFailed(SHTask task) {
+		dismissProgressDialog();
+		if(task == openOrCloseTask){
+			task.getRespInfo().show(getActivity());
+		}else{
+			super.onTaskFailed(task);
+		}
+	}
 }

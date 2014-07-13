@@ -18,8 +18,6 @@ public class SHIdentication {
 					jsResult.put("username",SHEnvironment.getInstance().getLoginID());
 					jsResult.put("password",SHEnvironment.getInstance().getPassword());
 					jsResult.put("imei","111111");
-					jsResult.put("appUuid",SHEnvironment.getInstance().getClientID());
-				
 				}
 				jsResult.put("info","systemVersion:"+SHEnvironment.getInstance().getVersion()+ ";systemModel:android");
 				jsResult.put("version", SHEnvironment.getInstance().getVersion().toString());

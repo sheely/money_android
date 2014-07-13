@@ -1,5 +1,6 @@
 package com.damon.ds.app;
 
+import java.io.File;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -11,9 +12,12 @@ import android.os.Message;
 import com.damon.ds.util.DSLog;
 import com.next.app.StandardApplication;
 import com.next.util.Log;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 public class DSApplication extends StandardApplication {
 
@@ -53,14 +57,12 @@ public class DSApplication extends StandardApplication {
 	}
 
 	public static void initImageLoader(Context context) {
-		// This configuration tuning is custom. You can tune every option, you
-		// may tune some of them,
-		// or you can create default configuration by
-		// ImageLoaderConfiguration.createDefault(this);
-		// method.
+		File cacheDir = StorageUtils.getCacheDirectory(context);
 		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(context)
 				.threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory()
-				.discCacheFileNameGenerator(new Md5FileNameGenerator());
+				.discCacheFileNameGenerator(new Md5FileNameGenerator()).memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+		        .memoryCacheSize(2 * 1024 * 1024).discCache(new UnlimitedDiscCache(cacheDir)).discCacheSize(50 * 1024 * 1024)
+		        .discCacheFileCount(100);
 		if (DSLog.isLoggable(DSLog.VERBOSE)) {
 			builder.writeDebugLogs();
 		}

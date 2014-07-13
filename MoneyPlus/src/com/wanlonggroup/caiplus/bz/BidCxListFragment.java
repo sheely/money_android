@@ -1,5 +1,7 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +18,7 @@ public class BidCxListFragment extends CxListFragment {
 
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
-		cxlistReq.getTaskArgs().put("statusWithMe", 2);
+		cxlistReq.getTaskArgs().put("statusWithMe", 1);
 		cxlistReq.getTaskArgs().put("oppoType", "");
 		cxlistReq.getTaskArgs().put("bossName", "");
 		cxlistReq.getTaskArgs().put("oppoTitle", "");
@@ -51,8 +53,27 @@ public class BidCxListFragment extends CxListFragment {
 			holder.type.setText("类别：" + dsCx.getString("oppoType"));
 			holder.pubTime.setText("发布：" + Utils.formate(dsCx.getString("publishTime")));
 			holder.status.setText("状态：" + dsCx.getString("oppoStatus"));
+
+			holder.button1.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxcommentlist"));
+					intent.putExtra("caixin", dsCx);
+					startActivity(intent);
+				}
+			});
+			holder.button2.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxexecuteinfo"));
+					intent.putExtra("caixin", dsCx);
+					startActivity(intent);
+				}
+			});
 			convertView.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					goCxDetail(dsCx);

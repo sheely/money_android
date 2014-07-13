@@ -61,6 +61,10 @@ public class DSObject implements Parcelable {
 		}
 		return this.objName.equals(objName);
 	}
+	
+	public boolean hasKey(String name){
+		return jsonObj.has(name);
+	}
 
 	public JSONObject getRootJsonObject() {
 		return jsonObj;

@@ -18,5 +18,10 @@ public class JoinCxListFragment extends CxListFragment {
 		cxlistReq.start();
 		return cxlistReq;
 	}
+	
+	@Override
+	CXListAdapter createAdapter() {
+		return new CXListAdapter();
+	}
 
 }

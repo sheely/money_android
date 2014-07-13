@@ -72,6 +72,7 @@ public class LoginActivity extends BaseActivity {
 		SHEnvironment.getInstance().setPassword(StringUtils.MD5Encode(passwordText.getText().toString()));
 
 		loginTask = getTask(DEFAULT_API_URL + "milogin.do", this);
+		loginTask.getTaskArgs().put("appUuid",SHEnvironment.getInstance().getClientID());
 		loginTask.start();
 		showProgressDialog();
 	}

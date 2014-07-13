@@ -243,6 +243,9 @@ public class DSActivity extends FragmentActivity {
 
 	public void dismissProgressDialog() {
 		progressDialogCount--;
+		if (progressDialogCount < 0) {
+			progressDialogCount = 0;
+		}
 		if (progressDialogCount == 0 && progressDialog != null && progressDialog.isShowing()) {
 			progressDialog.dismiss();
 		}

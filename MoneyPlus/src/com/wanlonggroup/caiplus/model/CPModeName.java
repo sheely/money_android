@@ -26,5 +26,13 @@ public class CPModeName {
 	
 	public static final String CY_DETAIL = "cydetail";
 	
+	public static final String CQ_COMPANY_LIST = "companys";
+	
+	public static final String CQ_COMPANY_ITEM = "company";
+	
+	public static final String CQ_TEAM_LIST = "teams";
+	
+	public static final String CQ_TEAM_ITEM = "teams";
+	
 	
 }

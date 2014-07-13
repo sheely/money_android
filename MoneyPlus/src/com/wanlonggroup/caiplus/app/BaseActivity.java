@@ -24,7 +24,7 @@ public class BaseActivity extends DSActivity implements AccountListener, ITaskLi
 	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
 
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
-	protected static DisplayImageOptions displayOptions = DisplayImageOptions.createSimple();
+	protected static DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
