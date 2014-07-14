@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.damon.ds.app.DSObject;
+import com.damon.ds.util.Collection2Utils;
 import com.damon.ds.util.DSObjectFactory;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -62,7 +63,10 @@ public abstract class CxListFragment extends BasePtrListFragment {
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		DSObject dsCxList = DSObjectFactory.create(CPModeName.CAIXIN_LIST).fromJson(task.getResult());
-		adapter.appendList(dsCxList.getArray(CPModeName.CAIXIN_LIST, CPModeName.CAIXIN_ITEM));
+		DSObject[] arr = dsCxList.getArray(CPModeName.CAIXIN_LIST, CPModeName.CAIXIN_ITEM);
+		if(!Collection2Utils.isEmpty(arr)){
+			adapter.appendList(arr);
+		}
 		listView.onRefreshComplete();
 	}
 
@@ -100,7 +104,6 @@ public abstract class CxListFragment extends BasePtrListFragment {
 		public void loadNextData(int startIndex) {
 			queryList();
 		}
-
 	}
 
 	public static class ViewHolder {

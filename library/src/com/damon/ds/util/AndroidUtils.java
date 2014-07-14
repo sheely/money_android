@@ -174,8 +174,13 @@ public class AndroidUtils {
 		return appCacheDir;
 	}
 
-	private static boolean hasExternalStoragePermission(Context context) {
+	public static boolean hasExternalStoragePermission(Context context) {
 		int perm = context.checkCallingOrSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+		return (perm == 0);
+	}
+	
+	public static boolean hasPermission(Context context,String permission){
+		int perm = context.checkCallingOrSelfPermission(permission);
 		return (perm == 0);
 	}
 

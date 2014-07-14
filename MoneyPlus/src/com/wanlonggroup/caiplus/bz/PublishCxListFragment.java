@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -102,6 +102,7 @@ public class PublishCxListFragment extends CxListFragment {
 		}
 	}
 	
+	DSObject selectedDsCx;
 	SHPostTaskM openOrCloseTask;
 	void openOrClose(DSObject dsCx){
 		openOrCloseTask = getTask(DEFAULT_API_URL+"miOpenOppo.do", this);
@@ -112,14 +113,24 @@ public class PublishCxListFragment extends CxListFragment {
 			openOrCloseTask.getTaskArgs().put("targetStatus", 0);
 		}
 		openOrCloseTask.start();
+		selectedDsCx = dsCx;
 		showProgressDialog();
+	}
+	
+	@Override
+	public void onProgressDialogCancel() {
+		if(openOrCloseTask != null){
+			openOrCloseTask.cancel(true);
+			openOrCloseTask = null;
+		}
 	}
 	
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		if(task == openOrCloseTask){
-			adapter.notifyDataSetChanged();
+			openOrCloseTask = null;
+			queryList();
 		}else{
 			super.onTaskFinished(task);
 		}
@@ -129,6 +140,7 @@ public class PublishCxListFragment extends CxListFragment {
 	public void onTaskFailed(SHTask task) {
 		dismissProgressDialog();
 		if(task == openOrCloseTask){
+			openOrCloseTask = null;
 			task.getRespInfo().show(getActivity());
 		}else{
 			super.onTaskFailed(task);

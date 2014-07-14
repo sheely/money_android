@@ -64,7 +64,7 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 	public int getViewTypeCount() {
 		return 4;
 	}
-	
+
 	@Override
 	public int getItemViewType(int position) {
 		Object object = getItem(position);
@@ -107,28 +107,30 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 		return "暂无相关数据";
 	}
 
-	public abstract View getCPItemView(int position, View convertView,
-			ViewGroup parent);
+	public abstract View getCPItemView(int position, View convertView, ViewGroup parent);
 
 	public abstract void loadNextData(int startIndex);
 
 	public void appendList(DSObject[] arr) {
-		appendList(arr, true, null);
+		appendList(arr, true, true, null);
 	}
 
 	public void appendList(DSObject[] arr, String errorMsg) {
-		appendList(arr, TextUtils.isEmpty(errorMsg), errorMsg);
-	}
-	
-	public void appendList(DSObject[] arr, boolean isEnd){
-		appendList(arr, isEnd, null);
+		appendList(arr, TextUtils.isEmpty(errorMsg), true, errorMsg);
 	}
 
-	public void appendList(DSObject[] arr, boolean isEnd, String errorMsg) {
+	public void appendList(DSObject[] arr, boolean isEnd) {
+		appendList(arr, isEnd, true, null);
+	}
+
+	public void appendList(DSObject[] arr, boolean isEnd, boolean clear, String errorMsg) {
 		this.isEnd = isEnd;
 		this.errorMsg = errorMsg;
-		this.startIndex += this.dsList.size();
 		if (arr != null) {
+			if (clear) {
+				this.dsList.clear();
+			}
+			this.startIndex += this.dsList.size();
 			this.dsList.addAll(Arrays.asList(arr));
 			this.nextStartIndex += this.dsList.size();
 		}
