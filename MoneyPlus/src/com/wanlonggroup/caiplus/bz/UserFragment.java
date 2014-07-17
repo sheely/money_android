@@ -49,8 +49,11 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(myCalender == v){
+			startActivity("cp://mycalender");
 		}else if(myConcern == v){
+			startActivity("cp://myconcern");
 		}else if(myTeam == v){
+			startActivity("cp://myteam");
 		}else if(logoutBtn == v){
 			showAlert("提示", "确认退出?", true, new DialogInterface.OnClickListener() {
 				

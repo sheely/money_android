@@ -106,8 +106,8 @@ public class DSActionBar extends FrameLayout {
 		TextView textView = new TextView(getContext());
 		textView.setText(title);
 		textView.setTextColor(getResources().getColor(R.color.white));
-		textView.setPadding(Pix2Utils.dip2px(getContext(), 5), 0, 0, 0);
-		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceSmall);
+		textView.setPadding(0, 0, Pix2Utils.dip2px(getContext(), 10), 0);
+		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceMedium);
 		addAction(textView, tag, listener);
 	}
 

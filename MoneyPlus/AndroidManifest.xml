@@ -224,6 +224,57 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.wanlonggroup.caiplus.bz.MyCalenderActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="我的日历"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="mycalender"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.MyConcernActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="我的关注"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="myconcern"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.MyTeamActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="我的团队"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="myteam"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.wanlonggroup.caiplus.app.DebugActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Debug"

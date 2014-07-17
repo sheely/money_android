@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wanlonggroup.caiplus.widget.CyListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cp="http://schemas.android.com/apk/res/com.wanlonggroup.caiplus"
+    style="@style/BasicSingleItemStyle"
+    android:background="@drawable/table_view_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    cp:item_indicator="@drawable/arrow_normal" />

@@ -162,6 +162,8 @@
         <item name="item_subTitleSize">@dimen/text_size_list</item>
         <item name="item_titleColor">@color/light_gray</item>
         <item name="item_titleSize">@dimen/text_size_list</item>
+        <item name="item_countColor">@color/light_gray</item>
+        <item name="item_countSize">@dimen/text_size_info</item>
     </style>
     
      <style name="BasicSingleItemStyleNoIndicator" parent="BasicSingleItemStyle">

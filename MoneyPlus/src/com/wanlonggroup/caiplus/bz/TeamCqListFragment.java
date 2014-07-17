@@ -49,6 +49,9 @@ public class TeamCqListFragment extends CqListFragment {
 			}else{
 				holder = (ViewHolder) convertView.getTag();
 			}
+			DSObject dsCq = (DSObject) getItem(position);
+			holder.title.setText(dsCq.getString("teamName"));
+			imageLoader.displayImage(dsCq.getString("teamHeadIcon"), holder.icon, displayOptions);
 			return convertView;
 		}
 	}
