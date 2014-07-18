@@ -34,5 +34,9 @@ public class CPModeName {
 	
 	public static final String CQ_TEAM_ITEM = "teams";
 	
+	public static final String MY_CALENDER_LIST = "tasks";
+	
+	public static final String MY_CALENDER_ITEM = "task";
+	
 	
 }

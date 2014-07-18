@@ -6,6 +6,9 @@ import java.util.Arrays;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.damon.ds.adapter.BasicAdapter;
 import com.damon.ds.app.DSObject;
@@ -111,6 +114,11 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 
 	public abstract void loadNextData(int startIndex);
 
+	public void remove(DSObject obj){
+		dsList.remove(obj);
+		notifyDataSetChanged();
+	}
+	
 	public void appendList(DSObject[] arr) {
 		appendList(arr, true, true, null);
 	}
@@ -122,7 +130,7 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 	public void appendList(DSObject[] arr, boolean isEnd) {
 		appendList(arr, isEnd, true, null);
 	}
-
+	
 	public void appendList(DSObject[] arr, boolean isEnd, boolean clear, String errorMsg) {
 		this.isEnd = isEnd;
 		this.errorMsg = errorMsg;
@@ -135,5 +143,15 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 			this.nextStartIndex += this.dsList.size();
 		}
 		notifyDataSetChanged();
+	}
+
+	public static class BasicViewHolder {
+		public TextView textView1;
+		public TextView textView2;
+		public TextView textView3;
+		public ImageView icon1;
+		public ImageView icon2;
+		public Button button1;
+		public Button button2;
 	}
 }

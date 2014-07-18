@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/InfoGrayText"
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:text="日期" />
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/InfoBlackText"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2014-05-21 至 2014-09-12" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:text="已占用"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_info" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/InfoGrayText"
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:text="事由" />
+
+        <TextView
+            android:id="@+id/content"
+            style="@style/InfoBlackText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="范德萨发生地方" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/edit"
+            style="@style/BlueButton"
+            android:layout_width="60dip"
+            android:layout_height="30dip"
+            android:text="编辑" />
+
+        <View
+            android:layout_width="20dip"
+            android:layout_height="2dip" />
+
+        <Button
+            android:id="@+id/cancel"
+            style="@style/RedButton"
+            android:layout_width="60dip"
+            android:layout_height="30dip"
+            android:text="删除" />
+    </LinearLayout>
+
+</LinearLayout>
