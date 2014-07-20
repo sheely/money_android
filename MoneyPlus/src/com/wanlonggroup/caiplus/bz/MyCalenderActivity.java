@@ -2,6 +2,8 @@ package com.wanlonggroup.caiplus.bz;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,8 +22,7 @@ import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
 public class MyCalenderActivity extends BasePtrListActivity implements OnClickListener {
-	
-	
+
 	public static final int REQUEST_MODIFY_CALENDER = 0xff09;
 
 	CalenderAdapter adapter;
@@ -31,10 +32,8 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 	DSObject dsSelectedTask;
 
 	@Override
-	public void onCreateActionBar(DSActionBar actionBar) {
-		super.onCreateActionBar(actionBar);
-		actionBar.addAction("新增", "add_calender", this);
-
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		isOwnTask = getIntParam("isowntask");
 		queryedUsername = getStringParam("queryedusername");
 
@@ -43,22 +42,31 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 	}
 
 	@Override
+	public void onCreateActionBar(DSActionBar actionBar) {
+		super.onCreateActionBar(actionBar);
+		actionBar.addAction("新增", "add_calender", this);
+		if (isOwnTask != 1 && !TextUtils.isEmpty(queryedUsername)) {
+			setTitle(queryedUsername + "的日历");
+		}
+	}
+
+	@Override
 	public void onClick(View v) {
 		if ("add_calender".equals(v.getTag())) {
-			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://modifycalender"));
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://modifycalender"));
 			startActivityForResult(intent, REQUEST_MODIFY_CALENDER);
 		}
 	}
-	
+
 	protected void onPullToRefresh() {
 		queryList();
 	};
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode != RESULT_OK){
+		if (resultCode != RESULT_OK) {
 			return;
 		}
-		if(requestCode == REQUEST_MODIFY_CALENDER){
+		if (requestCode == REQUEST_MODIFY_CALENDER) {
 			adapter.reset();
 		}
 	};
@@ -145,7 +153,7 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 				@Override
 				public void onClick(View v) {
 					dsSelectedTask = dsTask;
-					Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://modifycalender"));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://modifycalender"));
 					intent.putExtra("task", dsSelectedTask);
 					startActivityForResult(intent, REQUEST_MODIFY_CALENDER);
 				}

@@ -23,12 +23,12 @@ public class TeamCqListFragment extends CqListFragment {
 	}
 
 	SHPostTaskM createQueryTask() {
-		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryTeam.do", this);
-		cxlistReq.getTaskArgs().put("ownerUserName", "");
-		cxlistReq.getTaskArgs().put("teamName", "");
-		cxlistReq.getTaskArgs().put("memberUserName", "");
-		cxlistReq.start();
-		return cxlistReq;
+		SHPostTaskM teamListTask = getTask(DEFAULT_API_URL + "miQueryTeam.do", this);
+		teamListTask.getTaskArgs().put("ownerUserName", "");
+		teamListTask.getTaskArgs().put("teamName", "");
+		teamListTask.getTaskArgs().put("memberUserName", "");
+		teamListTask.start();
+		return teamListTask;
 	}
 
 	@Override

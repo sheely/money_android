@@ -1,5 +1,7 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +80,7 @@ public class MyConcernActivity extends BasePtrListActivity {
 		
 		@Override
 		public boolean isEnabled(int position) {
-			return false;
+			return true;
 		}
 
 		@Override
@@ -106,6 +108,16 @@ public class MyConcernActivity extends BasePtrListActivity {
 				public void onClick(View v) {
 					dsSelectedFollower = dsFollower;
 					cancelConcern(dsFollower);
+				}
+			});
+			viewHolder.textView3.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://mycalender"));
+					intent.putExtra("isowntask", 0);
+					intent.putExtra("queryedusername", dsFollower.getString("followerName"));
+					startActivity(intent);
 				}
 			});
 			return convertView;
