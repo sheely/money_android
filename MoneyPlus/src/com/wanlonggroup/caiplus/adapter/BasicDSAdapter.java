@@ -149,6 +149,8 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 		public TextView textView1;
 		public TextView textView2;
 		public TextView textView3;
+		public TextView textView4;
+		public TextView textView5;
 		public ImageView icon1;
 		public ImageView icon2;
 		public Button button1;

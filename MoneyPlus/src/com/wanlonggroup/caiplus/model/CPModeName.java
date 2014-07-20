@@ -38,5 +38,9 @@ public class CPModeName {
 	
 	public static final String MY_CALENDER_ITEM = "task";
 	
+public static final String MY_CONCERN_LIST = "followers";
+	
+	public static final String MY_CONCERN_ITEM = "follower";
+	
 	
 }
