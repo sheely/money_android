@@ -173,6 +173,19 @@ public class DSObject implements Parcelable {
 		}
 		return this;
 	}
+	
+	public DSObject put(String name, DSObject[] arr) {
+		try {
+			JSONArray jonsArr = new JSONArray();
+			for (DSObject obj : arr) {
+				jonsArr.put(obj.jsonObj);
+			}
+			put(name, jonsArr);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
+		return this;
+	}
 
 	public DSObject getDSObject(String name) {
 		return getDSObject(name, name);
