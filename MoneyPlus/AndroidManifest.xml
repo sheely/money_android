@@ -103,7 +103,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wanlonggroup.caiplus.bz.CxReviewDetailActivity"
+            android:name="com.wanlonggroup.caiplus.bz.CxLeaveMessageActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财信留言"
             android:screenOrientation="portrait"
@@ -119,8 +119,7 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
-         <activity
+        <activity
             android:name="com.wanlonggroup.caiplus.bz.CxCommentListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财信评论"
@@ -188,7 +187,6 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.wanlonggroup.caiplus.bz.CqCompanyDetailActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -274,7 +272,6 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.wanlonggroup.caiplus.bz.ModifyCalenderActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -289,6 +286,77 @@
 
                 <data
                     android:host="modifycalender"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.CxListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财信"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cxlist"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.SkillDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="skilldetail"
+                    android:scheme="cp" />
+                <data
+                    android:host="casedetail"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.QueryCyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财友搜索"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="querycy"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.wanlonggroup.caiplus.bz.CyListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财友列表"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cylist"
                     android:scheme="cp" />
             </intent-filter>
         </activity>

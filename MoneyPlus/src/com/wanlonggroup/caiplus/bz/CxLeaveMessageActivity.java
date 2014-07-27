@@ -19,7 +19,7 @@ import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class CxReviewDetailActivity extends BasePtrListActivity implements OnClickListener {
+public class CxLeaveMessageActivity extends BasePtrListActivity implements OnClickListener {
 
 	DSObject dsCaixin;
 	DSObject dsLeavemessages;

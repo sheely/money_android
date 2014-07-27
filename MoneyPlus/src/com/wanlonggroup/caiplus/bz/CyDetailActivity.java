@@ -2,6 +2,8 @@ package com.wanlonggroup.caiplus.bz;
 
 import java.util.Arrays;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,7 +25,7 @@ import com.wanlonggroup.caiplus.adapter.CommonDSAdapter;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class CyDetailActivity extends BaseActivity {
+public class CyDetailActivity extends BaseActivity implements View.OnClickListener, TableView.OnItemClickListener {
 
 	String publisherId;
 	DSObject dsCyDetail;
@@ -36,7 +38,7 @@ public class CyDetailActivity extends BaseActivity {
 		queryDetail();
 	}
 
-	TextView userNameView, techonologyTitleView, personalExperienceView, personalClientsView;
+	TextView concernView, sendcxView, userNameView, techonologyTitleView, personalExperienceView, personalClientsView;
 	BasicItem compayItem, jobItem, emailItem, mobileItem, chargeItem, degreeItem, collegeItem;
 	TableView personalSkillsTable, successfulCasesTable, myTasksTable;
 	ImageView headIcon;
@@ -45,6 +47,10 @@ public class CyDetailActivity extends BaseActivity {
 		setContentView(R.layout.cy_detail);
 		userNameView = (TextView) findViewById(R.id.username);
 		headIcon = (ImageView) findViewById(R.id.icon);
+		concernView = (TextView) findViewById(R.id.concern);
+		concernView.setOnClickListener(this);
+		sendcxView = (TextView) findViewById(R.id.send_cx);
+		sendcxView.setOnClickListener(this);
 
 		techonologyTitleView = (TextView) findViewById(R.id.techonologyTitle);
 		personalExperienceView = (TextView) findViewById(R.id.personalExperience);
@@ -58,7 +64,11 @@ public class CyDetailActivity extends BaseActivity {
 		collegeItem = (BasicItem) findViewById(R.id.college_item);
 
 		personalSkillsTable = (TableView) findViewById(R.id.personalSkills);
+		personalSkillsTable.setOnItemClickListener(this);
+
 		successfulCasesTable = (TableView) findViewById(R.id.successfulCases);
+		successfulCasesTable.setOnItemClickListener(this);
+
 		myTasksTable = (TableView) findViewById(R.id.myTasks);
 
 	}
@@ -69,6 +79,8 @@ public class CyDetailActivity extends BaseActivity {
 		}
 		userNameView.setText(dsCyDetail.getString("friendName"));
 		imageLoader.displayImage(dsCyDetail.getString("friendHeadIcon"), headIcon);
+		concernView.setText(dsCyDetail.getInt("isFollowed") == 1 ? "取消关注" : "加关注");
+
 		compayItem.setSubTitle(dsCyDetail.getString("companyName"));
 		jobItem.setSubTitle(dsCyDetail.getString("friendTitle"));
 		emailItem.setSubTitle(dsCyDetail.getString("friendMail"));
@@ -77,7 +89,7 @@ public class CyDetailActivity extends BaseActivity {
 		degreeItem.setSubTitle(dsCyDetail.getString("maxAttainment"));
 		collegeItem.setSubTitle(dsCyDetail.getString("graduatedSchool"));
 
-		DSObject[] tmp = dsCyDetail.getArray("techonologyTitle","techonologyName");
+		DSObject[] tmp = dsCyDetail.getArray("techonologyTitle", "techonologyName");
 		techonologyTitleView.setText(null);
 		if (!Collection2Utils.isEmpty(tmp)) {
 			for (DSObject obj : tmp) {
@@ -88,7 +100,7 @@ public class CyDetailActivity extends BaseActivity {
 			}
 		}
 
-		tmp = dsCyDetail.getArray("personalExperience","experienceName");
+		tmp = dsCyDetail.getArray("personalExperience", "experienceName");
 		personalExperienceView.setText(null);
 		if (!Collection2Utils.isEmpty(tmp)) {
 			for (DSObject obj : tmp) {
@@ -99,7 +111,7 @@ public class CyDetailActivity extends BaseActivity {
 			}
 		}
 
-		tmp = dsCyDetail.getArray("personalClients","clientName");
+		tmp = dsCyDetail.getArray("personalClients", "clientName");
 		personalClientsView.setText(null);
 		if (!Collection2Utils.isEmpty(tmp)) {
 			for (DSObject obj : tmp) {
@@ -109,11 +121,36 @@ public class CyDetailActivity extends BaseActivity {
 				personalClientsView.append(obj.getString("clientName"));
 			}
 		}
-		
+
 		personalSkillsTable.setAdapter(new Adapter(dsCyDetail.getArray("personalSkills")));
 		successfulCasesTable.setAdapter(new Adapter(dsCyDetail.getArray("successfulCases")));
 		myTasksTable.setAdapter(new Adapter(dsCyDetail.getArray("myTasks")));
 	}
+
+	public void onClick(View v) {
+		if (v == concernView) {
+			addOrDelete();
+		}
+	};
+
+	public void onItemClick(TableView parent, View view, int position, long id) {
+		if (parent == personalSkillsTable) {
+			DSObject obj = (DSObject) personalSkillsTable.getAdapter().getItem(position);
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://skilldetail"));
+			intent.putExtra("itemtype", 1);
+			intent.putExtra("itemid", obj.getString("skillId"));
+			intent.putExtra("itemtitle", obj.getString("skillTitle"));
+			startActivity(intent);
+
+		} else if (parent == successfulCasesTable) {
+			DSObject obj = (DSObject) successfulCasesTable.getAdapter().getItem(position);
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://casedetail"));
+			intent.putExtra("itemtype", 2);
+			intent.putExtra("itemid", obj.getString("caseId"));
+			intent.putExtra("itemtitle", obj.getString("caseTitle"));
+			startActivity(intent);
+		}
+	};
 
 	SHPostTaskM detailTask;
 
@@ -124,11 +161,31 @@ public class CyDetailActivity extends BaseActivity {
 		showProgressDialog();
 	}
 
+	SHPostTaskM addOrdelTask;
+
+	void addOrDelete() {
+		addOrdelTask = getTask(DEFAULT_API_URL + "miFollowerAdd.do", this);
+		addOrdelTask.getTaskArgs().put("myUserName", accountService().name());
+		addOrdelTask.getTaskArgs().put("followerUserName", dsCyDetail.getString("friendName"));
+		addOrdelTask.getTaskArgs().put("addOrDelete", dsCyDetail.getInt("isFollowed") == 0 ? 1 : 0);
+		addOrdelTask.start();
+		showProgressDialog();
+	}
+
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
-		dsCyDetail = DSObjectFactory.create(CPModeName.CY_DETAIL).fromJson(task.getResult());
-		updateView();
+		if (detailTask == task) {
+			dsCyDetail = DSObjectFactory.create(CPModeName.CY_DETAIL).fromJson(task.getResult());
+			updateView();
+		} else if (addOrdelTask == task) {
+			if (dsCyDetail.getInt("isFollowed") == 0) {
+				dsCyDetail.put("isFollowed", 1);
+			} else {
+				dsCyDetail.put("isFollowed", 0);
+			}
+			updateView();
+		}
 	}
 
 	class Adapter extends CommonDSAdapter {
@@ -137,6 +194,18 @@ public class CyDetailActivity extends BaseActivity {
 			if (data != null) {
 				this.dsList.addAll(Arrays.asList(data));
 			}
+		}
+
+		public String getTitle(int position) {
+			DSObject obj = getItem(position);
+			if (obj.isObject("personalSkills")) {
+				return obj.getString("skillTitle");
+			} else if (obj.isObject("successfulCases")) {
+				return obj.getString("caseTitle");
+			} else if (obj.isObject("myTasks")) {
+				return obj.getString("taskStatus");
+			}
+			return "";
 		}
 
 		@Override
@@ -148,13 +217,17 @@ public class CyDetailActivity extends BaseActivity {
 			}
 			BasicSingleItem item = (BasicSingleItem) convertView;
 			if (obj.isObject("personalSkills")) {
-				item.setTitle(obj.getString("skillTitle"));
+				item.setTitle(getTitle(position));
+				item.setClickable(true);
 			} else if (obj.isObject("successfulCases")) {
-				item.setTitle(obj.getString("caseTitle"));
+				item.setTitle(getTitle(position));
+				item.setClickable(true);
 			} else if (obj.isObject("myTasks")) {
 				item.setTitle(obj.getString("startTime") + " - " + obj.getString("endTime"));
-				item.setSubTitle(obj.getString("taskStatus"));
+				item.setSubTitle(getTitle(position));
 				item.setSubTitleColor(getResources().getColor(R.color.red));
+				item.setIndicator(0);
+				item.setClickable(false);
 			}
 			return convertView;
 		}

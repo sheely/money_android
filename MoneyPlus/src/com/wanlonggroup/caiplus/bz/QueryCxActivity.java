@@ -1,6 +1,8 @@
 package com.wanlonggroup.caiplus.bz;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +13,7 @@ import android.widget.Spinner;
 
 import com.damon.ds.app.DSObject;
 import com.damon.ds.util.DSObjectFactory;
+import com.next.net.SHCacheType;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -33,6 +36,8 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 		executeEditText = (EditText) findViewById(R.id.execute);
 		titleEditText = (EditText) findViewById(R.id.title);
 		queryButton = (Button) findViewById(R.id.query_btn);
+		queryButton.setOnClickListener(this);
+		queryButton.setEnabled(false);
 
 		queryCate();
 	}
@@ -41,10 +46,11 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 
 	void queryCate() {
 		queryCateTask = getTask(DEFAULT_API_URL + "miQueryOppoListInit.do", this);
+		queryCateTask.setChacheType(SHCacheType.PERSISTENT);
 		queryCateTask.start();
 		showProgressDialog();
 	}
-
+	
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
@@ -53,12 +59,19 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 			cateAdapter = new CateAdapter(this, android.R.layout.simple_spinner_item, dsobj.getArray(CPModeName.CAIXIN_TYPE_LIST,CPModeName.CAIXIN_TYPE_ITEM));
 			cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			cateSpinner.setAdapter(cateAdapter);
+			queryButton.setEnabled(true);
 		}
 	}
 
 	@Override
 	public void onClick(View v) {
-
+		if(v == queryButton){
+			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cxlist"));
+			intent.putExtra("oppotype", cateAdapter.getOppoType(cateSpinner.getSelectedItemPosition()));
+			intent.putExtra("bossname", executeEditText.getText().toString());
+			intent.putExtra("oppotitle", titleEditText.getText().toString());
+			startActivity(intent);
+		}
 	}
 
 	class CateAdapter extends ArrayAdapter<String> {
@@ -81,6 +94,10 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public String getItem(int position) {
 			return dsCates[position].getString("value");
+		}
+		
+		public String getOppoType(int position){
+			return dsCates[position].getString("key");
 		}
 
 	}

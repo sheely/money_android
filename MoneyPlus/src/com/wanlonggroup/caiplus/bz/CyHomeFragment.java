@@ -34,7 +34,7 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
 
 	@Override
 	public void onClick(View v) {
-
+		startActivity("cp://querycy");
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {

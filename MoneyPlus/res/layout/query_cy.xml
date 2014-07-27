@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="按分类" />
+
+    <Spinner
+        android:id="@+id/category"
+        style="@style/SingleLineTableItemWithPaddingLine" />
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="按公司" />
+
+    <Spinner
+        android:id="@+id/company"
+        style="@style/SingleLineTableItemWithPaddingLine" />
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="财友名称" />
+
+    <EditText
+        android:id="@+id/name"
+        style="@style/SingleLineTableItemWithPaddingLine"
+        android:hint="财友名称" />
+    
+     <TextView
+        style="@style/TableHeaderTextView"
+        android:text="按地域" />
+
+    <EditText
+        android:id="@+id/address"
+        style="@style/SingleLineTableItemWithPaddingLine"
+        android:hint="地域关键字" />
+
+    <Button
+        android:id="@+id/query_btn"
+        style="@style/BlueButton"
+        android:layout_margin="15dip"
+        android:text="查找" />
+
+</LinearLayout>

@@ -44,9 +44,10 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 	@Override
 	public void onCreateActionBar(DSActionBar actionBar) {
 		super.onCreateActionBar(actionBar);
-		actionBar.addAction("新增", "add_calender", this);
-		if (isOwnTask != 1 && !TextUtils.isEmpty(queryedUsername)) {
+		if (isOwnTask != 1) {
 			setTitle(queryedUsername + "的日历");
+		}else{
+			actionBar.addAction("新增", "add_calender", this);
 		}
 	}
 
@@ -169,6 +170,9 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 					deleteTask(dsSelectedTask);
 				}
 			});
+			if(isOwnTask != 1){
+				convertView.findViewById(R.id.layer).setVisibility(View.GONE);
+			}
 			return convertView;
 		}
 

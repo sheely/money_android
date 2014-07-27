@@ -90,6 +90,9 @@ public class CxDetailHeader extends LinearLayout {
 	public void setMode(HeaderMode mode) {
 		if (mode == HeaderMode.exec) {
 			findViewById(R.id.layer).setVisibility(GONE);
+			titleItem.setVisibility(View.GONE);
+			cateItem.setVisibility(View.GONE);
+			publishItem.setTitle("执行者");
 		}
 	}
 

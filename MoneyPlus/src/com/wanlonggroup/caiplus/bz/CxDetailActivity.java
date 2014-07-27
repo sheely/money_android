@@ -40,21 +40,23 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener {
 		}
 		setContentView(R.layout.cx_detail);
 		setupView();
+		updateView();
 		queryCaixin();
 	}
 
 	CxDetailHeader cxDetailHeader;
 	TextView desView;
 	Button reviewBtn;
+
 	void setupView() {
 		cxDetailHeader = (CxDetailHeader) findViewById(R.id.detail_header);
 		desView = (TextView) findViewById(R.id.desc);
 		reviewBtn = (Button) findViewById(R.id.review_btn);
 		reviewBtn.setOnClickListener(this);
 	}
-	
-	void updateView(){
-		if(dsCaixin == null){
+
+	void updateView() {
+		if (dsCaixin == null) {
 			return;
 		}
 		cxDetailHeader.setDetail(dsCaixin);
@@ -71,8 +73,15 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
+	public void onProgressDialogCancel() {
+		if (queryTask != null && queryTask.cancel(true)) {
+			finish();
+		}
+	}
+
+	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cxreviewdetail"));
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxreviewdetail"));
 		intent.putExtra("caixin", dsCaixin);
 		startActivity(intent);
 	}

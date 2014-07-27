@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.damon.ds.app.DSActivity.ActionBarType;
 import com.damon.ds.library.R;
 import com.damon.ds.util.DialogUtils;
+import com.damon.ds.util.URLBase64;
 import com.damon.ds.widget.BeautifulProgressDialog;
 import com.damon.ds.widget.DSActionBar;
 
@@ -228,6 +229,71 @@ public class DSFragment extends Fragment {
 		} else {
 			DialogUtils.showAlert(dsActivity, message, title, "确定", "取消", false, lOk, lCancel);
 		}
+	}
+
+	// ====get parameters
+
+	public int getIntParam(String name, int defaultValue) {
+		Bundle bundle = getArguments();
+		if (bundle != null) {
+			try {
+				String val = bundle.getString(name);
+				return Integer.parseInt(val);
+			} catch (Exception e) {
+			}
+			return bundle.getInt(name, defaultValue);
+		}
+		return defaultValue;
+	}
+
+	public int getIntParam(String name) {
+		return getIntParam(name, 0);
+	}
+	
+	public String getStringParam(String name, String defaultValue) {
+		Bundle bundle = getArguments();
+		if (bundle != null) {
+			return bundle.getString(name);
+		}
+		return defaultValue;
+	}
+	
+	public String getStringParam(String name) {
+		return getStringParam(name, null);
+	}
+
+	public double getDoubleParam(String name, double defaultValue) {
+		Bundle bundle = getArguments();
+		if (bundle != null) {
+			try {
+				String val = bundle.getString(name);
+				return Double.parseDouble(val);
+			} catch (Exception e) {
+			}
+			return bundle.getDouble(name, defaultValue);
+		}
+		return defaultValue;
+	}
+
+	public double getDoubleParam(String name) {
+		return getDoubleParam(name, 0);
+	}
+
+	public DSObject getObjectParam(String name) {
+		Bundle bundle = getArguments();
+		if (bundle != null) {
+			try {
+				String val = bundle.getString(name);
+				if (val != null) {
+					byte[] bytes = URLBase64.decode(val);
+					return new DSObject(bytes);
+				}
+			} catch (Exception e) {
+			}
+
+			return bundle.getParcelable(name);
+		}
+		return null;
 	}
 
 }

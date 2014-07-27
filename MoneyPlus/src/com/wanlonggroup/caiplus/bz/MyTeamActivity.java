@@ -38,6 +38,7 @@ public class MyTeamActivity extends BasePtrListActivity {
 
 	void queryList() {
 		SHPostTaskM teamListTask = getTask(DEFAULT_API_URL + "miQueryTeam.do", this);
+		teamListTask.getTaskArgs().put("ownerUserId", accountService().id());
 		teamListTask.getTaskArgs().put("ownerUserName", "");
 		teamListTask.getTaskArgs().put("teamName", "");
 		teamListTask.getTaskArgs().put("memberUserName", "");

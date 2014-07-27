@@ -2,6 +2,7 @@ package com.wanlonggroup.caiplus.bz;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,19 @@ import com.wanlonggroup.caiplus.util.Utils;
 public abstract class CxListFragment extends BasePtrListFragment {
 
 	CXListAdapter adapter;
+	int statusWithMe;
+	String oppoType;
+	String bossName;
+	String oppoTitle;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		statusWithMe = getIntParam("statuswithme");		
+		oppoType = getStringParam("oppotype","");
+		bossName = getStringParam("bossname","");
+		oppoTitle = getStringParam("oppotitle","");
+	}
 
 	public void onActivityCreated(android.os.Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
