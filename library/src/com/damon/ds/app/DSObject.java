@@ -232,12 +232,12 @@ public class DSObject implements Parcelable {
 			for (int i = 0; i < len; i++) {
 				try {
 					Object tmp = array.opt(i);
-					if (tmp instanceof String) {
+					if (tmp instanceof JSONObject) {
+						objs[i] = new DSObject(objName).fromJson((JSONObject)tmp);
+					} else {
 						JSONObject obj = new JSONObject();
 						obj.put(objName, tmp);
 						objs[i] = new DSObject(objName).fromJson(obj);
-					} else {
-						objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
 					}
 				} catch (Exception e) {
 					objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
@@ -274,12 +274,12 @@ public class DSObject implements Parcelable {
 			for (int i = 0; i < len; i++) {
 				try {
 					Object tmp = array.opt(i);
-					if (tmp instanceof String) {
+					if (tmp instanceof JSONObject) {
+						list.add(new DSObject(objName).fromJson((JSONObject)tmp));
+					} else {
 						JSONObject obj = new JSONObject();
 						obj.put(objName, tmp);
 						list.add(new DSObject(objName).fromJson(obj));
-					} else {
-						list.add(new DSObject(objName).fromJson(array.optJSONObject(i)));
 					}
 				} catch (Exception e) {
 					list.add(new DSObject(objName).fromJson(array.optJSONObject(i)));
@@ -290,12 +290,15 @@ public class DSObject implements Parcelable {
 		}
 		return null;
 	}
-
 	public DSObject put(ArrayList<DSObject> list) {
 		for (DSObject obj : list) {
 			put(obj);
 		}
 		return this;
+	}
+	
+	public boolean remove(String name) {
+		return this.jsonObj.remove(name) != null;
 	}
 
 	public byte[] toByteArray() {
@@ -338,12 +341,16 @@ public class DSObject implements Parcelable {
 	}
 
 	public DSObject fromJson(Object obj) {
-		if (obj instanceof String) {
-			return fromJson((String) obj);
-		} else if (obj instanceof JSONObject) {
-			this.jsonObj = (JSONObject) obj;
-		} else {
-			throw new IllegalArgumentException("obj must be instanceof JSONObject");
+		try {
+			if (obj instanceof JSONObject) {
+				this.jsonObj = (JSONObject) obj;
+			} else {
+				JSONObject json = new JSONObject();
+				json.put("value", obj);
+				this.jsonObj = json;
+			}
+		} catch (Exception e) {
+			throw new IllegalArgumentException("format obj to JSONObject failed");
 		}
 		return this;
 	}

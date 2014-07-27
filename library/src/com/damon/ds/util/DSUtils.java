@@ -3,6 +3,8 @@ package com.damon.ds.util;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
+import com.damon.ds.app.DSObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -97,6 +99,20 @@ public class DSUtils {
 			}
 		}
 		return path;
+	}
+	
+	public static boolean isDSObject(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		return obj instanceof DSObject;
+	}
+
+	public static boolean isDSObject(Object obj, String objName) {
+		if (!isDSObject(obj)) {
+			return false;
+		}
+		return ((DSObject) obj).isObject(objName);
 	}
 
 }

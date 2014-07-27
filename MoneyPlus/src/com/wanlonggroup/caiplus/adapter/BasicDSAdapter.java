@@ -23,7 +23,14 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 	protected int startIndex;
 
 	public BasicDSAdapter() {
+		this(null);
+	}
+	
+	public BasicDSAdapter(DSObject[] arr) {
 		dsList = new ArrayList<DSObject>();
+		if(arr != null){
+			dsList.addAll(Arrays.asList(arr));
+		}
 	}
 
 	@Override

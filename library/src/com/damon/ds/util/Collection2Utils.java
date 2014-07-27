@@ -71,4 +71,18 @@ public class Collection2Utils {
 		}
 		return false;
 	}
+	
+	public static int length(Collection<?> collection) {
+		if (collection == null) {
+			return 0;
+		}
+		return collection.size();
+	}
+	
+	public static int length(Object[] arr){
+		if(arr == null){
+			return 0;
+		}
+		return arr.length;
+	}
 }
