@@ -124,6 +124,9 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 			case 2:
 				statusText = "取消";
 				break;
+			case 3:
+				statusText = "进行中";
+				break;
 			}
 			return statusText;
 		}

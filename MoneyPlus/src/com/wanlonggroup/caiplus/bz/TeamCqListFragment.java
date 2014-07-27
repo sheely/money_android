@@ -24,6 +24,7 @@ public class TeamCqListFragment extends CqListFragment {
 
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM teamListTask = getTask(DEFAULT_API_URL + "miQueryTeam.do", this);
+		teamListTask.getTaskArgs().put("ownerUserId", "");
 		teamListTask.getTaskArgs().put("ownerUserName", "");
 		teamListTask.getTaskArgs().put("teamName", "");
 		teamListTask.getTaskArgs().put("memberUserName", "");
