@@ -102,6 +102,7 @@ public class AttachmentListActivity extends BasePtrListActivity {
 		String type = "application/pdf";
 		intent.setDataAndType(Uri.fromFile(pdfFile), type);
 		startActivity(Intent.createChooser(intent, "选择程序"));
+		
 	}
 
 	File getDownloadFile(DSObject attach) {

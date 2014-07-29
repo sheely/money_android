@@ -34,6 +34,9 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		publisherId = getStringParam("publisherid");
+		if(TextUtils.isEmpty(publisherId)){
+			publisherId = getStringParam("friendid");
+		}
 		setupView();
 		queryDetail();
 	}

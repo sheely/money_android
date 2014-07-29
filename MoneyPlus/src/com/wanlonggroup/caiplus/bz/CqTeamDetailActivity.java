@@ -1,6 +1,8 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,17 +74,29 @@ public class CqTeamDetailActivity extends BaseActivity {
 					item.setSubTitleColor(getResources().getColor(R.color.red));
 					item.setSubTitle("发起人");
 				}
+				item.setOnClickListener(onClickListener);
+				item.setTag(obj);
 				memTable.addView(item);
 			}
 		}
 	}
+	
+	private View.OnClickListener onClickListener = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			DSObject obj = (DSObject) v.getTag();
+			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cydetail"));
+			intent.putExtra("friendid", obj.getString("memberId"));
+			startActivity(intent);
+		}
+	};
 
 	SHPostTaskM detailTask;
 
 	void queryDetail() {
 		detailTask = getTask(DEFAULT_API_URL + "miQueryTeamDetail.do", this);
-		// detailTask.getTaskArgs().put("teamId", dsTeam.getString("teamId"));
-		detailTask.getTaskArgs().put("teamId", "ddd");
+		detailTask.getTaskArgs().put("teamId", dsTeam.getString("teamId"));
 		detailTask.start();
 		showProgressDialog();
 	}
