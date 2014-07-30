@@ -20,21 +20,19 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class QueryCxActivity extends BaseActivity implements OnClickListener {
-
+public class QueryCqActivity extends BaseActivity implements OnClickListener {
 	Spinner cateSpinner;
-	EditText executeEditText, titleEditText;
+	EditText companyNameTextView;
 	Button queryButton;
 	CateAdapter cateAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.query_cx);
+		setContentView(R.layout.query_cq);
 
 		cateSpinner = (Spinner) findViewById(R.id.category);
-		executeEditText = (EditText) findViewById(R.id.execute);
-		titleEditText = (EditText) findViewById(R.id.title);
+		companyNameTextView = (EditText) findViewById(R.id.company_name);
 		queryButton = (Button) findViewById(R.id.query_btn);
 		queryButton.setOnClickListener(this);
 		queryButton.setEnabled(false);
@@ -45,18 +43,19 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 	SHPostTaskM queryCateTask;
 
 	void queryCate() {
-		queryCateTask = getTask(DEFAULT_API_URL + "miQueryOppoListInit.do", this);
+		queryCateTask = getTask(DEFAULT_API_URL + "queryCompanyInit.do", this);
 		queryCateTask.setChacheType(SHCacheType.PERSISTENT);
 		queryCateTask.start();
 		showProgressDialog();
 	}
-	
+
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
-		if(task == queryCateTask){
-			DSObject dsobj = DSObjectFactory.create(CPModeName.CAIXIN_TYPE_LIST).fromJson(task.getResult());
-			cateAdapter = new CateAdapter(this, android.R.layout.simple_spinner_item, dsobj.getArray(CPModeName.CAIXIN_TYPE_LIST,CPModeName.CAIXIN_TYPE_ITEM));
+		if (task == queryCateTask) {
+			DSObject dsobj = DSObjectFactory.create(CPModeName.COMPANY_CATEGORY_LIST).fromJson(task.getResult());
+			cateAdapter = new CateAdapter(this, android.R.layout.simple_spinner_item, dsobj.getArray(
+				CPModeName.COMPANY_CATEGORY_LIST, CPModeName.COMPANY_CATEGORY_ITEM));
 			cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			cateSpinner.setAdapter(cateAdapter);
 			queryButton.setEnabled(true);
@@ -65,11 +64,10 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if(v == queryButton){
-			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cxlist"));
-			intent.putExtra("oppotype", cateAdapter.getOppoType(cateSpinner.getSelectedItemPosition()));
-			intent.putExtra("bossname", executeEditText.getText().toString());
-			intent.putExtra("oppotitle", titleEditText.getText().toString());
+		if (v == queryButton) {
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cqcompanylist"));
+			intent.putExtra("companycategorykey", cateAdapter.getOppoType(cateSpinner.getSelectedItemPosition()));
+			intent.putExtra("companyname", companyNameTextView.getText().toString());
 			startActivity(intent);
 		}
 	}
@@ -95,11 +93,10 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 		public String getItem(int position) {
 			return dsCates[position].getString("value");
 		}
-		
-		public String getOppoType(int position){
+
+		public String getOppoType(int position) {
 			return dsCates[position].getString("key");
 		}
 
 	}
-
 }

@@ -45,5 +45,10 @@ public class CPModeName {
 	public static final String MY_CONCERN_LIST = "followers";
 
 	public static final String MY_CONCERN_ITEM = "follower";
+	
+	public static final String COMPANY_CATEGORY_LIST = "companyCategoryList";
+	
+	public static final String COMPANY_CATEGORY_ITEM = "companyCategory";
+	
 
 }

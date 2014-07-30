@@ -27,8 +27,8 @@ public class SkillDetailActivity extends BaseActivity {
 		webView = (WebView) findViewById(R.id.webview);
 		webView.getBackground().setAlpha(0);
 		
-		itemType = getIntParam("itemid");
-		itemId = getStringParam("itemId");
+		itemType = getIntParam("itemtype");
+		itemId = getStringParam("itemid");
 		itemTitle = getStringParam("itemtitle");
 		if(!TextUtils.isEmpty(itemTitle)){
 			setTitle(itemTitle);

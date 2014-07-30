@@ -24,7 +24,7 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
     protected TabHost mTabHost;
     protected ViewPager mViewPager;
     protected TabsAdapter mTabsAdapter;
-    private OnTabChangeListener onTabChangeListener;
+    private OnTabPagerChangeListener onTabPagerChangeListener;
     private OnPageChangeListener onPageChangeListener;
 
     @Override
@@ -247,17 +247,17 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
     }
 
     @Override
-    public void onTabChanged(String tabId) {
+    public final void onTabChanged(String tabId) {
         int position = mTabHost.getCurrentTab();
         mTabsAdapter.notifyDataSetChanged();
         mViewPager.setCurrentItem(position);
-        if (onTabChangeListener != null) {
-            onTabChangeListener.onTabChanged(tabId);
+        if (onTabPagerChangeListener != null) {
+            onTabPagerChangeListener.onTabPagerChanged(tabId);
         }
     }
 
-    public void setOnTabChangeListener(OnTabChangeListener onTabChangeListener) {
-        this.onTabChangeListener = onTabChangeListener;
+    public void setOnTabChangeListener(OnTabPagerChangeListener onTabChangeListener) {
+        this.onTabPagerChangeListener = onTabChangeListener;
     }
 
     public void clearAllFragment() {
@@ -274,4 +274,8 @@ public class TabPagerFragment extends DSFragment implements OnTabChangeListener 
 			mTabHost.getTabWidget().setBackgroundResource(drawableId);
 		}
 	}
+    
+    public static interface OnTabPagerChangeListener{
+    	void onTabPagerChanged(String tabId);
+    }
 }

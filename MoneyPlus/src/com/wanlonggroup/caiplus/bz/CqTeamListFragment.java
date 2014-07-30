@@ -1,5 +1,6 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,21 @@ import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class TeamCqListFragment extends CqListFragment {
+public class CqTeamListFragment extends CqListFragment {
+	
+	String ownerUserId;
+	String ownerUserName;
+	String teamName;
+	String memberUserName;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		ownerUserId = getStringParam("owneruserid", "");
+		ownerUserName = getStringParam("ownerusername", "");
+		teamName = getStringParam("teamname", "");
+		memberUserName = getStringParam("memberusername", "");
+	}
 	
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
@@ -24,10 +39,10 @@ public class TeamCqListFragment extends CqListFragment {
 
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM teamListTask = getTask(DEFAULT_API_URL + "miQueryTeam.do", this);
-		teamListTask.getTaskArgs().put("ownerUserId", "");
-		teamListTask.getTaskArgs().put("ownerUserName", "");
-		teamListTask.getTaskArgs().put("teamName", "");
-		teamListTask.getTaskArgs().put("memberUserName", "");
+		teamListTask.getTaskArgs().put("ownerUserId", ownerUserId);
+		teamListTask.getTaskArgs().put("ownerUserName", ownerUserName);
+		teamListTask.getTaskArgs().put("teamName", teamName);
+		teamListTask.getTaskArgs().put("memberUserName", memberUserName);
 		teamListTask.start();
 		return teamListTask;
 	}

@@ -360,6 +360,41 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
+        
+         <activity
+            android:name="com.wanlonggroup.caiplus.bz.QueryCqActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="公司查找"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="querycq"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.CqCompanyListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="公司列表"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cqcompanylist"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.wanlonggroup.caiplus.app.DebugActivity"
             android:configChanges="orientation|keyboardHidden"

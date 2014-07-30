@@ -1,5 +1,6 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,17 @@ import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.model.CPModeName;
 
-public class CompanyCqListFragment extends CqListFragment {
+public class CqCompanyListFragment extends CqListFragment {
+	
+	String companyCategoryKey;
+	String companyName;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		companyCategoryKey = getStringParam("companycategorykey","");
+		companyName = getStringParam("companyname", "");
+	}
 
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
@@ -24,8 +35,8 @@ public class CompanyCqListFragment extends CqListFragment {
 
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "queryCompany.do", this);
-		cxlistReq.getTaskArgs().put("companyCategoryKey", "");
-		cxlistReq.getTaskArgs().put("companyName", "");
+		cxlistReq.getTaskArgs().put("companyCategoryKey", companyCategoryKey);
+		cxlistReq.getTaskArgs().put("companyName", companyName);
 		cxlistReq.start();
 		return cxlistReq;
 	}

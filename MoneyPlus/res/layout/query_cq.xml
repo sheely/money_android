@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="按分类" />
+
+    <Spinner
+        android:id="@+id/category"
+        style="@style/SingleLineTableItemWithPaddingLine" />
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="公司名称" />
+
+    <EditText
+        android:id="@+id/company_name"
+        android:hint="公司名称"
+        style="@style/SingleLineTableItemWithPaddingLine" />
+    
+    <Button 
+        android:id="@+id/query_btn"
+        style="@style/BlueButton"
+        android:layout_margin="15dip"
+        android:text="查找"/>
+
+</LinearLayout>
