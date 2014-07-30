@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.damon.ds.library.R;
-import com.damon.ds.util.ApkUtils;
+import com.damon.ds.util.AndroidUtils;
 import com.damon.ds.util.DSLog;
 
 public class DebugActivity extends DSActivity {
@@ -29,10 +29,10 @@ public class DebugActivity extends DSActivity {
 		try {
 			PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
 			StringBuilder s = new StringBuilder();
-			s.append("versionName=").append(ApkUtils.versionName()).append('\n');
-			s.append("versionCode=").append(ApkUtils.versionCode()).append('\n');
+			s.append("versionName=").append(AndroidUtils.versionName(this)).append('\n');
+			s.append("versionCode=").append(AndroidUtils.versionCode(this)).append('\n');
 			s.append("debuggable=").append((pi.applicationInfo.flags & 0x2) != 0).append('\n');
-			s.append("imei=").append(ApkUtils.imei()).append('\n');
+			s.append("imei=").append(AndroidUtils.imei()).append('\n');
 			s.append("android.SDK=").append(Build.VERSION.SDK).append('\n');
 			s.append("android.VERSION=").append(Build.VERSION.RELEASE).append('\n');
 			s.append("android.ID=").append(Build.ID).append('\n');

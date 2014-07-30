@@ -17,14 +17,20 @@ package com.damon.ds.util;
  */
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+
+import com.damon.ds.app.DSApplication;
 
 public class AndroidUtils {
 
@@ -181,7 +187,7 @@ public class AndroidUtils {
 	
 	public static boolean hasPermission(Context context,String permission){
 		int perm = context.checkCallingOrSelfPermission(permission);
-		return (perm == 0);
+		return (perm == PackageManager.PERMISSION_GRANTED);
 	}
 
 	private static File getExternalCacheDir(Context context) {
@@ -209,5 +215,116 @@ public class AndroidUtils {
 			runtime.exec(command);
 		} catch (IOException e) {
 		}
+	}
+	
+	private static PackageInfo packageInfo;
+
+	public static PackageInfo packageInfo(Context context) {
+		if (packageInfo == null) {
+			try {
+				packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return packageInfo;
+	}
+
+	public static String versionName(Context context) {
+		return packageInfo(context).versionName;
+	}
+
+	public static int versionCode(Context context) {
+		return packageInfo(context).versionCode;
+	}
+	
+	private static String imei;
+
+	/**
+	 * 手机的IMEI设备序列号
+	 * <p>
+	 * 第一次启动时会保存该序列号，可以频繁调用
+	 * 
+	 * @return IMEI or "00000000000000" if error
+	 */
+	public static String imei() {
+		if (imei == null) {
+			// update cached imei when identity changed. including brand, model,
+			// radio and system version
+			String deviceIdentity = Build.VERSION.RELEASE + ";" + Build.MODEL + ";" + Build.BRAND;
+			if (deviceIdentity.length() > 64) {
+				deviceIdentity = deviceIdentity.substring(0, 64);
+			}
+			if (deviceIdentity.indexOf('\n') >= 0) {
+				deviceIdentity = deviceIdentity.replace('\n', ' ');
+			}
+
+			String cachedIdentity = null;
+			String cachedImei = null;
+			try {
+				// do not use file storage, use cached instead
+				File path = new File(DSApplication.instance().getCacheDir(), "cached_imei");
+				FileInputStream fis = new FileInputStream(path);
+				byte[] buf = new byte[1024];
+				int l = fis.read(buf);
+				fis.close();
+				String str = new String(buf, 0, l, "UTF-8");
+				int a = str.indexOf('\n');
+				cachedIdentity = str.substring(0, a);
+				int b = str.indexOf('\n', a + 1);
+				cachedImei = str.substring(a + 1, b);
+			} catch (Exception e) {
+			}
+
+			if (deviceIdentity.equals(cachedIdentity)) {
+				imei = cachedImei;
+			} else {
+				imei = null;
+			}
+
+			// cache fail, read from telephony manager
+			if (imei == null) {
+				try {
+					TelephonyManager tel = (TelephonyManager) DSApplication.instance().getSystemService(
+							Context.TELEPHONY_SERVICE);
+					imei = tel.getDeviceId();
+					if (imei != null) {
+						if (imei.length() < 8) {
+							imei = null;
+						} else {
+							char c0 = imei.charAt(0);
+							boolean allSame = true;
+							for (int i = 0, n = imei.length(); i < n; i++) {
+								if (c0 != imei.charAt(i)) {
+									allSame = false;
+									break;
+								}
+							}
+							if (allSame)
+								imei = null;
+						}
+					}
+				} catch (Exception e) {
+				}
+				if (imei != null) {
+					try {
+						File path = new File(DSApplication.instance().getCacheDir(), "cached_imei");
+						FileOutputStream fos = new FileOutputStream(path);
+						String str = deviceIdentity + "\n" + imei + "\n";
+						fos.write(str.getBytes("UTF-8"));
+						fos.close();
+					} catch (Exception e) {
+					}
+				} else {
+					File path = new File(DSApplication.instance().getCacheDir(), "cached_imei");
+					path.delete();
+				}
+			}
+
+			if (imei == null) {
+				imei = "00000000000000";
+			}
+		}
+		return imei;
 	}
 }
