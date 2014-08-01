@@ -2,7 +2,7 @@
 <com.damon.ds.widget.DSActionBar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ds_action_bar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/actionBarHeight">
+    android:layout_height="@dimen/actionBarHeight" >
 
     <FrameLayout
         android:id="@+id/ds_title_container"
@@ -17,8 +17,8 @@
             android:ellipsize="end"
             android:maxWidth="240dip"
             android:singleLine="true"
-            android:textColor="@color/white"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/ds_subtitle"
@@ -28,9 +28,9 @@
             android:ellipsize="end"
             android:maxWidth="240dip"
             android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
-            android:visibility="gone"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:visibility="gone" />
     </FrameLayout>
 
     <FrameLayout
@@ -53,6 +53,29 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:gravity="center_vertical"
-        android:orientation="horizontal" />
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:id="@+id/ds_progress_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:visibility="gone" >
+
+            <com.damon.ds.widget.LoadingView
+                android:id="@+id/ds_progress"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/loading_small" />
+
+            <TextView
+                android:id="@+id/ds_progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="10dip" />
+        </FrameLayout>
+    </LinearLayout>
 
 </com.damon.ds.widget.DSActionBar>

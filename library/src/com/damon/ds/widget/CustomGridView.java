@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 

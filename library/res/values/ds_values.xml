@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="activity_anim_time" type="integer">@android:integer/config_mediumAnimTime</item>
+    <item name="activity_anim_time" type="integer">300</item>
 
 </resources>

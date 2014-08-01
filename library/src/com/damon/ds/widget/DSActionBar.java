@@ -16,9 +16,9 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class DSActionBar extends FrameLayout {
 
-	private FrameLayout titleContainer, homeAsUpContainer;
+	private FrameLayout titleContainer, homeAsUpContainer, progressContainer;
 	private LinearLayout actionMenuContainer;
-	private TextView titleView, subTitleView;
+	private TextView titleView, subTitleView, progressTextView;
 	private ImageButton homeAsUp;
 
 	public DSActionBar(Context context) {
@@ -35,12 +35,11 @@ public class DSActionBar extends FrameLayout {
 		titleContainer = (FrameLayout) findViewById(R.id.ds_title_container);
 		homeAsUpContainer = (FrameLayout) findViewById(R.id.ds_home_as_up_container);
 		actionMenuContainer = (LinearLayout) findViewById(R.id.ds_action_bar_menu);
+		progressContainer = (FrameLayout) findViewById(R.id.ds_progress_container);
 
 		titleView = (TextView) findViewById(R.id.ds_title);
-		if (titleView == null) {
-			titleView = (TextView) findViewById(android.R.id.title);
-		}
 		subTitleView = (TextView) findViewById(R.id.ds_subtitle);
+		progressTextView = (TextView) findViewById(R.id.ds_progress_text);
 
 		homeAsUp = (ImageButton) findViewById(R.id.ds_home_as_up);
 	}
@@ -95,6 +94,27 @@ public class DSActionBar extends FrameLayout {
 		}
 	}
 
+	public void setProgressVisible(boolean visible) {
+		if (progressContainer != null) {
+			progressContainer.setVisibility(visible ? VISIBLE : GONE);
+		}
+	}
+
+	/**
+	 * 
+	 * @param value
+	 *            1~100
+	 */
+	public void setProgressValue(int value) {
+		if (progressTextView != null) {
+			if (value < 0) {
+				progressTextView.setText(null);
+			} else {
+				progressTextView.setText(value + "%");
+			}
+		}
+	}
+
 	public void addAction(int drawableId, String tag, OnClickListener listener) {
 		ImageButton imageButton = new ImageButton(getContext());
 		imageButton.setBackgroundResource(android.R.color.transparent);
@@ -142,7 +162,10 @@ public class DSActionBar extends FrameLayout {
 	}
 
 	public void removeAllAction() {
-		actionMenuContainer.removeAllViews();
+		int count = actionMenuContainer.getChildCount();
+		if (count > 1) {
+			actionMenuContainer.removeViews(1, count - 1);
+		}
 	}
 
 	// =====hide or show===
