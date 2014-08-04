@@ -2,41 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="top"
-    android:padding="10dip"
-    android:orientation="horizontal" >
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dip" >
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
         android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/time"
-            android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:text="2014-05-27 19：20：00"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/talkbox_l"
+            android:background="@drawable/dialogue_me"
+            android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="16sp" />
     </LinearLayout>
-    
+
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:scaleType="center"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_marginTop="10dip"
+        android:scaleType="fitXY"
         android:src="@drawable/icon_username" />
 
 </LinearLayout>

@@ -65,6 +65,11 @@ public class CustomGridView extends TableLayout implements View.OnClickListener 
             onChanged();
         }
 	};
+	
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		handler.removeMessages(1);;
+	};
 
     public CustomGridView(Context context) {
         super(context);

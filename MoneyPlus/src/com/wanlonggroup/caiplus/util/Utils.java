@@ -2,6 +2,7 @@ package com.wanlonggroup.caiplus.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -24,6 +25,16 @@ public class Utils {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+	
+	public static String getCurrentTime(DateFormat format){
+		Calendar calendar = Calendar.getInstance();
+		try{
+			return format.format(calendar.getTime());
+		}catch(Exception e){
+			
+		}
+		return "";
 	}
 
 	public static boolean isDSObject(Object obj) {

@@ -22,21 +22,20 @@ import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.util.Utils;
 
-public class CxLeaveMessageActivity extends BasePtrListActivity implements OnClickListener {
+public class ChatActivity extends BasePtrListActivity implements OnClickListener {
 
-	DSObject dsCaixin;
-	DSObject dsLeavemessages;
+	DSObject dsCaiYou;
 	Adapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dsCaixin = getIntent().getParcelableExtra("caixin");
+		dsCaiYou = getIntent().getParcelableExtra("caiyou");
 		setupView();
 	}
 
 	protected void onSetContentView() {
-		setContentView(R.layout.cx_review_detail);
+		setContentView(R.layout.chat_activity);
 	};
 
 	Button pubButton;
@@ -56,8 +55,9 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 	SHPostTaskM queryTask;
 
 	void queryMessages() {
-		queryTask = getTask(DEFAULT_API_URL + "queryLmList.do", this);
-		queryTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
+		queryTask = getTask(DEFAULT_API_URL + "miQueryChatHistory.do", this);
+		queryTask.getTaskArgs().put("anotheruserid", dsCaiYou.getString("friendId"));
+		queryTask.getTaskArgs().put("myuserid", accountService().id());
 		queryTask.start();
 	}
 
@@ -69,9 +69,10 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 		if (StringUtils.isEmpty(message)) {
 			return;
 		}
-		sendTask = getTask(DEFAULT_API_URL + "lmAdd.do", this);
-		sendTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
-		sendTask.getTaskArgs().put("leaveMessage", message);
+		sendTask = getTask(DEFAULT_API_URL + "miSendMessage.do", this);
+		queryTask.getTaskArgs().put("receiveruserid", dsCaiYou.getString("friendId"));
+		queryTask.getTaskArgs().put("senderuserid", accountService().id());
+		queryTask.getTaskArgs().put("chatcontent", accountService().id());
 		sendTask.start();
 		showProgressDialog("消息发送中...");
 	}
@@ -86,16 +87,18 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		if (queryTask == task) {
-			dsLeavemessages = DSObjectFactory.create(CPModeName.CAIXIN_LEAVE_MESSAGE_LIST).fromJson(task.getResult());
-			adapter.appendList(dsLeavemessages.getArray(CPModeName.CAIXIN_LEAVE_MESSAGE_LIST,
-				CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM));
+			DSObject dsChatMessages = DSObjectFactory.create(CPModeName.CY_CHAT_LIST).fromJson(task.getResult());
+			adapter.appendList(dsChatMessages.getArray(CPModeName.CY_CHAT_LIST, CPModeName.CY_CHAT_ITEM));
 		} else if (sendTask == task) {
 			dismissProgressDialog();
-			DSObject dsMsg = DSObjectFactory.create(CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM);
-			dsMsg.put("leaveMessager", accountService().name());
-			dsMsg.put("lmTime", Utils.getCurrentTime(Utils.dateFormat3));
-			dsMsg.put("lmContent", message);
-			dsMsg.put("lmHeadIcon", accountService().headIcon());
+			DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_ITEM);
+			dsMsg.put("senderuserid", accountService().id());
+			dsMsg.put("senderusername", accountService().name());
+			dsMsg.put("senderheadicon", accountService().headIcon());
+			dsMsg.put("sendtime", Utils.getCurrentTime(Utils.dateFormat3));
+			dsMsg.put("receiveruserid", dsCaiYou.getString("friendId"));
+			dsMsg.put("chatcontent", message);
+
 			adapter.append(dsMsg);
 			if (listView.getRefreshableView().isStackFromBottom()) {
 				listView.getRefreshableView().setStackFromBottom(false);
@@ -121,15 +124,15 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 		public int getViewTypeCount() {
 			return super.getViewTypeCount() + 1;
 		}
-		
+
 		@Override
 		public int getItemViewType(int position) {
 			Object obj = getItem(position);
-			if(Utils.isDSObject(obj, CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM)){
+			if (Utils.isDSObject(obj, CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM)) {
 				DSObject msg = (DSObject) obj;
-				if(accountService().name().equals(msg.getString("leaveMessager"))){
+				if (accountService().id().equals(msg.getString("senderuserid"))) {
 					return 3;
-				}else{
+				} else {
 					return 4;
 				}
 			}
@@ -140,11 +143,14 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 		public View getCPItemView(int position, View convertView, ViewGroup parent) {
 			BasicViewHolder viewHolder;
 			DSObject message = (DSObject) getItem(position);
+			int viewType = getItemViewType(position);
 			if (convertView == null) {
-				if(getItemViewType(position) == 3){
-					convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_l, parent, false);
-				}else{
-					convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_r, parent, false);
+				if (viewType == 3) {
+					convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_l, parent,
+						false);
+				} else {
+					convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_r, parent,
+						false);
 				}
 				viewHolder = new BasicViewHolder();
 				viewHolder.icon1 = (ImageView) convertView.findViewById(R.id.icon);
@@ -154,9 +160,12 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 			} else {
 				viewHolder = (BasicViewHolder) convertView.getTag();
 			}
-			imageLoader.displayImage(message.getString("lmHeadIcon"), viewHolder.icon1, displayOptions);
-			viewHolder.textView1.setText(message.getString("leaveMessager") + " " + message.getString("lmTime"));
-			viewHolder.textView2.setText(message.getString("lmContent"));
+			imageLoader.displayImage(
+				(viewType == 3 ? accountService().headIcon() : message.getString("senderheadicon")), viewHolder.icon1,
+				displayOptions);
+			viewHolder.textView1.setText((viewType == 3 ? accountService().name() : message.getString("senderusername"))
+					+ " " + message.getString("sendtime"));
+			viewHolder.textView2.setText(message.getString("chatcontent"));
 			return convertView;
 		}
 

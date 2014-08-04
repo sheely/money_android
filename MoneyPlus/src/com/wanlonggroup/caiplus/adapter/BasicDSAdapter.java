@@ -126,6 +126,11 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 		notifyDataSetChanged();
 	}
 	
+	public void append(DSObject obj){
+		dsList.add(obj);
+		notifyDataSetChanged();
+	}
+	
 	public void appendList(DSObject[] arr) {
 		appendList(arr, true, true, null);
 	}

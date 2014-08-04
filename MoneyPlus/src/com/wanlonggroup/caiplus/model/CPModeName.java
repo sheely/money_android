@@ -29,6 +29,10 @@ public class CPModeName {
 	public static final String CAIXIN_ATTACH_ITEM = "attachment";
 
 	public static final String CY_DETAIL = "cydetail";
+	
+	public static final String CY_CHAT_LIST = "historymessages";
+
+	public static final String CY_CHAT_ITEM = "historymessage";
 
 	public static final String CQ_COMPANY_LIST = "companys";
 

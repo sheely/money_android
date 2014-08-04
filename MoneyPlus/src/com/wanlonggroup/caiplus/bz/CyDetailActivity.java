@@ -133,6 +133,8 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 	public void onClick(View v) {
 		if (v == concernView) {
 			addOrDelete();
+		}else if(v == sendcxView){
+			ChatHelper.instance().chat2Who(this, dsCyDetail);
 		}
 	};
 
