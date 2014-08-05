@@ -95,7 +95,7 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 			dsMsg.put("senderuserid", accountService().id());
 			dsMsg.put("senderusername", accountService().name());
 			dsMsg.put("senderheadicon", accountService().headIcon());
-			dsMsg.put("sendtime", Utils.getCurrentTime(Utils.dateFormat3));
+			dsMsg.put("sendtime", Utils.getCurrentTime(Utils.dateTimeFormat));
 			dsMsg.put("receiveruserid", dsCaiYou.getString("friendId"));
 			dsMsg.put("chatcontent", message);
 

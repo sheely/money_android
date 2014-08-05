@@ -1,9 +1,14 @@
 package com.wanlonggroup.caiplus.bz;
 
+import java.util.Calendar;
+
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,12 +17,19 @@ import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
+import com.wanlonggroup.caiplus.util.Utils;
 import com.xdamon.app.DSObject;
 import com.xdamon.widget.DSActionBar;
 
 public class ModifyCalenderActivity extends BaseActivity implements OnClickListener {
 
 	DSObject dsTask;
+	
+	int currentDialogId;
+
+	static final int START_DATE_DIALOG_ID = 1;
+
+	static final int END_DATE_DIALOG_ID = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,23 @@ public class ModifyCalenderActivity extends BaseActivity implements OnClickListe
 	void setupView() {
 		setContentView(R.layout.modify_calender_layout);
 		startTimeView = (TextView) findViewById(R.id.start_time);
+		startTimeView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showDialog(START_DATE_DIALOG_ID);
+			}
+		});
+		
 		endTimeView = (TextView) findViewById(R.id.end_time);
+		endTimeView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showDialog(END_DATE_DIALOG_ID);
+			}
+		});
+		
 		contentView = (EditText) findViewById(R.id.content);
 	}
 
@@ -58,6 +86,10 @@ public class ModifyCalenderActivity extends BaseActivity implements OnClickListe
 		String content = contentView.getText().toString();
 		if (TextUtils.isEmpty(content)) {
 			showAlert("内容不能为空");
+			return;
+		}
+		if(Utils.wrapDatetime(startTimeView.getText().toString()).after(Utils.wrapDatetime(endTimeView.getText().toString()))){
+			showAlert("开始时间必须晚于结束时间");
 			return;
 		}
 		modifyTask = getTask(DEFAULT_API_URL + "miTaskMaintainance.do", this);
@@ -82,6 +114,52 @@ public class ModifyCalenderActivity extends BaseActivity implements OnClickListe
 	public void onClick(View v) {
 		if ("mod_calender".equals(v.getTag())) {
 			modifyTask();
+		}
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case START_DATE_DIALOG_ID:
+			currentDialogId = START_DATE_DIALOG_ID;
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(Utils.wrapDatetime(startTimeView.getText().toString()));
+			mYear = calendar.get(Calendar.YEAR);
+			mMonth = calendar.get(Calendar.MONTH);
+			mDay = calendar.get(Calendar.DAY_OF_MONTH);
+			return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+		case END_DATE_DIALOG_ID:
+			currentDialogId = END_DATE_DIALOG_ID;
+			Calendar calenda = Calendar.getInstance();
+			calenda.setTime(Utils.wrapDatetime(endTimeView.getText().toString()));
+			mYear = calenda.get(Calendar.YEAR);
+			mMonth = calenda.get(Calendar.MONTH);
+			mDay = calenda.get(Calendar.DAY_OF_MONTH);
+			return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+		}
+		return null;
+	}
+
+	private int mYear;
+	private int mMonth;
+	private int mDay;
+	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			mYear = year;
+			mMonth = monthOfYear;
+			mDay = dayOfMonth;
+			updateDisplay();
+		}
+	};
+
+	private void updateDisplay() {
+		if (currentDialogId == START_DATE_DIALOG_ID) {
+			startTimeView.setText(Utils.formate(new StringBuilder().append(mYear).append("-").append(mMonth + 1).append(
+				"-").append(mDay).toString()));
+		} else if (currentDialogId == END_DATE_DIALOG_ID) {
+			endTimeView.setText(Utils.formate(new StringBuilder().append(mYear).append("-").append(mMonth + 1).append(
+					"-").append(mDay).toString()));
 		}
 	}
 

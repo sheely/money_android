@@ -93,7 +93,7 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 			dismissProgressDialog();
 			DSObject dsMsg = DSObjectFactory.create(CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM);
 			dsMsg.put("leaveMessager", accountService().name());
-			dsMsg.put("lmTime", Utils.getCurrentTime(Utils.dateFormat3));
+			dsMsg.put("lmTime", Utils.getCurrentTime(Utils.dateTimeFormat));
 			dsMsg.put("lmContent", message);
 			dsMsg.put("lmHeadIcon", accountService().headIcon());
 			adapter.append(dsMsg);

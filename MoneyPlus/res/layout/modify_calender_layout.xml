@@ -11,16 +11,17 @@
         android:orientation="horizontal" >
 
         <TextView
-            style="@style/InfoGrayText"
+            style="@style/ListGrayText"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
             android:text="开始时间" />
 
         <TextView
             android:id="@+id/start_time"
-            style="@style/InfoBlackText"
-            android:layout_width="100dip"
+            style="@style/ListBlackText"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="2014-08-09" />
     </LinearLayout>
 
@@ -31,31 +32,32 @@
         android:orientation="horizontal" >
 
         <TextView
-            style="@style/InfoGrayText"
+            style="@style/ListGrayText"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
             android:text="结束时间" />
 
         <TextView
             android:id="@+id/end_time"
-            style="@style/InfoBlackText"
-            android:layout_width="100dip"
+            style="@style/ListBlackText"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
+            android:layout_weight="1"
             android:text="2014-09-21" />
     </LinearLayout>
 
     <TextView
-        style="@style/InfoGrayText"
-        android:layout_width="100dip"
+        style="@style/ListGrayText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
         android:text="我的任务" />
 
     <EditText
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="160dip"
-        android:gravity="top|left"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:gravity="top|left" />
 
 </LinearLayout>
