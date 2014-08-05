@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.Collection2Utils;
-import com.damon.ds.util.DSObjectFactory;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.Collection2Utils;
+import com.xdamon.util.DSObjectFactory;
 
 public class CqCompanyDetailActivity extends BaseActivity {
 

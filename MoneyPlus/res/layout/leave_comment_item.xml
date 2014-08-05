@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.damon.ds.widget.BasicSingleVerticalItem xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xdamon.widget.BasicSingleVerticalItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cp="http://schemas.android.com/apk/res/com.wanlonggroup.caiplus"
     style="@style/CommonPadding"
     android:layout_width="match_parent"

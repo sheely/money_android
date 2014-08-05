@@ -5,7 +5,6 @@ import java.util.HashMap;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.damon.ds.app.DSFragment;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -15,6 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
+import com.xdamon.app.DSFragment;
 
 public class BaseFragment extends DSFragment implements AccountListener, ITaskListener {
 

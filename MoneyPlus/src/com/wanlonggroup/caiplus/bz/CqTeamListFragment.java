@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
 
 public class CqTeamListFragment extends CqListFragment {
 	

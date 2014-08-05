@@ -36,7 +36,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.damon.ds.library.R;
+import com.xdamon.library.R;
 
 /**
  * Draws circles (one for each view). The current view position is filled and

@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -14,6 +12,8 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListFragment;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
 
 public class CyListFragment extends BasePtrListFragment {
 

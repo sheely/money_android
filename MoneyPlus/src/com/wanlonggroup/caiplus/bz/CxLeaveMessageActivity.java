@@ -10,9 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.util.StringUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -21,6 +18,9 @@ import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.util.Utils;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
+import com.xdamon.util.StringUtils;
 
 public class CxLeaveMessageActivity extends BasePtrListActivity implements OnClickListener {
 

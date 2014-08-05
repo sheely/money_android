@@ -22,7 +22,7 @@ import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
-import com.damon.ds.library.R;
+import com.xdamon.library.R;
 
 public class PullToRefreshScrollView extends PullToRefreshBase<ScrollView> {
 

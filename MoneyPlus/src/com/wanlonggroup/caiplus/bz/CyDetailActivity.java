@@ -12,18 +12,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.Collection2Utils;
-import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.widget.BasicItem;
-import com.damon.ds.widget.BasicSingleItem;
-import com.damon.ds.widget.TableView;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.CommonDSAdapter;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.Collection2Utils;
+import com.xdamon.util.DSObjectFactory;
+import com.xdamon.widget.BasicItem;
+import com.xdamon.widget.BasicSingleItem;
+import com.xdamon.widget.TableView;
 
 public class CyDetailActivity extends BaseActivity implements View.OnClickListener, TableView.OnItemClickListener {
 

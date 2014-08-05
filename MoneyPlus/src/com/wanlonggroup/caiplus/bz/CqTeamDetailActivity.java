@@ -9,16 +9,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.widget.BasicSingleItem;
-import com.damon.ds.widget.TableView;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
+import com.xdamon.widget.BasicSingleItem;
+import com.xdamon.widget.TableView;
 
 public class CqTeamDetailActivity extends BaseActivity {
 

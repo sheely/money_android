@@ -11,15 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.util.StringUtils;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
+import com.xdamon.util.StringUtils;
 
 public class LoginActivity extends BaseActivity {
 

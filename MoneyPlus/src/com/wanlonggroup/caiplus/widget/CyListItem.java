@@ -3,8 +3,8 @@ package com.wanlonggroup.caiplus.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.damon.ds.widget.BasicSingleItem;
 import com.wanlonggroup.caiplus.R;
+import com.xdamon.widget.BasicSingleItem;
 
 public class CyListItem extends BasicSingleItem {
 	

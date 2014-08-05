@@ -10,9 +10,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.damon.ds.widget.BasicSingleItem;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragment;
+import com.xdamon.widget.BasicSingleItem;
 
 public class UserFragment extends BaseFragment implements OnClickListener {
 

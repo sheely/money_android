@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import android.text.TextUtils;
 
-import com.damon.ds.util.PreferencesUtils;
 import com.wanlonggroup.caiplus.app.CaiPlusApplication;
+import com.xdamon.util.PreferencesUtils;
 
 public class ConfigSwitch {
 

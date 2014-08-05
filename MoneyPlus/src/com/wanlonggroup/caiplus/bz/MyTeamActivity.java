@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.widget.BasicSingleItem;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -18,6 +15,9 @@ import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.util.Utils;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
+import com.xdamon.widget.BasicSingleItem;
 
 public class MyTeamActivity extends BasePtrListActivity {
 

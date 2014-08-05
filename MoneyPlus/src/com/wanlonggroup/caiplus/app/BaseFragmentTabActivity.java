@@ -24,9 +24,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TabHost;
 
-import com.damon.ds.widget.TabIndicator;
 import com.next.util.Log;
 import com.wanlonggroup.caiplus.R;
+import com.xdamon.widget.TabIndicator;
 
 /**
  * This demonstrates how you can implement switching between the tabs of a
@@ -44,7 +44,6 @@ public class BaseFragmentTabActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		onSetContent();
 		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup();
 

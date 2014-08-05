@@ -68,25 +68,25 @@
             style="@style/TableHeaderTextView"
             android:text="基本资料" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/company_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="万隆集团"
             cp:item_title="公司：" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/job_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="咨询总监"
             cp:item_title="职务：" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/email_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="ad@163.com"
             cp:item_title="邮箱：" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/mobile_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="123456789"
@@ -99,19 +99,19 @@
             android:layout_marginRight="10dip"
             android:background="@drawable/dash_line" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/charge_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="2000/小时"
             cp:item_title="收费标准：" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/degree_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="博士"
             cp:item_title="收费标准：" />
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/college_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="复旦大学"
@@ -170,7 +170,7 @@
             style="@style/TableHeaderTextView"
             android:text="个人技能" />
 
-        <com.damon.ds.widget.TableView
+        <com.xdamon.widget.TableView
             android:id="@+id/personalSkills"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -179,7 +179,7 @@
             style="@style/TableHeaderTextView"
             android:text="成功案例" />
 
-        <com.damon.ds.widget.TableView
+        <com.xdamon.widget.TableView
             android:id="@+id/successfulCases"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -188,7 +188,7 @@
             style="@style/TableHeaderTextView"
             android:text="日历" />
 
-        <com.damon.ds.widget.TableView
+        <com.xdamon.widget.TableView
             android:id="@+id/myTasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

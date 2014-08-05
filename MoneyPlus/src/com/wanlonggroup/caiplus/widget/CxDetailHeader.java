@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.widget.BasicItem;
 import com.wanlonggroup.caiplus.R;
+import com.xdamon.app.DSObject;
+import com.xdamon.widget.BasicItem;
 
 public class CxDetailHeader extends LinearLayout {
 

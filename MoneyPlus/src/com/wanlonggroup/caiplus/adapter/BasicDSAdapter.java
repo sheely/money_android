@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.damon.ds.adapter.BasicAdapter;
-import com.damon.ds.app.DSObject;
-import com.damon.ds.widget.LoadingErrorView;
+import com.xdamon.adapter.BasicAdapter;
+import com.xdamon.app.DSObject;
+import com.xdamon.widget.LoadingErrorView;
 
 public abstract class BasicDSAdapter extends BasicAdapter {
 	protected ArrayList<DSObject> dsList;

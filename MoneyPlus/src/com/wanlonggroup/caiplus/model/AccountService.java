@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.damon.ds.app.DSObject;
+import com.xdamon.app.DSObject;
 
 public class AccountService {
 

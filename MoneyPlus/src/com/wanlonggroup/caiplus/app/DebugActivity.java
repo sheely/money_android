@@ -15,7 +15,7 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
 import com.wanlonggroup.caiplus.util.ConfigSwitch.DomainType;
 
-public class DebugActivity extends com.damon.ds.app.DebugActivity implements OnClickListener {
+public class DebugActivity extends com.xdamon.app.DebugActivity implements OnClickListener {
 
 	private Button domainBtn;
 

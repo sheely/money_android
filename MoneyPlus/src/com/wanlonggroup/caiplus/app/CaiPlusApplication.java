@@ -1,9 +1,9 @@
 package com.wanlonggroup.caiplus.app;
 
-import com.damon.ds.app.DSApplication;
-import com.damon.ds.util.PreferencesUtils;
 import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.model.AccountService;
+import com.xdamon.app.DSApplication;
+import com.xdamon.util.PreferencesUtils;
 
 public class CaiPlusApplication extends DSApplication {
 	

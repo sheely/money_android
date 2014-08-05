@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.damon.ds.widget.LoadingErrorView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xdamon.widget.LoadingErrorView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/error"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -18,4 +18,4 @@
         android:textColor="@color/light_gray"
         android:textSize="14sp" />
 
-</com.damon.ds.widget.LoadingErrorView>
+</com.xdamon.widget.LoadingErrorView>

@@ -28,7 +28,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
-import com.damon.ds.library.R;
+import com.xdamon.library.R;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change

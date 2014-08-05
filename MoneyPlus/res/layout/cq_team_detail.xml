@@ -74,29 +74,29 @@
             style="@style/TableHeaderTextView"
             android:text="团队成员" />
 
-        <com.damon.ds.widget.TableView
+        <com.xdamon.widget.TableView
             android:id="@+id/member_table"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1" >
 
-            <com.damon.ds.widget.BasicSingleItem
+            <com.xdamon.widget.BasicSingleItem
                 style="@style/SingleLineTableItemWithPadding"
                 cp:item_icon="@drawable/icon_username"
                 cp:item_subTitle="发起人"
                 cp:item_subTitleColor="@color/text_color_orange"
                 cp:item_title="张三" />
-            <com.damon.ds.widget.BasicSingleItem
+            <com.xdamon.widget.BasicSingleItem
                 style="@style/SingleLineTableItemWithPadding"
                 cp:item_icon="@drawable/icon_username"
                 cp:item_subTitleColor="@color/text_color_orange"
                 cp:item_title="李四" />
-            <com.damon.ds.widget.BasicSingleItem
+            <com.xdamon.widget.BasicSingleItem
                 style="@style/SingleLineTableItemWithPadding"
                 cp:item_icon="@drawable/icon_username"
                 cp:item_subTitleColor="@color/text_color_orange"
                 cp:item_title="peter" />
-        </com.damon.ds.widget.TableView>
+        </com.xdamon.widget.TableView>
     </LinearLayout>
 
 </ScrollView>

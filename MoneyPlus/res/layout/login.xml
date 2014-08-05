@@ -14,7 +14,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/app_logo" />
 
-    <com.damon.ds.widget.TableView
+    <com.xdamon.widget.TableView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" >
@@ -79,7 +79,7 @@
                 android:src="@drawable/icon_close_rest"
                 android:visibility="gone" />
         </LinearLayout>
-    </com.damon.ds.widget.TableView>
+    </com.xdamon.widget.TableView>
 
     <Button
         android:id="@+id/login_btn"

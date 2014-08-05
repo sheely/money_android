@@ -2,9 +2,6 @@ package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
 
-import com.damon.ds.app.DSObject;
-import com.damon.ds.util.DSObjectFactory;
-import com.damon.ds.widget.BasicSingleItem;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -12,6 +9,9 @@ import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.widget.CxDetailHeader;
 import com.wanlonggroup.caiplus.widget.CxDetailHeader.HeaderMode;
+import com.xdamon.app.DSObject;
+import com.xdamon.util.DSObjectFactory;
+import com.xdamon.widget.BasicSingleItem;
 
 public class CxExecuteInfoActivity extends BaseActivity {
 	

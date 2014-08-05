@@ -17,8 +17,8 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 
-import com.damon.ds.widget.TabIndicator;
 import com.wanlonggroup.caiplus.R;
+import com.xdamon.widget.TabIndicator;
 
 public class BaseTabPagerFragment extends BaseFragment implements OnTabChangeListener {
 	protected TabHost mTabHost;

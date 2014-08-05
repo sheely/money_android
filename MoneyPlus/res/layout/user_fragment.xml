@@ -11,31 +11,31 @@
         android:layout_height="@dimen/actionBarHeight"
         android:layout="@layout/ds_action_bar" />
 
-    <com.damon.ds.widget.TableView
+    <com.xdamon.widget.TableView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <com.damon.ds.widget.BasicSingleItem
+        <com.xdamon.widget.BasicSingleItem
             android:id="@+id/my_calender"
             style="@style/SingleLineTableItemWithPadding"
             cp:item_icon="@drawable/icon_myprofile_mycalender"
             cp:item_indicator="@drawable/arrow_normal"
             cp:item_title="我的日历" />
 
-        <com.damon.ds.widget.BasicSingleItem
+        <com.xdamon.widget.BasicSingleItem
             android:id="@+id/my_concern"
             style="@style/SingleLineTableItemWithPadding"
             cp:item_icon="@drawable/icon_myprofile_myfocus"
             cp:item_indicator="@drawable/arrow_normal"
             cp:item_title="我的关注" />
 
-        <com.damon.ds.widget.BasicSingleItem
+        <com.xdamon.widget.BasicSingleItem
             android:id="@+id/my_team"
             style="@style/SingleLineTableItemWithPadding"
             cp:item_icon="@drawable/icon_myprofile_myteam"
             cp:item_indicator="@drawable/arrow_normal"
             cp:item_title="我的团队" />
-    </com.damon.ds.widget.TableView>
+    </com.xdamon.widget.TableView>
 
     <Button
         android:id="@+id/logout_btn"

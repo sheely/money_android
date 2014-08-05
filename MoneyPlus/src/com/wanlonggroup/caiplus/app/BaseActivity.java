@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.damon.ds.app.DSActivity;
 import com.next.intf.ITaskListener;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -18,6 +17,7 @@ import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
 import com.wanlonggroup.caiplus.util.Environment;
+import com.xdamon.app.DSActivity;
 
 public class BaseActivity extends DSActivity implements AccountListener, ITaskListener {
 

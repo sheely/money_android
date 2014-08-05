@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <com.damon.ds.widget.TableView
+    <com.xdamon.widget.TableView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/title_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="寻找有大型展馆经验"
@@ -22,7 +22,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
-            <com.damon.ds.widget.BasicItem
+            <com.xdamon.widget.BasicItem
                 android:id="@+id/publish_item"
                 style="@style/BasicItemStyle"
                 android:layout_width="0dip"
@@ -45,12 +45,12 @@
                 android:textSize="@dimen/text_size_list" />
         </LinearLayout>
 
-        <com.damon.ds.widget.BasicItem
+        <com.xdamon.widget.BasicItem
             android:id="@+id/category_item"
             style="@style/BasicItemStyle"
             cp:item_subTitle="工程造价"
             cp:item_title="分类" />
-    </com.damon.ds.widget.TableView>
+    </com.xdamon.widget.TableView>
 
     <LinearLayout
         android:id="@+id/layer"

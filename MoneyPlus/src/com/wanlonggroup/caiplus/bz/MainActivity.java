@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import com.damon.ds.widget.BadgeView;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
+import com.xdamon.widget.BadgeView;
 
 public class MainActivity extends BaseFragmentTabActivity {
 

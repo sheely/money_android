@@ -6,8 +6,8 @@ import java.util.Arrays;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.damon.ds.adapter.BasicAdapter;
-import com.damon.ds.app.DSObject;
+import com.xdamon.adapter.BasicAdapter;
+import com.xdamon.app.DSObject;
 
 public class CommonDSAdapter extends BasicAdapter {
 	protected ArrayList<DSObject> dsList;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.damon.ds.widget.DSActionBar xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xdamon.widget.DSActionBar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ds_action_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionBarHeight" >
@@ -62,7 +62,7 @@
             android:padding="5dip"
             android:visibility="gone" >
 
-            <com.damon.ds.widget.LoadingView
+            <com.xdamon.widget.LoadingView
                 android:id="@+id/ds_progress"
                 android:layout_width="30dip"
                 android:layout_height="30dip"
@@ -78,4 +78,4 @@
         </FrameLayout>
     </LinearLayout>
 
-</com.damon.ds.widget.DSActionBar>
+</com.xdamon.widget.DSActionBar>
