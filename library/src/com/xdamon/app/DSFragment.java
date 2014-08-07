@@ -128,27 +128,25 @@ public class DSFragment extends Fragment {
 	}
 
 	private void initActionBar(View actionBarContainerView) {
-		if (hasActionBar()) {
-			if (dsActivity.actionBarType() == ActionBarType.DSACTIONBAR) {
-				actionBar = dsActivity.actionBar();
-			} else {
-				ViewStub stub = (ViewStub) actionBarContainerView.findViewById(R.id.action_bar_stub);
-				if (stub != null) {
-					stub.inflate();
-					actionBar = (DSActionBar) actionBarContainerView.findViewById(R.id.ds_action_bar);
-					if (actionBar != null) {
-						actionBar.setBackgroundColor(getResources().getColor(R.color.actionbarBackground));
-						actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);
-						actionBar.setHomeAsUpListener(new View.OnClickListener() {
+		if (dsActivity.actionBarType() == ActionBarType.DSACTIONBAR) {
+			actionBar = dsActivity.actionBar();
+		} else if (hasActionBar()) {
+			ViewStub stub = (ViewStub) actionBarContainerView.findViewById(R.id.action_bar_stub);
+			if (stub != null) {
+				stub.inflate();
+				actionBar = (DSActionBar) actionBarContainerView.findViewById(R.id.ds_action_bar);
+				if (actionBar != null) {
+					actionBar.setBackgroundColor(getResources().getColor(R.color.actionbarBackground));
+					actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);
+					actionBar.setHomeAsUpListener(new View.OnClickListener() {
 
-							@Override
-							public void onClick(View v) {
-								if (!isActivityFinish()) {
-									dsActivity.onBackPressed();
-								}
+						@Override
+						public void onClick(View v) {
+							if (!isActivityFinish()) {
+								dsActivity.onBackPressed();
 							}
-						});
-					}
+						}
+					});
 				}
 			}
 		}
