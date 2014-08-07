@@ -1,5 +1,7 @@
 package com.xdamon.app;
 
+import java.lang.reflect.Method;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,6 +56,20 @@ public class DSFragment extends Fragment {
 
 	public boolean canBack() {
 		return true;
+	}
+	
+	public boolean isRestoredBackStack(){
+		Class<?> cls = Fragment.class;
+		try{
+			Method mth = cls.getDeclaredMethod("isInBackStack");
+			if(mth != null){
+				mth.setAccessible(true);
+				return (Boolean) mth.invoke(this);
+			}
+		}catch(Exception e){
+		}
+		
+		return false;
 	}
 
 	@Override
