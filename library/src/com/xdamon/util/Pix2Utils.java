@@ -2,8 +2,6 @@ package com.xdamon.util;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.TypedValue;
 
 public class Pix2Utils {

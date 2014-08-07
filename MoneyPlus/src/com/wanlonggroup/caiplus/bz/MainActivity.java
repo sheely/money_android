@@ -59,6 +59,7 @@ public class MainActivity extends BaseFragmentTabActivity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			long time = System.currentTimeMillis();
 			if (time - lastQuitTime < 2 * 1000) {

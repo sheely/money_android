@@ -8,15 +8,17 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.xdamon.library.R;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.xdamon.library.R;
 import com.xdamon.util.Pix2Utils;
 
 public class DSActionBar extends FrameLayout {
 
-	private FrameLayout titleContainer, homeAsUpContainer, progressContainer;
+	private RelativeLayout titleContainer;
+	private FrameLayout homeAsUpContainer, progressContainer;
 	private LinearLayout actionMenuContainer;
 	private TextView titleView, subTitleView, progressTextView;
 	private ImageButton homeAsUp;
@@ -32,7 +34,7 @@ public class DSActionBar extends FrameLayout {
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
-		titleContainer = (FrameLayout) findViewById(R.id.ds_title_container);
+		titleContainer = (RelativeLayout) findViewById(R.id.ds_title_container);
 		homeAsUpContainer = (FrameLayout) findViewById(R.id.ds_home_as_up_container);
 		actionMenuContainer = (LinearLayout) findViewById(R.id.ds_action_bar_menu);
 		progressContainer = (FrameLayout) findViewById(R.id.ds_progress_container);
@@ -115,6 +117,12 @@ public class DSActionBar extends FrameLayout {
 		}
 	}
 
+	/**
+	 * 
+	 * @param drawableId
+	 * @param tag
+	 * @param listener
+	 */
 	public void addAction(int drawableId, String tag, OnClickListener listener) {
 		ImageButton imageButton = new ImageButton(getContext());
 		imageButton.setBackgroundResource(android.R.color.transparent);
@@ -122,25 +130,48 @@ public class DSActionBar extends FrameLayout {
 		addAction(imageButton, tag, listener);
 	}
 
+	/**
+	 * 
+	 * @param title
+	 * @param tag
+	 * @param listener
+	 */
 	public void addAction(String title, String tag, OnClickListener listener) {
 		TextView textView = new TextView(getContext());
 		textView.setText(title);
-		textView.setTextColor(getResources().getColor(R.color.white));
+		textView.setTextColor(getResources().getColor(R.color.actionbarTitleColor));
 		textView.setPadding(0, 0, Pix2Utils.dip2px(getContext(), 10), 0);
 		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceMedium);
+		textView.setTextSize(Pix2Utils.sp2px(getContext(), 8));
 		addAction(textView, tag, listener);
 	}
 
+	/**
+	 * 
+	 * @param view
+	 * @param tag
+	 * @param listener
+	 */
 	public void addAction(View view, String tag, OnClickListener listener) {
 		if (view == null || actionMenuContainer == null) {
 			return;
+		}
+		if (TextUtils.isEmpty(tag)) {
+			throw new IllegalArgumentException("tag can not be null or empty");
 		}
 		if (view.getLayoutParams() instanceof LinearLayout.LayoutParams) {
 			((LinearLayout.LayoutParams) view.getLayoutParams()).gravity = Gravity.CENTER_VERTICAL;
 		}
 		view.setOnClickListener(listener);
 		view.setTag(tag);
-		final int index = actionMenuContainer.getChildCount();
+		View child = findAction(tag);
+		int index = 0;
+		if (child != null) {
+			index = actionMenuContainer.indexOfChild(child);
+			actionMenuContainer.removeView(child);
+		} else {
+			index = actionMenuContainer.getChildCount();
+		}
 		actionMenuContainer.addView(view, index);
 	}
 
@@ -151,7 +182,14 @@ public class DSActionBar extends FrameLayout {
 		if (actionMenuContainer == null) {
 			return null;
 		}
-		return actionMenuContainer.findViewWithTag(tag);
+		View view = null;
+		for (int i = 0; i < actionMenuContainer.getChildCount(); i++) {
+			view = actionMenuContainer.getChildAt(i);
+			if (tag.equals(view.getTag())) {
+				return view;
+			}
+		}
+		return null;
 	}
 
 	public void removeAction(String tag) {

@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_host_widget_height"
             android:orientation="horizontal" 
-            android:background="#242424"/>
+            android:background="@color/tabWidgetBackground"/>
     </LinearLayout>
 
 </TabHost>

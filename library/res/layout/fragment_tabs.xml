@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_host_widget_height"
             android:layout_weight="0"
-            android:orientation="horizontal"  />
+            android:background="@color/tabWidgetBackground"
+            android:orientation="horizontal" />
 
         <FrameLayout
             android:id="@android:id/tabcontent"

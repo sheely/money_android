@@ -21,7 +21,6 @@ public class CqHomeFragment extends BaseTabPagerFragment implements View.OnClick
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
 		setTitle("财圈");
-		invalidateActionBar();
 
 		addTab(TAB1, R.layout.common_tab_indicator, CqCompanyListFragment.class, null);
 		addTab(TAB2, R.layout.common_tab_indicator, CqTeamListFragment.class, null);

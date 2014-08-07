@@ -4,34 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionBarHeight" >
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/ds_title_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:gravity="center" >
 
         <TextView
             android:id="@+id/ds_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
             android:ellipsize="end"
             android:maxWidth="240dip"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/ds_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_below="@id/ds_title"
+            android:layout_centerHorizontal="true"
             android:ellipsize="end"
             android:maxWidth="240dip"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
+            android:textSize="15sp"
             android:visibility="gone" />
-    </FrameLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/ds_home_as_up_container"

@@ -19,7 +19,6 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
 		setTitle("财友");
-		invalidateActionBar();
 	}
 
 	@Override

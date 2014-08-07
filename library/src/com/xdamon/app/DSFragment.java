@@ -57,11 +57,6 @@ public class DSFragment extends Fragment {
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		return onSetView(inflater, container);
@@ -82,6 +77,12 @@ public class DSFragment extends Fragment {
 		initActionBar(view);
 	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		invalidateActionBar();
+	}
+	
 	protected void setTitle(String title) {
 		if (actionBar != null) {
 			actionBar.setTitle(title);
@@ -116,8 +117,10 @@ public class DSFragment extends Fragment {
 	}
 
 	public final void invalidateActionBar() {
-		actionBar.removeAllAction();
-		onCreateActionBar(actionBar);
+		if (actionBar != null) {
+			actionBar.removeAllAction();
+			onCreateActionBar(actionBar);
+		}
 	}
 
 	public void onCreateActionBar(DSActionBar actionBar) {
@@ -147,7 +150,8 @@ public class DSFragment extends Fragment {
 				}
 			}
 		} else {
-			actionBar = new DSActionBar(dsActivity);
+			actionBar = (DSActionBar) LayoutInflater.from(dsActivity).inflate(R.layout.ds_action_bar, null, false);
+
 		}
 	}
 
@@ -249,7 +253,7 @@ public class DSFragment extends Fragment {
 	public int getIntParam(String name) {
 		return getIntParam(name, 0);
 	}
-	
+
 	public String getStringParam(String name, String defaultValue) {
 		Bundle bundle = getArguments();
 		if (bundle != null) {
@@ -257,7 +261,7 @@ public class DSFragment extends Fragment {
 		}
 		return defaultValue;
 	}
-	
+
 	public String getStringParam(String name) {
 		return getStringParam(name, null);
 	}

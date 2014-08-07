@@ -19,7 +19,6 @@ public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClick
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
 		setTitle("财信");
-		invalidateActionBar();
 		
 		addTab(TAB1, R.layout.common_tab_indicator, AllCxListFragment.class, null);
 		addTab(TAB2, R.layout.common_tab_indicator, JoinCxListFragment.class, null);

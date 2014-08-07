@@ -14,8 +14,8 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.xdamon.library.R;
 import com.xdamon.ext.DSHandler;
+import com.xdamon.library.R;
 import com.xdamon.util.DialogUtils;
 import com.xdamon.util.URLBase64;
 import com.xdamon.widget.BeautifulProgressDialog;
@@ -30,7 +30,6 @@ public class DSActivity extends FragmentActivity {
 				Fragment fragment = getSupportFragmentManager().findFragmentById(android.R.id.content);
 				if (fragment instanceof DSFragment) {
 					((DSFragment) fragment).invalidateActionBar();
-					;
 				} else {
 					invalidateActionBar();
 				}
