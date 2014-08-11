@@ -17,6 +17,7 @@ import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.CommonDSAdapter;
 import com.wanlonggroup.caiplus.app.BaseActivity;
+import com.wanlonggroup.caiplus.bz.im.ChatHelper;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.Collection2Utils;
@@ -134,7 +135,7 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 		if (v == concernView) {
 			addOrDelete();
 		}else if(v == sendcxView){
-			ChatHelper.instance().chat2Who(this, dsCyDetail);
+			ChatHelper.instance(this).chat2Who(this, dsCyDetail);
 		}
 	};
 

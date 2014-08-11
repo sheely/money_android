@@ -13,6 +13,7 @@ import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListActivity;
+import com.wanlonggroup.caiplus.bz.im.ChatHelper;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
@@ -77,7 +78,7 @@ public class MyConcernActivity extends BasePtrListActivity {
 	}
 
 	class FollowerAdapter extends BasicDSAdapter {
-		
+
 		@Override
 		public boolean isEnabled(int position) {
 			return true;
@@ -111,13 +112,24 @@ public class MyConcernActivity extends BasePtrListActivity {
 				}
 			});
 			viewHolder.textView3.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://mycalender"));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://mycalender"));
 					intent.putExtra("isowntask", 0);
 					intent.putExtra("queryedusername", dsFollower.getString("followerName"));
 					startActivity(intent);
+				}
+			});
+			viewHolder.textView4.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					DSObject dsCy = new DSObject(CPModeName.CAIYOU_ITEM);
+					dsCy.put("friendId", dsFollower.getString("followerId"));
+					dsCy.put("friendName", dsFollower.getString("followerName"));
+					dsCy.put("friendHeadIcon", dsFollower.getString("followerHeadIcon"));
+					ChatHelper.instance(MyConcernActivity.this).chat2Who(MyConcernActivity.this, dsCy);
 				}
 			});
 			return convertView;

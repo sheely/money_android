@@ -3,8 +3,10 @@ package com.next.net;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
+
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 import com.next.app.StandardApplication;
@@ -142,7 +144,7 @@ public abstract class SHTask {
 	/**
 	 * handler
 	 */
-	protected Handler mHandler = new Handler(){
+	protected Handler mHandler = new Handler(Looper.getMainLooper()){
 		public void handleMessage(Message msg) {
 		// TODO Auto-generated method stub
 		Object result = msg.obj;

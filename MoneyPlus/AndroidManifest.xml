@@ -343,7 +343,7 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-         <activity
+        <activity
             android:name="com.wanlonggroup.caiplus.bz.CyListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="财友列表"
@@ -360,8 +360,7 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
-         <activity
+        <activity
             android:name="com.wanlonggroup.caiplus.bz.QueryCqActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="公司查找"
@@ -395,11 +394,11 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.wanlonggroup.caiplus.bz.ChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="聊天"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
@@ -430,6 +429,15 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageReceiver" >
+            <intent-filter>
+                <!-- 接收网络变化的广播 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        
+        <service android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageService" />
     </application>
 
 </manifest>

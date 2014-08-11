@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
+import com.wanlonggroup.caiplus.bz.im.ChatMessageService;
 import com.xdamon.widget.BadgeView;
 
 public class MainActivity extends BaseFragmentTabActivity {
@@ -25,6 +26,7 @@ public class MainActivity extends BaseFragmentTabActivity {
 		addTab(CAIYOU, R.drawable.ic_tab_cy, 0, CyHomeFragment.class, null);
 		addTab(CAIQUAN, R.drawable.ic_tab_cq, 0, CqHomeFragment.class, null);
 		addTab(ME, R.drawable.ic_tab_me, 0, UserFragment.class, null);
+		
 	}
 
 	protected void onSetContent() {

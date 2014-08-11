@@ -30,9 +30,13 @@ public class CPModeName {
 
 	public static final String CY_DETAIL = "cydetail";
 	
-	public static final String CY_CHAT_LIST = "historymessages";
+	public static final String CY_CHAT_HISTORY_LIST = "historymessages";
 
-	public static final String CY_CHAT_ITEM = "historymessage";
+	public static final String CY_CHAT_HISTORY_ITEM = "historymessage";
+	
+	public static final String CY_CHAT_MESSAGE_LIST = "immessages";
+
+	public static final String CY_CHAT_MESSAGE_ITEM = "immessage";
 
 	public static final String CQ_COMPANY_LIST = "companys";
 

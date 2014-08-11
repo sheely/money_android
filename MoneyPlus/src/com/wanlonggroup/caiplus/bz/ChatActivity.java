@@ -87,11 +87,11 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		if (queryTask == task) {
-			DSObject dsChatMessages = DSObjectFactory.create(CPModeName.CY_CHAT_LIST).fromJson(task.getResult());
-			adapter.appendList(dsChatMessages.getArray(CPModeName.CY_CHAT_LIST, CPModeName.CY_CHAT_ITEM));
+			DSObject dsChatMessages = DSObjectFactory.create(CPModeName.CY_CHAT_HISTORY_LIST).fromJson(task.getResult());
+			adapter.appendList(dsChatMessages.getArray(CPModeName.CY_CHAT_HISTORY_LIST, CPModeName.CY_CHAT_HISTORY_ITEM));
 		} else if (sendTask == task) {
 			dismissProgressDialog();
-			DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_ITEM);
+			DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_HISTORY_ITEM);
 			dsMsg.put("senderuserid", accountService().id());
 			dsMsg.put("senderusername", accountService().name());
 			dsMsg.put("senderheadicon", accountService().headIcon());

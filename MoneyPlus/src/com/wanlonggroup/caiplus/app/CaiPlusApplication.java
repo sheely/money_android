@@ -1,6 +1,7 @@
 package com.wanlonggroup.caiplus.app;
 
 import com.next.util.SHEnvironment;
+import com.wanlonggroup.caiplus.bz.im.ChatMessageService;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.xdamon.app.DSApplication;
 import com.xdamon.util.PreferencesUtils;
@@ -23,6 +24,18 @@ public class CaiPlusApplication extends DSApplication {
 			SHEnvironment.getInstance().setPassword(accountService.password());
 		}
 		return accountService;
+	}
+	
+	@Override
+	public void onApplicationResume() {
+		super.onApplicationResume();
+		ChatMessageService.start(this);
+	}
+	
+	@Override
+	public void onApplicationStop() {
+		super.onApplicationStop();
+		ChatMessageService.stop(this);
 	}
 
 }
