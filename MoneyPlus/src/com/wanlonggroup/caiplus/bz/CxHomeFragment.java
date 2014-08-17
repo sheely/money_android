@@ -37,7 +37,7 @@ public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClick
 			
 			@Override
 			public void onClick(View v) {
-				
+				startActivity("cp://addcx");
 			}
 		});
 	}
