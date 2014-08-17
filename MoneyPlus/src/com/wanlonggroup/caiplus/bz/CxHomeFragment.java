@@ -17,7 +17,6 @@ public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClick
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		actionBar().setDisplayHomeAsUpEnabled(false);
 		setTitle("财信");
 		
 		addTab(TAB1, R.layout.common_tab_indicator, AllCxListFragment.class, null);
@@ -34,6 +33,13 @@ public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClick
 	@Override
 	public void onCreateActionBar(DSActionBar actionBar) {
 		actionBar.addAction(R.drawable.ic_search, "ic_search", this);
+		actionBar.setHomeAsUpText("新增", new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
 	}
 
 	@Override

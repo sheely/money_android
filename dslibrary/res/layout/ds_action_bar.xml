@@ -37,10 +37,11 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/ds_home_as_up_container"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:gravity="center_vertical" >
 
         <ImageButton
             android:id="@+id/ds_home_as_up"
@@ -49,7 +50,7 @@
             android:layout_gravity="center"
             android:background="@null"
             android:src="@drawable/ds_home_as_up" />
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ds_action_bar_menu"

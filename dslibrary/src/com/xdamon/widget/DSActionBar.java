@@ -18,8 +18,8 @@ import com.xdamon.util.Pix2Utils;
 public class DSActionBar extends FrameLayout {
 
 	private RelativeLayout titleContainer;
-	private FrameLayout homeAsUpContainer, progressContainer;
-	private LinearLayout actionMenuContainer;
+	private FrameLayout progressContainer;
+	private LinearLayout actionMenuContainer, homeAsUpContainer;
 	private TextView titleView, subTitleView, progressTextView;
 	private ImageButton homeAsUp;
 
@@ -35,7 +35,7 @@ public class DSActionBar extends FrameLayout {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		titleContainer = (RelativeLayout) findViewById(R.id.ds_title_container);
-		homeAsUpContainer = (FrameLayout) findViewById(R.id.ds_home_as_up_container);
+		homeAsUpContainer = (LinearLayout) findViewById(R.id.ds_home_as_up_container);
 		actionMenuContainer = (LinearLayout) findViewById(R.id.ds_action_bar_menu);
 		progressContainer = (FrameLayout) findViewById(R.id.ds_progress_container);
 
@@ -82,9 +82,21 @@ public class DSActionBar extends FrameLayout {
 		}
 	}
 
-	public void setCustomHomeAsUpView(View view) {
+	public void setHomeAsUpText(String text, OnClickListener listener) {
+		TextView textView = new TextView(getContext());
+		textView.setText(text);
+		textView.setTextColor(getResources().getColor(R.color.actionbarTitleColor));
+		textView.setPadding(Pix2Utils.dip2px(getContext(), 15), 0, 0, 0);
+		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceMedium);
+		textView.setTextSize(Pix2Utils.sp2px(getContext(), 8));
+		setCustomHomeAsUpView(textView, listener);
+	}
+
+	public void setCustomHomeAsUpView(View view, OnClickListener listener) {
 		if (homeAsUpContainer != null) {
 			homeAsUpContainer.removeAllViews();
+			
+			view.setOnClickListener(listener);
 			homeAsUpContainer.addView(view);
 		}
 	}
@@ -140,7 +152,7 @@ public class DSActionBar extends FrameLayout {
 		TextView textView = new TextView(getContext());
 		textView.setText(title);
 		textView.setTextColor(getResources().getColor(R.color.actionbarTitleColor));
-		textView.setPadding(0, 0, Pix2Utils.dip2px(getContext(), 10), 0);
+		textView.setPadding(0, 0, Pix2Utils.dip2px(getContext(), 15), 0);
 		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceMedium);
 		textView.setTextSize(Pix2Utils.sp2px(getContext(), 8));
 		addAction(textView, tag, listener);
@@ -200,7 +212,7 @@ public class DSActionBar extends FrameLayout {
 	}
 
 	public void removeAllAction() {
-		if(actionMenuContainer == null){
+		if (actionMenuContainer == null) {
 			return;
 		}
 		int count = actionMenuContainer.getChildCount();
