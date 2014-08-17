@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Toast;
 
-import com.xdamon.library.R;
 import com.xdamon.app.DSActivity.ActionBarType;
+import com.xdamon.library.R;
 import com.xdamon.util.DialogUtils;
 import com.xdamon.util.URLBase64;
 import com.xdamon.widget.BeautifulProgressDialog;
@@ -57,18 +57,18 @@ public class DSFragment extends Fragment {
 	public boolean canBack() {
 		return true;
 	}
-	
-	public boolean isRestoredBackStack(){
+
+	public boolean isRestoredBackStack() {
 		Class<?> cls = Fragment.class;
-		try{
+		try {
 			Method mth = cls.getDeclaredMethod("isInBackStack");
-			if(mth != null){
+			if (mth != null) {
 				mth.setAccessible(true);
 				return (Boolean) mth.invoke(this);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 		}
-		
+
 		return false;
 	}
 
@@ -119,6 +119,14 @@ public class DSFragment extends Fragment {
 				getActivity().finish();
 			}
 		}
+	}
+	
+	public void setResult(int resultCode,Intent data){
+		getActivity().setResult(resultCode, data);
+	}
+	
+	public void setResult(int resultCode){
+		setResult(resultCode, null);
 	}
 
 	// ---actionbar----
@@ -270,9 +278,21 @@ public class DSFragment extends Fragment {
 		return getIntParam(name, 0);
 	}
 
+	public boolean getBooleanParam(String name, boolean defaultValue) {
+		Bundle bundle = getArguments();
+		if (bundle != null && bundle.containsKey(name)) {
+			return bundle.getBoolean(name);
+		}
+		return defaultValue;
+	}
+	
+	public boolean getBooleanParam(String name){
+		return getBooleanParam(name, false);
+	}
+
 	public String getStringParam(String name, String defaultValue) {
 		Bundle bundle = getArguments();
-		if (bundle != null) {
+		if (bundle != null && bundle.containsKey(name)) {
 			return bundle.getString(name);
 		}
 		return defaultValue;

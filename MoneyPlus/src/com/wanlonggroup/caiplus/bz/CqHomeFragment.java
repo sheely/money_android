@@ -48,7 +48,9 @@ public class CqHomeFragment extends BaseTabPagerFragment implements View.OnClick
 	@Override
 	public void onClick(View v) {
 		if(mTabHost.getCurrentTab() == 0){
-			startActivity("cp://querycq");
+			startActivity("cp://querycqcompany");
+		}else if(mTabHost.getCurrentTab() == 1){
+			startActivity("cp://querycqteam");
 		}
 	}
 

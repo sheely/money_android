@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="发起人" />
+
+    <TextView
+        android:id="@+id/owner_name"
+        style="@style/SingleLineTableItemWithPaddingLine"
+        android:gravity="center_vertical"
+        android:hint="请选择发起人"
+        android:textSize="@dimen/text_size_list" />
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="团队名称" />
+
+    <EditText
+        android:id="@+id/team_name"
+        style="@style/SingleLineTableItemWithPaddingLine"
+        android:hint="团队名称"
+        android:textSize="@dimen/text_size_list" />
+
+    <TextView
+        style="@style/TableHeaderTextView"
+        android:text="团队成员" />
+
+    <TextView
+        android:id="@+id/team_member"
+        style="@style/SingleLineTableItemWithPaddingLine"
+        android:gravity="center_vertical"
+        android:hint="请选择团队成员"
+        android:textSize="@dimen/text_size_list" />
+
+    <Button
+        android:id="@+id/query_btn"
+        style="@style/BlueButton"
+        android:layout_margin="15dip"
+        android:text="查找" />
+
+</LinearLayout>

@@ -23,7 +23,7 @@ import com.xdamon.util.DSObjectFactory;
 public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
 	Spinner cateSpinner, companySpinner;
-	EditText nameText,addressText;
+	EditText nameText, addressText;
 	Button queryButton;
 	Adapter cateAdapter, companyAdapter;
 
@@ -67,20 +67,29 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 				CPModeName.CQ_COMPANY_LIST, CPModeName.CQ_COMPANY_ITEM));
 			companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			companySpinner.setAdapter(companyAdapter);
-			
+
 			queryButton.setEnabled(true);
 		}
 	}
 
 	@Override
 	public void onClick(View v) {
-		if(v == queryButton){
-			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cylist"));
+		if (v == queryButton) {
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cylist"));
 			intent.putExtra("oppotype", cateAdapter.getKey(cateSpinner.getSelectedItemPosition()));
 			intent.putExtra("companyid", companyAdapter.getKey(cateSpinner.getSelectedItemPosition()));
 			intent.putExtra("friendname", nameText.getText().toString());
 			intent.putExtra("address", addressText.getText().toString());
-			startActivity(intent);
+			intent.putExtra("forresult", getBooleanParam("forresult"));
+			startActivityForResult(intent, 1);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		if (arg0 == 1) {
+			setResult(RESULT_OK, arg2);
+			finish();
 		}
 	}
 
@@ -105,8 +114,8 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 		public String getItem(int position) {
 			return data[position].getString("value");
 		}
-		
-		public String getKey(int position){
+
+		public String getKey(int position) {
 			return data[position].getString("key");
 		}
 

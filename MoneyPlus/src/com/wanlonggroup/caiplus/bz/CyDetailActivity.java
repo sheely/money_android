@@ -38,6 +38,10 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 		if(TextUtils.isEmpty(publisherId)){
 			publisherId = getStringParam("friendid");
 		}
+		dsCyDetail = getIntent().getParcelableExtra("caiyou");
+		if(TextUtils.isEmpty(publisherId)){
+			publisherId = dsCyDetail.getString("friendId");
+		}
 		setupView();
 		queryDetail();
 	}

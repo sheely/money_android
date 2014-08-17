@@ -20,7 +20,7 @@ import com.wanlonggroup.caiplus.model.CPModeName;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
 
-public class QueryCqActivity extends BaseActivity implements OnClickListener {
+public class QueryCqCompanyActivity extends BaseActivity implements OnClickListener {
 	Spinner cateSpinner;
 	EditText companyNameTextView;
 	Button queryButton;

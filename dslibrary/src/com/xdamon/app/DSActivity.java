@@ -331,6 +331,24 @@ public class DSActivity extends FragmentActivity {
 		return i.getStringExtra(name);
 	}
 
+	public boolean getBooleanParam(String name, boolean defaultValue) {
+		Intent i = getIntent();
+		try {
+			Uri uri = i.getData();
+			if (uri != null) {
+				String val = uri.getQueryParameter(name);
+				if (val != null)
+					return "true".equalsIgnoreCase(val) || "1".equals(val);
+			}
+		} catch (Exception e) {
+		}
+		return defaultValue;
+	}
+
+	public boolean getBooleanParam(String name) {
+		return getBooleanParam(name, false);
+	}
+
 	public double getDoubleParam(String name, double defaultValue) {
 		Intent i = getIntent();
 		try {

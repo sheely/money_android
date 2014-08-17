@@ -1,8 +1,12 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -12,6 +16,7 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListFragment;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.wanlonggroup.caiplus.util.Utils;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
 
@@ -35,7 +40,7 @@ public class CyListFragment extends BasePtrListFragment {
 
 	public void onActivityCreated(android.os.Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+
 		listView.setMode(Mode.DISABLED);
 		adapter = new CyListAdapter();
 		listView.setAdapter(adapter);
@@ -67,6 +72,23 @@ public class CyListFragment extends BasePtrListFragment {
 		listView.onRefreshComplete();
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Object obj = parent.getItemAtPosition(position);
+		if (Utils.isDSObject(obj, CPModeName.CAIYOU_ITEM)) {
+			if (getBooleanParam("forresult")) {
+				Intent intent = new Intent();
+				intent.putExtra("caiyou", (DSObject) obj);
+				setResult(Activity.RESULT_OK, intent);
+				finish();
+			} else {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cydetail"));
+				intent.putExtra("caiyou", (DSObject) obj);
+				startActivity(intent);
+			}
+		}
+	}
+
 	class CyListAdapter extends BasicDSAdapter {
 
 		@Override
@@ -80,7 +102,7 @@ public class CyListFragment extends BasePtrListFragment {
 				viewHolder.textView2 = (TextView) convertView.findViewById(R.id.add_concern);
 				viewHolder.textView3 = (TextView) convertView.findViewById(R.id.send_cx);
 				convertView.setTag(viewHolder);
-			}else{
+			} else {
 				viewHolder = (BasicViewHolder) convertView.getTag();
 			}
 			DSObject dsObj = (DSObject) getItem(position);
