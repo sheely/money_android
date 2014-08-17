@@ -12,7 +12,6 @@
         <com.xdamon.widget.BasicItem
             android:id="@+id/title_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="寻找有大型展馆经验"
             cp:item_title="财信" />
 
         <LinearLayout
@@ -27,7 +26,6 @@
                 style="@style/BasicItemStyle"
                 android:layout_width="0dip"
                 android:layout_weight="1"
-                cp:item_subTitle="王大伟"
                 cp:item_title="发布者" />
 
             <View
@@ -48,7 +46,6 @@
         <com.xdamon.widget.BasicItem
             android:id="@+id/category_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="工程造价"
             cp:item_title="分类" />
     </com.xdamon.widget.TableView>
 
@@ -75,7 +72,7 @@
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="@drawable/gray_vertical_line" />
-        
+
         <TextView
             android:id="@+id/look_comment"
             android:layout_width="0dip"

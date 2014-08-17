@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.Window;
@@ -22,7 +23,7 @@ import com.xdamon.widget.BeautifulProgressDialog;
 import com.xdamon.widget.DSActionBar;
 
 public class DSActivity extends FragmentActivity {
-	
+
 	private final Handler mHander = new DSHandler(this) {
 
 		public void handleRealMessage(android.os.Message msg) {
@@ -46,7 +47,7 @@ public class DSActivity extends FragmentActivity {
 		if (actionBarType() == ActionBarType.NONE) {
 			getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			setContentView(new ViewStub(this));
-			actionBar = new DSActionBar(this);
+			actionBar = (DSActionBar) LayoutInflater.from(this).inflate(R.layout.ds_action_bar, null, false);
 		} else if (actionBarType() == ActionBarType.CONTENT_DSACTIONBAR) {
 			ViewStub stub = (ViewStub) findViewById(R.id.action_bar_stub);
 			if (stub != null) {
@@ -71,7 +72,7 @@ public class DSActivity extends FragmentActivity {
 				mHander.sendEmptyMessageDelayed(1, 300);
 			}
 		});
-		
+
 		handleIntent();
 		onSetContent();
 	}
@@ -83,19 +84,22 @@ public class DSActivity extends FragmentActivity {
 	}
 
 	public final void invalidateActionBar() {
-		onCreateActionBar(actionBar);
+		if (actionBar != null) {
+			actionBar.removeAllAction();
+			onCreateActionBar(actionBar);
+		}
 	}
 
 	public void onCreateActionBar(DSActionBar actionBar) {
 
 	}
-	
-	protected void handleIntent(){
-		
+
+	protected void handleIntent() {
+
 	}
-	
+
 	protected void onSetContent() {
-		
+
 	}
 
 	@Override
@@ -201,7 +205,7 @@ public class DSActivity extends FragmentActivity {
 		}
 	}
 
-	public void initActionBar() {
+	private void initActionBar() {
 		actionBar = (DSActionBar) findViewById(R.id.ds_action_bar);
 		actionBar.setBackgroundColor(getResources().getColor(R.color.actionbarBackground));
 		actionBar.setHomeAsUpResource(R.drawable.ic_navi_back);

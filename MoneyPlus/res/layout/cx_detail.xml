@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <include android:id="@+id/detail_header" layout="@layout/cx_detail_header" />
+        <include
+            android:id="@+id/detail_header"
+            layout="@layout/cx_detail_header" />
 
         <View
             android:layout_width="match_parent"
@@ -24,7 +26,6 @@
             android:layout_height="0dip"
             android:layout_weight="1"
             android:padding="10dip"
-            android:text="年中大促价：发生的方式发生"
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_info" />
 

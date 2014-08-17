@@ -200,6 +200,9 @@ public class DSActionBar extends FrameLayout {
 	}
 
 	public void removeAllAction() {
+		if(actionMenuContainer == null){
+			return;
+		}
 		int count = actionMenuContainer.getChildCount();
 		if (count > 1) {
 			actionMenuContainer.removeViews(1, count - 1);

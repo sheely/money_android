@@ -73,14 +73,10 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void onProgressDialogCancel() {
-		if (queryTask != null && queryTask.cancel(true)) {
-			finish();
-		}
-	}
-
-	@Override
 	public void onClick(View v) {
+		if(dsCaixin == null){
+			return;
+		}
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxreviewdetail"));
 		intent.putExtra("caixin", dsCaixin);
 		startActivity(intent);

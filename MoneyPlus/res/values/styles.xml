@@ -31,33 +31,37 @@
     
     <!-- textview -->
     
-    <style name="ListBlackText" parent="android:Widget.TextView">
+    <style name="WrapTextStyle" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ListBlackText" parent="WrapTextStyle">
         <item name="android:textColor">@color/text_color_black</item>
         <item name="android:textSize">@dimen/text_size_list</item>
     </style>
     
-    <style name="ListGrayText" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color_gray</item>
+    <style name="ListGrayText" parent="WrapTextStyle">
+        <item name="android:textColor">@color/light_gray</item>
         <item name="android:textSize">@dimen/text_size_list</item>
     </style>
     
-    <style name="InfoBlackText" parent="android:Widget.TextView">
+    <style name="InfoBlackText" parent="WrapTextStyle">
         <item name="android:textColor">@color/text_color_black</item>
         <item name="android:textSize">@dimen/text_size_info</item>
     </style>
     
-    <style name="InfoWhiteText" parent="android:Widget.TextView">
+    <style name="InfoWhiteText" parent="WrapTextStyle">
         <item name="android:textColor">@color/text_color_white</item>
         <item name="android:textSize">@dimen/text_size_info</item>
     </style>
     
-    <style name="InfoGrayText" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color_gray</item>
+    <style name="InfoGrayText" parent="WrapTextStyle">
+        <item name="android:textColor">@color/light_gray</item>
         <item name="android:textSize">@dimen/text_size_info</item>
     </style>
     
-    <style name="HintGrayText" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color_gray</item>
+    <style name="HintGrayText" parent="WrapTextStyle">
+        <item name="android:textColor">@color/light_gray</item>
         <item name="android:textSize">@dimen/text_size_hint</item>
     </style>
     

@@ -83,7 +83,11 @@ public class BaseFragment extends DSFragment implements AccountListener, ITaskLi
 	public void onDestroy() {
 		accountService().removeListener(this);
 		for (SHPostTaskM task : taskMap.values()) {
-			task.cancel(true);
+			try{
+				task.cancel(true);
+			}catch(Exception e){
+				
+			}
 		}
 		super.onDestroy();
 	}

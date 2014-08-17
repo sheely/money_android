@@ -85,6 +85,7 @@ public class CxDetailHeader extends LinearLayout {
 		this.dsCaixin = dsCaixin;
 		titleItem.setSubTitle(dsCaixin.getString("oppoTitle"));
 		publishItem.setSubTitle(dsCaixin.getString("oppoPublisher"));
+		cateItem.setSubTitle(dsCaixin.getString("oppoType"));
 	}
 
 	public void setMode(HeaderMode mode) {

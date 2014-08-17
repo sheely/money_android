@@ -87,7 +87,8 @@ public class ChatMessageService extends Service {
 
 				@Override
 				public void onTaskFailed(SHTask task) {
-					Log.e("GetMessageThread", task.getRespInfo().getMessage());
+					if (task != null && task.getRespInfo() != null && task.getRespInfo().getMessage() != null)
+						Log.e("GetMessageThread", task.getRespInfo().getMessage());
 				}
 
 				@Override

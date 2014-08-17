@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -30,6 +31,8 @@ public class CxExecuteInfoActivity extends BaseActivity {
 
 	static final int END_DATE_DIALOG_ID = 2;
 
+	boolean isEditable;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,8 +43,39 @@ public class CxExecuteInfoActivity extends BaseActivity {
 		queryInfo();
 	}
 
+	public void onCreateActionBar(com.xdamon.widget.DSActionBar actionBar) {
+		if (!isEditable) {
+			actionBar.addAction("编辑", "edite", new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					setInfoEditable(true);
+				}
+			});
+		} else {
+			actionBar.addAction("提交", "submit", new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					modifyInfo();
+				}
+			});
+		}
+	};
+	
+	void setInfoEditable(boolean editable){
+		this.isEditable = editable;
+		startTimeItem.getSubTitleView().setClickable(editable);
+		endTimeItem.getSubTitleView().setClickable(editable);
+		locationEditText.setEnabled(editable);
+		budgetEditText.setEnabled(editable);
+		remarkEditText.setEnabled(editable);
+		invalidateActionBar();
+	}
+
 	CxDetailHeader cxDetailHeader;
-	BasicSingleItem startTimeItem, endTimeItem, locationItem, budgetItem, remarkItem;
+	BasicSingleItem startTimeItem, endTimeItem;
+	EditText locationEditText, budgetEditText, remarkEditText;
 
 	void setupView() {
 		cxDetailHeader = (CxDetailHeader) findViewById(R.id.detail_header);
@@ -65,9 +99,11 @@ public class CxExecuteInfoActivity extends BaseActivity {
 			}
 		});
 
-		locationItem = (BasicSingleItem) findViewById(R.id.location);
-		budgetItem = (BasicSingleItem) findViewById(R.id.budget);
-		remarkItem = (BasicSingleItem) findViewById(R.id.remark);
+		locationEditText = (EditText) findViewById(R.id.location);
+		budgetEditText = (EditText) findViewById(R.id.budget);
+		remarkEditText = (EditText) findViewById(R.id.remark);
+		
+		setInfoEditable(false);
 	}
 
 	void updateView() {
@@ -75,12 +111,11 @@ public class CxExecuteInfoActivity extends BaseActivity {
 			return;
 		}
 		cxDetailHeader.setDetail(dsCaixin);
-
 		startTimeItem.setSubTitle(Utils.formate(dsCaixin.getString("startTime")));
 		endTimeItem.setSubTitle(Utils.formate(dsCaixin.getString("endTime")));
-		locationItem.setSubTitle(dsCaixin.getString("executePlace"));
-		budgetItem.setSubTitle(dsCaixin.getString("budget"));
-		remarkItem.setSubTitle(dsCaixin.getString("remark"));
+		locationEditText.setText(dsCaixin.getString("executePlace"));
+		budgetEditText.setText(dsCaixin.getString("budget"));
+		remarkEditText.setText(dsCaixin.getString("remark"));
 	}
 
 	SHPostTaskM queryTask;
@@ -92,11 +127,30 @@ public class CxExecuteInfoActivity extends BaseActivity {
 		showProgressDialog();
 	}
 
+	SHPostTaskM modifyTask;
+
+	void modifyInfo() {
+		modifyTask = getTask(DEFAULT_API_URL + "miExecuteInfo.do", this);
+		modifyTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
+		modifyTask.getTaskArgs().put("startTime", startTimeItem.getSubTitleView().getText());
+		modifyTask.getTaskArgs().put("endTime", endTimeItem.getSubTitleView().getText());
+		modifyTask.getTaskArgs().put("executePlace", locationEditText.getText());
+		modifyTask.getTaskArgs().put("budget", budgetEditText.getText());
+		modifyTask.getTaskArgs().put("remark", remarkEditText.getText());
+		modifyTask.start();
+		showProgressDialog("提交中...");
+	}
+
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
-		super.onTaskFinished(task);
-		dsCaixin = DSObjectFactory.create(CPModeName.CAIXIN_ITEM).fromJson(task.getResult());
-		updateView();
+		if (task == queryTask) {
+			dismissProgressDialog();
+			dsCaixin = DSObjectFactory.create(CPModeName.CAIXIN_ITEM).fromJson(task.getResult());
+			updateView();
+		} else if (task == modifyTask) {
+			dismissProgressDialog();
+			setInfoEditable(false);
+		}
 	}
 
 	@Override
@@ -141,7 +195,7 @@ public class CxExecuteInfoActivity extends BaseActivity {
 				"-").append(mDay).toString()));
 		} else if (currentDialogId == END_DATE_DIALOG_ID) {
 			endTimeItem.setSubTitle(Utils.formate(new StringBuilder().append(mYear).append("-").append(mMonth + 1).append(
-					"-").append(mDay).toString()));
+				"-").append(mDay).toString()));
 		}
 	}
 

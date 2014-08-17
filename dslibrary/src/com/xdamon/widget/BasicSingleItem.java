@@ -161,11 +161,6 @@ public class BasicSingleItem extends LinearLayout {
 
 	public void setSubTitle(CharSequence title) {
 		subTitleTextView.setText(title);
-		if (TextUtils.isEmpty(title)) {
-			subTitleTextView.setVisibility(GONE);
-		} else {
-			subTitleTextView.setVisibility(VISIBLE);
-		}
 	}
 	
 	public void setSubTitleHint(CharSequence hint){

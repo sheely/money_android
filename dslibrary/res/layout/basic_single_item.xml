@@ -8,27 +8,27 @@
 
     <ImageView
         android:id="@+id/s_icon"
-        android:layout_marginRight="8dip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dip" />
 
     <TextView
         android:id="@+id/s_title"
-        android:layout_width="0dip"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/s_subtitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dip"
-        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical|right"
         android:textColor="@color/black"
         android:textSize="14sp" />
 

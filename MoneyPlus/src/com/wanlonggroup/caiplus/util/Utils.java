@@ -39,6 +39,8 @@ public class Utils {
 
 	public static String formate(DateFormat format, String dateString) {
 		try {
+			if(TextUtils.isEmpty(dateString))
+				return "";
 			return format.format(wrapDatetime(dateString));
 		} catch (Exception e) {
 		}
