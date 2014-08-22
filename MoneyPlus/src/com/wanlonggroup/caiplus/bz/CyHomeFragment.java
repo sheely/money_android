@@ -8,22 +8,23 @@ import android.view.ViewGroup;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListFragment;
-import com.xdamon.widget.DSActionBar;
+import com.xdamon.app.DSActionBar;
 
 public class CyHomeFragment extends BasePtrListFragment implements View.OnClickListener {
 
 	CyListAdapter adapter;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasActionBar(true);
+	}
+	
+	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
 		setTitle("财友");
-	}
-
-	@Override
-	protected boolean hasActionBar() {
-		return true;
 	}
 
 	@Override

@@ -29,8 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
-                android:layout_toRightOf="@id/icon"
-                android:text="张三" />
+                android:layout_toRightOf="@id/icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,28 +67,24 @@
             style="@style/TableHeaderTextView"
             android:text="基本资料" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/company_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="万隆集团"
             cp:item_title="公司：" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/job_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="咨询总监"
             cp:item_title="职务：" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/email_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="ad@163.com"
             cp:item_title="邮箱：" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/mobile_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="123456789"
             cp:item_title="电话：" />
 
         <View
@@ -99,22 +94,19 @@
             android:layout_marginRight="10dip"
             android:background="@drawable/dash_line" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/charge_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="2000/小时"
             cp:item_title="收费标准：" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/degree_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="博士"
             cp:item_title="收费标准：" />
 
-        <com.xdamon.widget.BasicItem
+        <com.wanlonggroup.caiplus.widget.BasicItem
             android:id="@+id/college_item"
             style="@style/BasicItemStyle"
-            cp:item_subTitle="复旦大学"
             cp:item_title="收费标准：" />
 
         <View
@@ -135,7 +127,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/table_view_item_with_line"
             android:lineSpacingMultiplier="1.2"
-            android:text="资深风险管理专家\n投资项目分析师"
             android:textSize="@dimen/text_size_list" />
 
         <TextView
@@ -149,7 +140,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/table_view_item_with_line"
             android:lineSpacingMultiplier="1.2"
-            android:text="某房地产企业\n副总经理\n上海商业集团"
             android:textSize="@dimen/text_size_list" />
 
         <TextView
@@ -163,7 +153,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/table_view_item_with_line"
             android:lineSpacingMultiplier="1.2"
-            android:text="制造业\n房地主酒店业\n中国北车集团股份"
             android:textSize="@dimen/text_size_list" />
 
         <TextView

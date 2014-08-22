@@ -21,5 +21,4 @@ public class CxListActivity extends BaseActivity {
 		transaction.commitAllowingStateLoss();
 		getSupportFragmentManager().executePendingTransactions();
 	}
-
 }

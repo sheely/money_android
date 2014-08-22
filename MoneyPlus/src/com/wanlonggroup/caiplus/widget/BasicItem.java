@@ -1,9 +1,10 @@
-package com.xdamon.widget;
+package com.wanlonggroup.caiplus.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.xdamon.library.R;
+import com.wanlonggroup.caiplus.R;
+import com.xdamon.widget.BasicSingleItem;
 
 public class BasicItem extends BasicSingleItem {
 

@@ -44,11 +44,13 @@ public class ChatMessageService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		if (ACTION_START.equals(intent.getAction())) {
-			startMsgThread();
-		} else if (ACTION_STOP.equals(intent.getAction())) {
-			stopMsgThread();
-			stopSelf();
+		if(intent != null){
+			if (ACTION_START.equals(intent.getAction())) {
+				startMsgThread();
+			} else if (ACTION_STOP.equals(intent.getAction())) {
+				stopMsgThread();
+				stopSelf();
+			}
 		}
 		return super.onStartCommand(intent, flags, startId);
 	}

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
@@ -19,10 +20,10 @@ import com.wanlonggroup.caiplus.adapter.CommonDSAdapter;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.bz.im.ChatHelper;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.wanlonggroup.caiplus.widget.BasicItem;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.Collection2Utils;
 import com.xdamon.util.DSObjectFactory;
-import com.xdamon.widget.BasicItem;
 import com.xdamon.widget.BasicSingleItem;
 import com.xdamon.widget.TableView;
 
@@ -39,8 +40,13 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 			publisherId = getStringParam("friendid");
 		}
 		dsCyDetail = getIntent().getParcelableExtra("caiyou");
-		if(TextUtils.isEmpty(publisherId)){
+		if(dsCyDetail != null && TextUtils.isEmpty(publisherId)){
 			publisherId = dsCyDetail.getString("friendId");
+		}
+		if(TextUtils.isEmpty(publisherId)){
+			Toast.makeText(this, "缺少必要参数", Toast.LENGTH_SHORT).show();
+			finish();
+			return;
 		}
 		setupView();
 		queryDetail();

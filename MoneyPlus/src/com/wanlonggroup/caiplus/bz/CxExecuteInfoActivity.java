@@ -17,6 +17,7 @@ import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.util.Utils;
 import com.wanlonggroup.caiplus.widget.CxDetailHeader;
 import com.wanlonggroup.caiplus.widget.CxDetailHeader.HeaderMode;
+import com.xdamon.app.DSActionBar;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
 import com.xdamon.widget.BasicSingleItem;
@@ -43,7 +44,7 @@ public class CxExecuteInfoActivity extends BaseActivity {
 		queryInfo();
 	}
 
-	public void onCreateActionBar(com.xdamon.widget.DSActionBar actionBar) {
+	public void onCreateActionBar(DSActionBar actionBar) {
 		if (!isEditable) {
 			actionBar.addAction("编辑", "edite", new View.OnClickListener() {
 

@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseTabPagerFragment;
-import com.xdamon.widget.DSActionBar;
+import com.xdamon.app.DSActionBar;
 
 public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClickListener{
 	
@@ -13,6 +13,12 @@ public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClick
 	private final String TAB2 = "已参与";
 	private final String TAB3 = "已中标";
 	private final String TAB4 = "已发布";
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasActionBar(true);
+	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -23,11 +29,6 @@ public class CxHomeFragment extends BaseTabPagerFragment implements View.OnClick
 		addTab(TAB2, R.layout.common_tab_indicator, JoinCxListFragment.class, null);
 		addTab(TAB3, R.layout.common_tab_indicator, BidCxListFragment.class, null);
 		addTab(TAB4, R.layout.common_tab_indicator, PublishCxListFragment.class, null);
-	}
-	
-	@Override
-	protected boolean hasActionBar() {
-		return true;
 	}
 	
 	@Override

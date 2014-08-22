@@ -1,4 +1,4 @@
-package com.xdamon.widget;
+package com.xdamon.app;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -223,8 +223,16 @@ public class DSActionBar extends FrameLayout {
 
 	// =====hide or show===
 	private ObjectAnimator objectAnimator;
+	
+	final void show(){
+		show(false);
+	}
 
-	public void show() {
+	final void show(boolean animated) {
+		if(!animated){
+			setVisibility(View.VISIBLE);
+			return;
+		}
 		objectAnimator = ObjectAnimator.ofFloat(this, "y", 0);
 		objectAnimator.setDuration(400);
 		objectAnimator.start();
@@ -237,8 +245,16 @@ public class DSActionBar extends FrameLayout {
 		}, 100);
 
 	}
+	
+	final void hide(){
+		hide(false);
+	}
 
-	public void hide() {
+	final void hide(boolean animated) {
+		if(!animated){
+			setVisibility(View.GONE);
+			return;
+		}
 		objectAnimator = ObjectAnimator.ofFloat(this, "y", -getHeight());
 		objectAnimator.setDuration(400);
 		objectAnimator.start();

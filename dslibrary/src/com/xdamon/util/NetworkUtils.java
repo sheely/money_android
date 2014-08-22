@@ -94,5 +94,47 @@ public class NetworkUtils {
 		}
 		return false;
 	}
+	
+	/**
+	 * 设备连接的网络类型，有以下几种返回：<br>
+	 * wifi: 从无线网络连接<br>
+	 * mobile***: 从手机网络连接。注意mobile后面会跟详细信息：<br>
+	 * &nbsp;&nbsp;mobile(手机数据网络类型,连接点名称)<br>
+	 * &nbsp;&nbsp;mobile(EDGE,cmnet)<br>
+	 * &nbsp;&nbsp;mobile(UTMS,3gnet)<br>
+	 * unknown: 未知网络类型<br>
+	 * 其他...<br>
+	 */
+	public static String getNetworkInfo(Context context) {
+		ConnectivityManager connectivityManager = connectivityManager(context);
+		if (connectivityManager == null)
+			return "unknown";
+		NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+		if (activeNetInfo == null)
+			return "unknown";
+		switch (activeNetInfo.getType()) {
+		case ConnectivityManager.TYPE_WIFI:
+			return "wifi";
+		case ConnectivityManager.TYPE_MOBILE:
+			return "mobile(" + activeNetInfo.getSubtypeName() + ","
+					+ activeNetInfo.getExtraInfo() + ")";
+		default:
+			return activeNetInfo.getTypeName();
+		}
+	}
+	
+	private static ConnectivityManager connectivityManager;
+
+	public static ConnectivityManager connectivityManager(Context context) {
+		if (connectivityManager == null) {
+			try {
+				connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+			} catch (Exception e) {
+				DSLog.w("network",
+					"cannot get connectivity manager, maybe the permission is missing in AndroidManifest.xml?", e);
+			}
+		}
+		return connectivityManager;
+	}
 
 }

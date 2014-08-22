@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
 import android.widget.Toast;
@@ -20,7 +21,6 @@ import com.xdamon.library.R;
 import com.xdamon.util.DialogUtils;
 import com.xdamon.util.URLBase64;
 import com.xdamon.widget.BeautifulProgressDialog;
-import com.xdamon.widget.DSActionBar;
 
 public class DSActivity extends FragmentActivity {
 
@@ -48,15 +48,6 @@ public class DSActivity extends FragmentActivity {
 			getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			setContentView(new ViewStub(this));
 			actionBar = (DSActionBar) LayoutInflater.from(this).inflate(R.layout.ds_action_bar, null, false);
-		} else if (actionBarType() == ActionBarType.CONTENT_DSACTIONBAR) {
-			ViewStub stub = (ViewStub) findViewById(R.id.action_bar_stub);
-			if (stub != null) {
-				stub.inflate();
-				initActionBar();
-			} else {
-				throw new RuntimeException(
-						"actiontype (CONTENT_DSACTIONBAR) must has actionbar in contentview wrap up by viewstub with  id=action_bar_stub");
-			}
 		} else if (actionBarType() == ActionBarType.DSACTIONBAR) {
 			getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
 			setContentView(new ViewStub(this));
@@ -184,10 +175,16 @@ public class DSActivity extends FragmentActivity {
 	// ----actionbar-----
 
 	protected enum ActionBarType {
-		DSACTIONBAR, NONE, CONTENT_DSACTIONBAR
+		DSACTIONBAR, NONE
 	}
 
 	private DSActionBar actionBar;
+	
+	private boolean isActionBarShowing = actionBarType() != ActionBarType.NONE;
+	
+	protected boolean isActionBarShowing(){
+		return isActionBarShowing;
+	}
 
 	protected ActionBarType actionBarType() {
 		return ActionBarType.DSACTIONBAR;
@@ -219,6 +216,68 @@ public class DSActivity extends FragmentActivity {
 
 		setTitle(getTitle());
 	}
+	
+	public void setCustomTitleFeatureInt(int customTitleLayoutId) {
+	    try {
+	    	// retrieve value for com.android.internal.R.id.title_container(=0x1020149)
+	    	int titleContainerId = (Integer) Class.forName(
+	    		"com.android.internal.R$id").getField("title_container").get(null);
+
+	    	// remove all views from titleContainer
+	    	((ViewGroup) getWindow().findViewById(titleContainerId)).removeAllViews();
+
+	    	// add new custom title view 
+	    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, customTitleLayoutId);
+
+	    } catch(Exception ex) {
+	    	// whatever you want to do here..
+	    }
+	}
+	
+	public void hideActionBar(){
+		if(!isActionBarShowing){
+			return;
+		}
+		isActionBarShowing = false;
+		if(actionBarType() == ActionBarType.DSACTIONBAR){
+			try {
+				// retrieve value for com.android.internal.R.id.title_container(=0x1020149)
+				int titleContainerId = (Integer) Class.forName(
+						"com.android.internal.R$id").getField("title_container").get(null);
+				
+				// remove all views from titleContainer
+				((ViewGroup) getWindow().findViewById(titleContainerId)).setVisibility(View.GONE);;
+				
+			} catch(Exception ex) {
+				// whatever you want to do here..
+			}
+		}else{
+			actionBar.hide();
+		}
+	}
+	
+	public void showActionBar(){
+		if(isActionBarShowing){
+			return;
+		}
+		isActionBarShowing = true;
+		if(actionBarType() == ActionBarType.DSACTIONBAR){
+			try {
+		    	// retrieve value for com.android.internal.R.id.title_container(=0x1020149)
+		    	int titleContainerId = (Integer) Class.forName(
+		    		"com.android.internal.R$id").getField("title_container").get(null);
+	
+		    	// remove all views from titleContainer
+		    	((ViewGroup) getWindow().findViewById(titleContainerId)).setVisibility(View.VISIBLE);;
+	
+		    } catch(Exception ex) {
+		    	// whatever you want to do here..
+		    }
+		}else{
+			actionBar.show();
+		}
+	}
+	
 
 	// -----toast and dialog----
 
@@ -245,7 +304,7 @@ public class DSActivity extends FragmentActivity {
 
 				@Override
 				public void onCancel(DialogInterface dialog) {
-					onProgressDialogCancel();
+					_onProgressDialogCancel();
 
 				}
 			}, true);
@@ -264,9 +323,13 @@ public class DSActivity extends FragmentActivity {
 			progressDialog.dismiss();
 		}
 	}
+	
+	private void _onProgressDialogCancel() {
+		progressDialogCount--;
+		onProgressDialogCancel();
+	}
 
 	public void onProgressDialogCancel() {
-
 	}
 
 	public void showAlert(String message) {

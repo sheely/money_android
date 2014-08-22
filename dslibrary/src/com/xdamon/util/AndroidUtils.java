@@ -184,12 +184,15 @@ public class AndroidUtils {
 		return appCacheDir;
 	}
 
-	public static boolean hasExternalStoragePermission(Context context) {
-		int perm = context.checkCallingOrSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE");
-		return (perm == 0);
+	public static boolean hasExternalStorage(Context context) {
+		return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 	}
-	
-	public static boolean hasPermission(Context context,String permission){
+
+	public static boolean hasExternalStoragePermission(Context context) {
+		return hasPermission(context, "android.permission.WRITE_EXTERNAL_STORAGE");
+	}
+
+	public static boolean hasPermission(Context context, String permission) {
 		int perm = context.checkCallingOrSelfPermission(permission);
 		return (perm == PackageManager.PERMISSION_GRANTED);
 	}
@@ -211,7 +214,7 @@ public class AndroidUtils {
 		}
 		return appCacheDir;
 	}
-	
+
 	public static void checkmod(String permission, String path) {
 		try {
 			String command = "chmod " + permission + " " + path;
@@ -220,7 +223,7 @@ public class AndroidUtils {
 		} catch (IOException e) {
 		}
 	}
-	
+
 	private static PackageInfo packageInfo;
 
 	public static PackageInfo packageInfo(Context context) {
@@ -241,7 +244,7 @@ public class AndroidUtils {
 	public static int versionCode(Context context) {
 		return packageInfo(context).versionCode;
 	}
-	
+
 	private static String imei;
 
 	/**
@@ -290,7 +293,7 @@ public class AndroidUtils {
 			if (imei == null) {
 				try {
 					TelephonyManager tel = (TelephonyManager) DSApplication.instance().getSystemService(
-							Context.TELEPHONY_SERVICE);
+						Context.TELEPHONY_SERVICE);
 					imei = tel.getDeviceId();
 					if (imei != null) {
 						if (imei.length() < 8) {
@@ -331,7 +334,7 @@ public class AndroidUtils {
 		}
 		return imei;
 	}
-	
+
 	/**
 	 * 判断当前应用程序处于前台还是后台
 	 * 

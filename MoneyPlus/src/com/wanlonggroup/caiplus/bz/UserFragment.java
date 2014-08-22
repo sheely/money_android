@@ -18,6 +18,12 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 
 	private Button logoutBtn;
 	private BasicSingleItem myCalender, myConcern, myTeam;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasActionBar(true);
+	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -41,11 +47,6 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public View onSetView(LayoutInflater inflater, ViewGroup container) {
 		return inflater.inflate(R.layout.user_fragment, container, false);
-	}
-
-	@Override
-	protected boolean hasActionBar() {
-		return true;
 	}
 
 	@Override

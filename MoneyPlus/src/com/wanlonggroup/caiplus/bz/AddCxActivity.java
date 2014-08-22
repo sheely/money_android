@@ -14,6 +14,7 @@ import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.xdamon.app.DSActionBar;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
 
@@ -30,7 +31,7 @@ public class AddCxActivity extends BaseActivity {
 		queryCate();
 	}
 
-	public void onCreateActionBar(com.xdamon.widget.DSActionBar actionBar) {
+	public void onCreateActionBar(DSActionBar actionBar) {
 		actionBar.addAction("提交", "add_cx", new View.OnClickListener() {
 
 			@Override

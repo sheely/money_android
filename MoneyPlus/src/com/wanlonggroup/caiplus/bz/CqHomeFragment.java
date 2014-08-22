@@ -9,7 +9,7 @@ import android.widget.TabHost;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseTabPagerFragment;
-import com.xdamon.widget.DSActionBar;
+import com.xdamon.app.DSActionBar;
 
 public class CqHomeFragment extends BaseTabPagerFragment implements View.OnClickListener {
 
@@ -20,6 +20,7 @@ public class CqHomeFragment extends BaseTabPagerFragment implements View.OnClick
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		actionBar().setDisplayHomeAsUpEnabled(false);
+		setHasActionBar(true);
 		setTitle("财圈");
 
 		addTab(TAB1, R.layout.common_tab_indicator, CqCompanyListFragment.class, null);
@@ -53,10 +54,4 @@ public class CqHomeFragment extends BaseTabPagerFragment implements View.OnClick
 			startActivity("cp://querycqteam");
 		}
 	}
-
-	@Override
-	protected boolean hasActionBar() {
-		return true;
-	}
-
 }

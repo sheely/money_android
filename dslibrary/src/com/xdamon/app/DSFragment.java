@@ -19,7 +19,6 @@ import com.xdamon.library.R;
 import com.xdamon.util.DialogUtils;
 import com.xdamon.util.URLBase64;
 import com.xdamon.widget.BeautifulProgressDialog;
-import com.xdamon.widget.DSActionBar;
 
 public class DSFragment extends Fragment {
 
@@ -120,20 +119,39 @@ public class DSFragment extends Fragment {
 			}
 		}
 	}
-	
-	public void setResult(int resultCode,Intent data){
+
+	public void setResult(int resultCode, Intent data) {
 		getActivity().setResult(resultCode, data);
 	}
-	
-	public void setResult(int resultCode){
+
+	public void setResult(int resultCode) {
 		setResult(resultCode, null);
 	}
 
 	// ---actionbar----
 	private DSActionBar actionBar;
 
-	protected boolean hasActionBar() {
-		return false;
+	private boolean hasActionBar;
+
+	public void setHasActionBar(boolean hasActionBar) {
+		if (this.hasActionBar != hasActionBar) {
+			this.hasActionBar = hasActionBar;
+			if (actionBar != null) {
+				if (dsActivity.actionBarType() == ActionBarType.DSACTIONBAR) {
+					if(hasActionBar){
+						dsActivity.showActionBar();
+					}else{
+						dsActivity.hideActionBar();
+					}
+				}else{
+					actionBar.setVisibility(hasActionBar ? View.VISIBLE : View.GONE);
+				}
+			}
+		}
+	}
+	
+	public boolean hasActionBar(){
+		return hasActionBar;
 	}
 
 	protected final DSActionBar actionBar() {
@@ -154,7 +172,8 @@ public class DSFragment extends Fragment {
 	private void initActionBar(View actionBarContainerView) {
 		if (dsActivity.actionBarType() == ActionBarType.DSACTIONBAR) {
 			actionBar = dsActivity.actionBar();
-		} else if (hasActionBar()) {
+			hasActionBar = dsActivity.isActionBarShowing();
+		} else {
 			ViewStub stub = (ViewStub) actionBarContainerView.findViewById(R.id.action_bar_stub);
 			if (stub != null) {
 				stub.inflate();
@@ -177,6 +196,9 @@ public class DSFragment extends Fragment {
 		if (actionBar == null) {
 			actionBar = (DSActionBar) LayoutInflater.from(dsActivity).inflate(R.layout.ds_action_bar, null, false);
 		}
+
+		hasActionBar = !hasActionBar;
+		setHasActionBar(!hasActionBar);
 	}
 
 	// -----toast and dialog----
@@ -205,7 +227,7 @@ public class DSFragment extends Fragment {
 
 					@Override
 					public void onCancel(DialogInterface dialog) {
-						onProgressDialogCancel();
+						_onProgressDialogCancel();
 
 					}
 				}, true);
@@ -223,6 +245,11 @@ public class DSFragment extends Fragment {
 		if (progressDialogCount == 0 && progressDialog != null && progressDialog.isShowing()) {
 			progressDialog.dismiss();
 		}
+	}
+
+	private void _onProgressDialogCancel() {
+		progressDialogCount--;
+		onProgressDialogCancel();
 	}
 
 	public void onProgressDialogCancel() {
@@ -281,12 +308,15 @@ public class DSFragment extends Fragment {
 	public boolean getBooleanParam(String name, boolean defaultValue) {
 		Bundle bundle = getArguments();
 		if (bundle != null && bundle.containsKey(name)) {
+			String val = bundle.getString(name);
+			if (val != null)
+				return "true".equalsIgnoreCase(val) || "1".equals(val);
 			return bundle.getBoolean(name);
 		}
 		return defaultValue;
 	}
-	
-	public boolean getBooleanParam(String name){
+
+	public boolean getBooleanParam(String name) {
 		return getBooleanParam(name, false);
 	}
 

@@ -20,7 +20,7 @@ public class ThreadExecutorsHelper {
 	private static HashMap<Object, Future<?>> runnableMap;
 
 	static {
-		poolSize = Math.max(2, Runtime.getRuntime().availableProcessors());
+		poolSize = Math.max(10, Runtime.getRuntime().availableProcessors() * 4);
 		concurrentThreadFactory = new DSThreadFactory();
 		runnableMap = new HashMap<Object, Future<?>>();
 		init();
@@ -102,8 +102,7 @@ public class ThreadExecutorsHelper {
 	public static ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, long initialDelay, long delay,
 			TimeUnit unit) {
 		init();
-		ScheduledFuture<?> future = scheduledExecutorService
-				.scheduleWithFixedDelay(runnable, initialDelay, delay, unit);
+		ScheduledFuture<?> future = scheduledExecutorService.scheduleWithFixedDelay(runnable, initialDelay, delay, unit);
 		runnableMap.put(runnable, future);
 		return future;
 	}
