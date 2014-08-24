@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.next.net.SHCacheType;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -46,7 +45,6 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
 
 	void queryCate() {
 		queryCateTask = getTask(DEFAULT_API_URL + "miQueryOppoListInit.do", this);
-		queryCateTask.setChacheType(SHCacheType.PERSISTENT);
 		queryCateTask.start();
 		showProgressDialog();
 	}

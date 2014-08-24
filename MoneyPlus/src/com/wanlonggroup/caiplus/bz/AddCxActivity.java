@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.next.net.SHCacheType;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -57,7 +56,6 @@ public class AddCxActivity extends BaseActivity {
 
 	void queryCate() {
 		queryCateTask = getTask(DEFAULT_API_URL + "miAddNewOppoGuide.do", this);
-		queryCateTask.setChacheType(SHCacheType.PERSISTENT);
 		queryCateTask.start();
 		showProgressDialog();
 	}
@@ -70,10 +68,21 @@ public class AddCxActivity extends BaseActivity {
 			showAlert("请填写标题");
 			return;
 		}
-		addCxTask = getTask(DEFAULT_API_URL + "miAddNewOppo.do", this);
+		String content = contentEditText.getText().toString();
+		if (TextUtils.isEmpty(content)) {
+			showAlert("请输入内容");
+			return;
+		}
+		int index = cateSpinner.getSelectedItemPosition();
+		if(index < 0){
+			showAlert("请选择财信分类");
+			return;
+		}
+		
+		addCxTask = getTask(DEFAULT_API_URL + "miOppoAdd.do", this);
 		addCxTask.getTaskArgs().put("oppotitle", title);
-		addCxTask.getTaskArgs().put("oppotype", cateAdapter.getOppoType(cateSpinner.getSelectedItemPosition()));
-		addCxTask.getTaskArgs().put("oppocontent", contentEditText.getText());
+		addCxTask.getTaskArgs().put("oppotype", cateAdapter.getOppoType(index));
+		addCxTask.getTaskArgs().put("oppocontent", content);
 		addCxTask.start();
 		showProgressDialog("提交中...");
 	}

@@ -166,10 +166,14 @@ public class DSActivity extends FragmentActivity {
 		DSApplication.instance().activityOnDestory(this);
 		super.onDestroy();
 	}
-
+	
 	public void startActivity(String urlSchema) {
+		startActivityForResult(urlSchema, -1);
+	}
+
+	public void startActivityForResult(String urlSchema, int requestCode) {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlSchema));
-		startActivity(intent);
+		startActivityForResult(intent, requestCode);
 	}
 
 	// ----actionbar-----
@@ -292,7 +296,7 @@ public class DSActivity extends FragmentActivity {
 	int progressDialogCount;
 
 	public void showProgressDialog() {
-		showProgressDialog("加载中...");
+		showProgressDialog("请稍候...");
 	}
 
 	public void showProgressDialog(String message) {
@@ -405,7 +409,7 @@ public class DSActivity extends FragmentActivity {
 			}
 		} catch (Exception e) {
 		}
-		return defaultValue;
+		return getIntent().getBooleanExtra(name, defaultValue);
 	}
 
 	public boolean getBooleanParam(String name) {

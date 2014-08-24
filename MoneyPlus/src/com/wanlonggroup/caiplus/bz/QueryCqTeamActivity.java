@@ -3,6 +3,7 @@ package com.wanlonggroup.caiplus.bz;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -50,12 +51,31 @@ public class QueryCqTeamActivity extends BaseActivity implements OnClickListener
 			intent.putExtra("forresult", true);
 			startActivityForResult(intent, 2);
 		} else if (v == queryBtn) {
+			String teamName = teamNameTextView.getText().toString();
+			if(TextUtils.isEmpty(teamName)){
+				teamName = "";
+			}
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cqteamlist"));
 			intent.putExtra("owneruserid", dsCyOwner == null ? "" : dsCyOwner.getString("friendId"));
 			intent.putExtra("ownerusername", dsCyOwner == null ? "" : dsCyOwner.getString("friendName"));
-			intent.putExtra("teamname", teamNameTextView.getText());
+			intent.putExtra("teamname", teamName);
 			intent.putExtra("memberusername", dsCyMember == null ? "" : dsCyMember.getString("friendName"));
 			startActivity(intent);
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		if(arg2 == null){
+			return;
+		}
+		if(arg0 == 1){
+			dsCyOwner = arg2.getParcelableExtra("caiyou");
+			ownerTextView.setText(dsCyOwner.getString("friendName"));
+		}else if(arg0 == 2){
+			dsCyMember = arg2.getParcelableExtra("caiyou");
+			memberTextView.setText(dsCyMember.getString("friendName"));
 		}
 	}
 

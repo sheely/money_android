@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.next.net.SHCacheType;
 import com.next.net.SHPostTaskM;
 import com.next.net.SHTask;
 import com.wanlonggroup.caiplus.R;
@@ -48,7 +47,6 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
 	void initQuery() {
 		initQueryTask = getTask(DEFAULT_API_URL + "miQueryFriendInit.do", this);
-		initQueryTask.setChacheType(SHCacheType.PERSISTENT);
 		initQueryTask.start();
 		showProgressDialog();
 	}
@@ -92,7 +90,7 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-		if (arg1 != RESULT_OK) {
+		if (arg1 != RESULT_OK && getBooleanParam("forresult")) {
 			return;
 		}
 		if (arg0 == 1) {

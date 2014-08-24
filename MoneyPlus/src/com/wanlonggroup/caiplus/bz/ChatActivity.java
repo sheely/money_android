@@ -1,6 +1,10 @@
 package com.wanlonggroup.caiplus.bz;
 
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +35,10 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dsCaiYou = getIntent().getParcelableExtra("caiyou");
+		if (dsCaiYou == null) {
+			finish();
+			return;
+		}
 		setupView();
 	}
 
@@ -46,11 +54,38 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 		pubButton.setOnClickListener(this);
 
 		inputEditText = (EditText) findViewById(R.id.input_message);
+		inputEditText.setFilters(new InputFilter[] { inputFilter });
 
 		listView.setMode(Mode.DISABLED);
 		adapter = new Adapter();
 		listView.setAdapter(adapter);
 	}
+
+	private final InputFilter inputFilter = new InputFilter() {
+		@Override
+		public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+			StringBuffer buffer = new StringBuffer();
+			for (int i = start; i < end; i++) {
+				char c = source.charAt(i);
+				// 第一个字符为以下时，过滤掉
+				if (c == 55356 || c == 55357 || c == 10060 || c == 9749 || c == 9917 || c == 10067 || c == 10024
+						|| c == 11088 || c == 9889 || c == 9729 || c == 11093 || c == 9924) {
+					i++;
+					continue;
+				} else {
+					buffer.append(c);
+				}
+			}
+			
+			if (source instanceof Spanned) {
+				SpannableString sp = new SpannableString(buffer);
+				TextUtils.copySpansFrom((Spanned) source, start, end, null, sp, 0);
+				return sp;
+			} else {
+				return buffer;
+			}
+		}
+	};
 
 	SHPostTaskM queryTask;
 
@@ -70,9 +105,9 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 			return;
 		}
 		sendTask = getTask(DEFAULT_API_URL + "miSendMessage.do", this);
-		queryTask.getTaskArgs().put("receiveruserid", dsCaiYou.getString("friendId"));
-		queryTask.getTaskArgs().put("senderuserid", accountService().id());
-		queryTask.getTaskArgs().put("chatcontent", accountService().id());
+		sendTask.getTaskArgs().put("receiveruserid", dsCaiYou.getString("friendId"));
+		sendTask.getTaskArgs().put("senderuserid", accountService().id());
+		sendTask.getTaskArgs().put("chatcontent", message);
 		sendTask.start();
 		showProgressDialog("消息发送中...");
 	}
@@ -100,12 +135,12 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 			dsMsg.put("chatcontent", message);
 
 			adapter.append(dsMsg);
-			if (listView.getRefreshableView().isStackFromBottom()) {
-				listView.getRefreshableView().setStackFromBottom(false);
-			}
-			listView.getRefreshableView().setStackFromBottom(true);
 			inputEditText.getText().clear();
 		}
+		if (listView.getRefreshableView().isStackFromBottom()) {
+			listView.getRefreshableView().setStackFromBottom(false);
+		}
+		listView.getRefreshableView().setStackFromBottom(true);
 	}
 
 	@Override
@@ -160,11 +195,8 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 			} else {
 				viewHolder = (BasicViewHolder) convertView.getTag();
 			}
-			imageLoader.displayImage(
-				(viewType == 3 ? accountService().headIcon() : message.getString("senderheadicon")), viewHolder.icon1,
-				displayOptions);
-			viewHolder.textView1.setText((viewType == 3 ? accountService().name() : message.getString("senderusername"))
-					+ " " + message.getString("sendtime"));
+			imageLoader.displayImage(message.getString("senderheadicon"), viewHolder.icon1, displayOptions);
+			viewHolder.textView1.setText(message.getString("senderusername") + " " + message.getString("sendtime"));
 			viewHolder.textView2.setText(message.getString("chatcontent"));
 			return convertView;
 		}

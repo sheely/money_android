@@ -102,7 +102,9 @@ public class CyListFragment extends BasePtrListFragment {
 				viewHolder.textView2 = (TextView) convertView.findViewById(R.id.company);
 				viewHolder.textView3 = (TextView) convertView.findViewById(R.id.add_concern);
 				viewHolder.textView4 = (TextView) convertView.findViewById(R.id.send_cx);
-				
+				if(getBooleanParam("forresult")){
+					convertView.findViewById(R.id.layer).setVisibility(View.GONE);
+				}
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (BasicViewHolder) convertView.getTag();
