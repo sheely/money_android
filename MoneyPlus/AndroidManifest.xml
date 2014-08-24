@@ -464,6 +464,41 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.wanlonggroup.caiplus.bz.AddCxCommentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="财信评论"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="addcxcomment"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.wanlonggroup.caiplus.bz.QueryExecuteActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="选定执行人"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="queryexecute"
+                    android:scheme="cp" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.wanlonggroup.caiplus.app.DebugActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="Debug"

@@ -15,10 +15,15 @@ import com.wanlonggroup.caiplus.util.Utils;
 import com.xdamon.app.DSObject;
 
 public class BidCxListFragment extends CxListFragment {
+	
+	public void onCreate(android.os.Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		statusWithMe = 1;
+	};
 
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
-		cxlistReq.getTaskArgs().put("statusWithMe", 1);
+		cxlistReq.getTaskArgs().put("statusWithMe", statusWithMe);
 		cxlistReq.getTaskArgs().put("oppoType", "");
 		cxlistReq.getTaskArgs().put("bossName", "");
 		cxlistReq.getTaskArgs().put("oppoTitle", "");
@@ -59,6 +64,7 @@ public class BidCxListFragment extends CxListFragment {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxcommentlist"));
+					intent.putExtra("commentertype", 1);
 					intent.putExtra("caixin", dsCx);
 					startActivity(intent);
 				}

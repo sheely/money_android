@@ -9,9 +9,14 @@ import com.next.net.SHPostTaskM;
  */
 public class JoinCxListFragment extends CxListFragment {
 	
+	public void onCreate(android.os.Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		statusWithMe = 3;
+	};
+	
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
-		cxlistReq.getTaskArgs().put("statusWithMe", 3);
+		cxlistReq.getTaskArgs().put("statusWithMe", statusWithMe);
 		cxlistReq.getTaskArgs().put("oppoType", "");
 		cxlistReq.getTaskArgs().put("bossName", "");
 		cxlistReq.getTaskArgs().put("oppoTitle", "");

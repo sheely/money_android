@@ -70,6 +70,12 @@ public abstract class CxListFragment extends BasePtrListFragment {
 
 	public void goCxDetail(DSObject dsCaixin) {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxdetail"));
+		if(statusWithMe == 0){
+			intent.putExtra("commentertype", 2);
+		}else if(statusWithMe == 1){
+			intent.putExtra("commentertype", 1);
+		}
+		
 		intent.putExtra("caixin", dsCaixin);
 		startActivity(intent);
 	}

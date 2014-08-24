@@ -17,9 +17,14 @@ import com.xdamon.app.DSObject;
 
 public class PublishCxListFragment extends CxListFragment {
 	
+	public void onCreate(android.os.Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		statusWithMe = 0;
+	};
+	
 	SHPostTaskM createQueryTask() {
 		SHPostTaskM cxlistReq = getTask(DEFAULT_API_URL + "miQueryOppoList.do", this);
-		cxlistReq.getTaskArgs().put("statusWithMe", 0);
+		cxlistReq.getTaskArgs().put("statusWithMe", statusWithMe);
 		cxlistReq.getTaskArgs().put("oppoType", "");
 		cxlistReq.getTaskArgs().put("bossName", "");
 		cxlistReq.getTaskArgs().put("oppoTitle", "");
@@ -85,6 +90,7 @@ public class PublishCxListFragment extends CxListFragment {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxcommentlist"));
+					intent.putExtra("commentertype", 2);
 					intent.putExtra("caixin", dsCx);
 					startActivity(intent);
 				}
@@ -93,7 +99,7 @@ public class PublishCxListFragment extends CxListFragment {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxexecuteinfo"));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://queryexecute"));
 					intent.putExtra("caixin", dsCx);
 					startActivity(intent);
 				}

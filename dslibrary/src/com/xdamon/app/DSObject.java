@@ -61,8 +61,8 @@ public class DSObject implements Parcelable {
 		}
 		return this.objName.equals(objName);
 	}
-	
-	public boolean hasKey(String name){
+
+	public boolean hasKey(String name) {
 		return jsonObj.has(name);
 	}
 
@@ -71,7 +71,11 @@ public class DSObject implements Parcelable {
 	}
 
 	public String getString(String name) {
-		return jsonObj.optString(name);
+		return getString(name, null);
+	}
+
+	public String getString(String name, String defaultValue) {
+		return jsonObj.optString(name, defaultValue);
 	}
 
 	public DSObject put(String name, String value) {
@@ -84,7 +88,11 @@ public class DSObject implements Parcelable {
 	}
 
 	public int getInt(String name) {
-		return jsonObj.optInt(name);
+		return getInt(name, 0);
+	}
+
+	public int getInt(String name, int defaultValue) {
+		return jsonObj.optInt(name, defaultValue);
 	}
 
 	public DSObject put(String name, int value) {
@@ -97,7 +105,11 @@ public class DSObject implements Parcelable {
 	}
 
 	public long getLong(String name) {
-		return jsonObj.optLong(name);
+		return getLong(name, 0L);
+	}
+
+	public long getLong(String name, long defaultValue) {
+		return jsonObj.optLong(name, defaultValue);
 	}
 
 	public DSObject put(String name, long value) {
@@ -123,7 +135,11 @@ public class DSObject implements Parcelable {
 	}
 
 	public double getDouble(String name) {
-		return jsonObj.optDouble(name);
+		return getDouble(name, Double.NaN);
+	}
+
+	public double getDouble(String name, double defaultValue) {
+		return jsonObj.optDouble(name, defaultValue);
 	}
 
 	public DSObject put(String name, double value) {
@@ -173,7 +189,7 @@ public class DSObject implements Parcelable {
 		}
 		return this;
 	}
-	
+
 	public DSObject put(String name, DSObject[] arr) {
 		try {
 			JSONArray jonsArr = new JSONArray();
@@ -233,7 +249,7 @@ public class DSObject implements Parcelable {
 				try {
 					Object tmp = array.opt(i);
 					if (tmp instanceof JSONObject) {
-						objs[i] = new DSObject(objName).fromJson((JSONObject)tmp);
+						objs[i] = new DSObject(objName).fromJson((JSONObject) tmp);
 					} else {
 						JSONObject obj = new JSONObject();
 						obj.put(objName, tmp);
@@ -275,7 +291,7 @@ public class DSObject implements Parcelable {
 				try {
 					Object tmp = array.opt(i);
 					if (tmp instanceof JSONObject) {
-						list.add(new DSObject(objName).fromJson((JSONObject)tmp));
+						list.add(new DSObject(objName).fromJson((JSONObject) tmp));
 					} else {
 						JSONObject obj = new JSONObject();
 						obj.put(objName, tmp);
@@ -290,13 +306,14 @@ public class DSObject implements Parcelable {
 		}
 		return null;
 	}
+
 	public DSObject put(ArrayList<DSObject> list) {
 		for (DSObject obj : list) {
 			put(obj);
 		}
 		return this;
 	}
-	
+
 	public boolean remove(String name) {
 		return this.jsonObj.remove(name) != null;
 	}
