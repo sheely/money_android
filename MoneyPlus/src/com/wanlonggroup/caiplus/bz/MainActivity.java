@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
-import com.wanlonggroup.caiplus.bz.im.ChatMessageService;
 import com.xdamon.widget.BadgeView;
 
 public class MainActivity extends BaseFragmentTabActivity {
@@ -37,17 +36,13 @@ public class MainActivity extends BaseFragmentTabActivity {
 		return ActionBarType.NONE;
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		setBadgeView();
-	}
-
 	BadgeView messageView;
 
-	void setBadgeView() {
-		messageView = new BadgeView(this, mTabHost.getTabWidget(), 1);
-		messageView.setText("2");
+	void setBadgeView(String text) {
+		if(messageView == null){
+			messageView = new BadgeView(this, mTabHost.getTabWidget(), 1);
+		}
+		messageView.setText(text);
 		messageView.show();
 	}
 
