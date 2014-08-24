@@ -31,8 +31,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.xdamon.app.DSApplication;
 
@@ -352,5 +356,44 @@ public class AndroidUtils {
 			}
 		}
 		return false;
+	}
+
+	public static void hideKeyboard(View view) {
+		if (view == null) {
+			return;
+		}
+		((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+			view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+	}
+
+	public static void showKeyboard(View view) {
+		if (view == null) {
+			return;
+		}
+		((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(view,
+			InputMethodManager.SHOW_FORCED);
+	}
+
+	public static void toggleSoftInput(final View view) {
+		if (view == null) {
+			return;
+		}
+		new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case 1:
+					view.requestFocus();
+					((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(
+						0, InputMethodManager.HIDE_NOT_ALWAYS);
+					break;
+
+				default:
+					break;
+				}
+				super.handleMessage(msg);
+			}
+		}.sendEmptyMessageDelayed(1, 300);
+
 	}
 }

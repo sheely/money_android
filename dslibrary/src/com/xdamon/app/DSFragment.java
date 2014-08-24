@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.xdamon.app.DSActivity.ActionBarType;
 import com.xdamon.library.R;
+import com.xdamon.util.DSLog;
 import com.xdamon.util.DialogUtils;
 import com.xdamon.util.URLBase64;
 import com.xdamon.widget.BeautifulProgressDialog;
@@ -195,6 +196,7 @@ public class DSFragment extends Fragment {
 		}
 		if (actionBar == null) {
 			actionBar = (DSActionBar) LayoutInflater.from(dsActivity).inflate(R.layout.ds_action_bar, null, false);
+			DSLog.w("DSFragment", "actionbar not in ui");
 		}
 
 		hasActionBar = !hasActionBar;
