@@ -2,60 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dip" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="10dip" >
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/username"
             style="@style/ListBlackText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="张三" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/company"
+            style="@style/ListBlackText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/username"
-            android:layout_marginRight="20dip"
-            android:gravity="right"
-            android:orientation="horizontal" >
+            android:ellipsize="end"
+            android:singleLine="true" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/add_concern"
-                style="@style/InfoWhiteText"
-                android:layout_width="wrap_content"
-                android:layout_height="30dip"
-                android:background="@drawable/btn_green"
-                android:drawableLeft="@drawable/icon_username"
-                android:gravity="center_vertical"
-                android:padding="5dip"
-                android:text="加关注" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/send_cx"
-                style="@style/InfoWhiteText"
-                android:layout_width="wrap_content"
-                android:layout_height="30dip"
-                android:layout_marginLeft="20dip"
-                android:background="@drawable/btn_blue"
-                android:drawableLeft="@drawable/icon_username"
-                android:gravity="center_vertical"
-                android:padding="5dip"
-                android:text="发财信" />
-        </LinearLayout>
-
-        <ImageView
+        <TextView
+            android:id="@+id/add_concern"
+            style="@style/InfoWhiteText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/arrow_normal" />
-    </RelativeLayout>
+            android:layout_height="30dip"
+            android:background="@drawable/btn_green"
+            android:drawableLeft="@drawable/icon_username"
+            android:gravity="center_vertical"
+            android:padding="5dip"
+            android:text="加关注" />
+
+        <TextView
+            android:id="@+id/send_cx"
+            style="@style/InfoWhiteText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btn_blue"
+            android:drawableLeft="@drawable/icon_username"
+            android:gravity="center_vertical"
+            android:padding="5dip"
+            android:text="发财信" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:src="@drawable/arrow_normal" />
 
 </LinearLayout>

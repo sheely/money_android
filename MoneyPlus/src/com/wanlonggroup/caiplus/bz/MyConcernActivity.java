@@ -1,5 +1,6 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -108,7 +109,20 @@ public class MyConcernActivity extends BasePtrListActivity {
 				@Override
 				public void onClick(View v) {
 					dsSelectedFollower = dsFollower;
-					cancelConcern(dsFollower);
+					showAlert("提示", "确认取消关注", true, new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							cancelConcern(dsFollower);
+						}
+					}, new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							
+						}
+					});
+					
 				}
 			});
 			viewHolder.textView3.setOnClickListener(new View.OnClickListener() {

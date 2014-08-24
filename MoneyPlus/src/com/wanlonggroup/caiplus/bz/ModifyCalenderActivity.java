@@ -89,7 +89,7 @@ public class ModifyCalenderActivity extends BaseActivity implements OnClickListe
 			return;
 		}
 		if(Utils.wrapDatetime(startTimeView.getText().toString()).after(Utils.wrapDatetime(endTimeView.getText().toString()))){
-			showAlert("开始时间必须晚于结束时间");
+			showAlert("结束时间必须晚于开始时间");
 			return;
 		}
 		modifyTask = getTask(DEFAULT_API_URL + "miTaskMaintainance.do", this);

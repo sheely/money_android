@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -63,8 +64,8 @@ public class CxExecuteInfoActivity extends BaseActivity {
 			});
 		}
 	};
-	
-	void setInfoEditable(boolean editable){
+
+	void setInfoEditable(boolean editable) {
 		this.isEditable = editable;
 		startTimeItem.getSubTitleView().setClickable(editable);
 		endTimeItem.getSubTitleView().setClickable(editable);
@@ -103,7 +104,7 @@ public class CxExecuteInfoActivity extends BaseActivity {
 		locationEditText = (EditText) findViewById(R.id.location);
 		budgetEditText = (EditText) findViewById(R.id.budget);
 		remarkEditText = (EditText) findViewById(R.id.remark);
-		
+
 		setInfoEditable(false);
 	}
 
@@ -131,10 +132,27 @@ public class CxExecuteInfoActivity extends BaseActivity {
 	SHPostTaskM modifyTask;
 
 	void modifyInfo() {
+		String start = startTimeItem.getSubTitleView().getText().toString();
+		String end = endTimeItem.getSubTitleView().getText().toString();
+		if (TextUtils.isEmpty(start)) {
+			showAlert("请选择执行时间");
+			return;
+		}
+
+		if (TextUtils.isEmpty(end)) {
+			showAlert("请选择结束时间");
+			return;
+		}
+
+		if (Utils.wrapDatetime(start).after(Utils.wrapDatetime(end))) {
+			showAlert("结束时间必须晚于开始时间");
+			return;
+		}
+
 		modifyTask = getTask(DEFAULT_API_URL + "miExecuteInfo.do", this);
 		modifyTask.getTaskArgs().put("oppoId", dsCaixin.getString("oppoId"));
-		modifyTask.getTaskArgs().put("startTime", startTimeItem.getSubTitleView().getText());
-		modifyTask.getTaskArgs().put("endTime", endTimeItem.getSubTitleView().getText());
+		modifyTask.getTaskArgs().put("startTime", start);
+		modifyTask.getTaskArgs().put("endTime", end);
 		modifyTask.getTaskArgs().put("executePlace", locationEditText.getText());
 		modifyTask.getTaskArgs().put("budget", budgetEditText.getText());
 		modifyTask.getTaskArgs().put("remark", remarkEditText.getText());

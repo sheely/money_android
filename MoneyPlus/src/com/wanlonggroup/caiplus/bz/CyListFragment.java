@@ -53,7 +53,7 @@ public class CyListFragment extends BasePtrListFragment {
 		queryCyTask = getTask(DEFAULT_API_URL + "miQueryFriend.do", this);
 		queryCyTask.getTaskArgs().put("oppoType", oppoType);
 		queryCyTask.getTaskArgs().put("companyId", companyId);
-		queryCyTask.getTaskArgs().put("friendName", friendName);
+		queryCyTask.getTaskArgs().put("friendname", friendName);
 		queryCyTask.getTaskArgs().put("address", address);
 		queryCyTask.start();
 	}
@@ -99,14 +99,17 @@ public class CyListFragment extends BasePtrListFragment {
 					false);
 				viewHolder = new BasicViewHolder();
 				viewHolder.textView1 = (TextView) convertView.findViewById(R.id.username);
-				viewHolder.textView2 = (TextView) convertView.findViewById(R.id.add_concern);
-				viewHolder.textView3 = (TextView) convertView.findViewById(R.id.send_cx);
+				viewHolder.textView2 = (TextView) convertView.findViewById(R.id.company);
+				viewHolder.textView3 = (TextView) convertView.findViewById(R.id.add_concern);
+				viewHolder.textView4 = (TextView) convertView.findViewById(R.id.send_cx);
+				
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (BasicViewHolder) convertView.getTag();
 			}
 			DSObject dsObj = (DSObject) getItem(position);
 			viewHolder.textView1.setText(dsObj.getString("friendName"));
+			viewHolder.textView2.setText(dsObj.getString("companyName"));
 			return convertView;
 		}
 

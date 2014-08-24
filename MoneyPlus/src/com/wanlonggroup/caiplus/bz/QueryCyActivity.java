@@ -22,10 +22,10 @@ import com.xdamon.util.DSObjectFactory;
 
 public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
-	Spinner cateSpinner, companySpinner;
-	EditText nameText, addressText;
+	Spinner cateSpinner, companySpinner, addressSpinner;
+	EditText nameText;
 	Button queryButton;
-	Adapter cateAdapter, companyAdapter;
+	Adapter cateAdapter, companyAdapter, addressAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 		cateSpinner = (Spinner) findViewById(R.id.category);
 		companySpinner = (Spinner) findViewById(R.id.company);
 		nameText = (EditText) findViewById(R.id.name);
-		addressText = (EditText) findViewById(R.id.address);
+		addressSpinner = (Spinner) findViewById(R.id.address);
 
 		queryButton = (Button) findViewById(R.id.query_btn);
 		queryButton.setOnClickListener(this);
@@ -67,6 +67,11 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 				CPModeName.CQ_COMPANY_LIST, CPModeName.CQ_COMPANY_ITEM));
 			companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			companySpinner.setAdapter(companyAdapter);
+			
+			addressAdapter = new Adapter(this, android.R.layout.simple_spinner_item, dsobj.getArray(
+				"address", "address"));
+			addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			addressSpinner.setAdapter(addressAdapter);
 
 			queryButton.setEnabled(true);
 		}
@@ -79,7 +84,7 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 			intent.putExtra("oppotype", cateAdapter.getKey(cateSpinner.getSelectedItemPosition()));
 			intent.putExtra("companyid", companyAdapter.getKey(cateSpinner.getSelectedItemPosition()));
 			intent.putExtra("friendname", nameText.getText().toString());
-			intent.putExtra("address", addressText.getText().toString());
+			intent.putExtra("address", addressAdapter.getKey(addressSpinner.getSelectedItemPosition()));
 			intent.putExtra("forresult", getBooleanParam("forresult"));
 			startActivityForResult(intent, 1);
 		}
@@ -87,6 +92,9 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		if (arg1 != RESULT_OK) {
+			return;
+		}
 		if (arg0 == 1) {
 			setResult(RESULT_OK, arg2);
 			finish();

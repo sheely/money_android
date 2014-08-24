@@ -33,10 +33,11 @@
         style="@style/TableHeaderTextView"
         android:text="按地域" />
 
-    <EditText
+    <Spinner
         android:id="@+id/address"
-        style="@style/SingleLineTableItemWithPaddingLine"
-        android:hint="地域关键字" />
+        style="@style/SingleLineTableItemWithPaddingLine"/>
+    
+    
 
     <Button
         android:id="@+id/query_btn"
