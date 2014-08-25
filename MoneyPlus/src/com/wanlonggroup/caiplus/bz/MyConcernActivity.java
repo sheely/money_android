@@ -49,7 +49,7 @@ public class MyConcernActivity extends BasePtrListActivity {
 	void cancelConcern(DSObject follower) {
 		cancelConcernTask = getTask(DEFAULT_API_URL + "miFollowerAdd.do", this);
 		cancelConcernTask.getTaskArgs().put("myUserName", accountService().name());
-		cancelConcernTask.getTaskArgs().put("followerUserName", follower.getString("followerName"));
+		cancelConcernTask.getTaskArgs().put("followerUserName", follower.getString("followerId"));
 		cancelConcernTask.getTaskArgs().put("addOrDelete", 0);
 		cancelConcernTask.start();
 		showProgressDialog();
@@ -131,7 +131,8 @@ public class MyConcernActivity extends BasePtrListActivity {
 				public void onClick(View v) {
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://mycalender"));
 					intent.putExtra("isowntask", 0);
-					intent.putExtra("queryedusername", dsFollower.getString("followerName"));
+					intent.putExtra("queryedusername", dsFollower.getString("followerId"));
+					intent.putExtra("username", dsFollower.getString("followerName"));
 					startActivity(intent);
 				}
 			});

@@ -3,6 +3,7 @@ package com.wanlonggroup.caiplus.bz;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,8 +45,13 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 	public void onCreateActionBar(DSActionBar actionBar) {
 		super.onCreateActionBar(actionBar);
 		if (isOwnTask != 1) {
-			setTitle(queryedUsername + "的日历");
-		}else{
+			String username = getStringParam("username");
+			if (TextUtils.isEmpty(username)) {
+				setTitle("日历");
+			} else {
+				setTitle(username + "的日历");
+			}
+		} else {
 			actionBar.addAction("新增", "add_calender", this);
 		}
 	}
@@ -169,7 +175,7 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 					deleteTask(dsSelectedTask);
 				}
 			});
-			if(isOwnTask != 1){
+			if (isOwnTask != 1) {
 				convertView.findViewById(R.id.layer).setVisibility(View.GONE);
 			}
 			return convertView;

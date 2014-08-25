@@ -166,7 +166,7 @@ public class DSActivity extends FragmentActivity {
 		DSApplication.instance().activityOnDestory(this);
 		super.onDestroy();
 	}
-	
+
 	public void startActivity(String urlSchema) {
 		startActivityForResult(urlSchema, -1);
 	}
@@ -183,10 +183,10 @@ public class DSActivity extends FragmentActivity {
 	}
 
 	private DSActionBar actionBar;
-	
+
 	private boolean isActionBarShowing = actionBarType() != ActionBarType.NONE;
-	
-	protected boolean isActionBarShowing(){
+
+	protected boolean isActionBarShowing() {
 		return isActionBarShowing;
 	}
 
@@ -220,68 +220,72 @@ public class DSActivity extends FragmentActivity {
 
 		setTitle(getTitle());
 	}
-	
+
 	public void setCustomTitleFeatureInt(int customTitleLayoutId) {
-	    try {
-	    	// retrieve value for com.android.internal.R.id.title_container(=0x1020149)
-	    	int titleContainerId = (Integer) Class.forName(
-	    		"com.android.internal.R$id").getField("title_container").get(null);
+		try {
+			// retrieve value for
+			// com.android.internal.R.id.title_container(=0x1020149)
+			int titleContainerId = (Integer) Class.forName("com.android.internal.R$id").getField("title_container").get(
+				null);
 
-	    	// remove all views from titleContainer
-	    	((ViewGroup) getWindow().findViewById(titleContainerId)).removeAllViews();
+			// remove all views from titleContainer
+			((ViewGroup) getWindow().findViewById(titleContainerId)).removeAllViews();
 
-	    	// add new custom title view 
-	    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, customTitleLayoutId);
+			// add new custom title view
+			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, customTitleLayoutId);
 
-	    } catch(Exception ex) {
-	    	// whatever you want to do here..
-	    }
+		} catch (Exception ex) {
+			// whatever you want to do here..
+		}
 	}
-	
-	public void hideActionBar(){
-		if(!isActionBarShowing){
+
+	public void hideActionBar() {
+		if (!isActionBarShowing) {
 			return;
 		}
 		isActionBarShowing = false;
-		if(actionBarType() == ActionBarType.DSACTIONBAR){
+		if (actionBarType() == ActionBarType.DSACTIONBAR) {
 			try {
-				// retrieve value for com.android.internal.R.id.title_container(=0x1020149)
-				int titleContainerId = (Integer) Class.forName(
-						"com.android.internal.R$id").getField("title_container").get(null);
-				
+				// retrieve value for
+				// com.android.internal.R.id.title_container(=0x1020149)
+				int titleContainerId = (Integer) Class.forName("com.android.internal.R$id").getField("title_container").get(
+					null);
+
 				// remove all views from titleContainer
-				((ViewGroup) getWindow().findViewById(titleContainerId)).setVisibility(View.GONE);;
-				
-			} catch(Exception ex) {
+				((ViewGroup) getWindow().findViewById(titleContainerId)).setVisibility(View.GONE);
+				;
+
+			} catch (Exception ex) {
 				// whatever you want to do here..
 			}
-		}else{
+		} else {
 			actionBar.hide();
 		}
 	}
-	
-	public void showActionBar(){
-		if(isActionBarShowing){
+
+	public void showActionBar() {
+		if (isActionBarShowing) {
 			return;
 		}
 		isActionBarShowing = true;
-		if(actionBarType() == ActionBarType.DSACTIONBAR){
+		if (actionBarType() == ActionBarType.DSACTIONBAR) {
 			try {
-		    	// retrieve value for com.android.internal.R.id.title_container(=0x1020149)
-		    	int titleContainerId = (Integer) Class.forName(
-		    		"com.android.internal.R$id").getField("title_container").get(null);
-	
-		    	// remove all views from titleContainer
-		    	((ViewGroup) getWindow().findViewById(titleContainerId)).setVisibility(View.VISIBLE);;
-	
-		    } catch(Exception ex) {
-		    	// whatever you want to do here..
-		    }
-		}else{
+				// retrieve value for
+				// com.android.internal.R.id.title_container(=0x1020149)
+				int titleContainerId = (Integer) Class.forName("com.android.internal.R$id").getField("title_container").get(
+					null);
+
+				// remove all views from titleContainer
+				((ViewGroup) getWindow().findViewById(titleContainerId)).setVisibility(View.VISIBLE);
+				;
+
+			} catch (Exception ex) {
+				// whatever you want to do here..
+			}
+		} else {
 			actionBar.show();
 		}
 	}
-	
 
 	// -----toast and dialog----
 
@@ -327,7 +331,7 @@ public class DSActivity extends FragmentActivity {
 			progressDialog.dismiss();
 		}
 	}
-	
+
 	private void _onProgressDialogCancel() {
 		progressDialogCount--;
 		onProgressDialogCancel();
@@ -382,8 +386,12 @@ public class DSActivity extends FragmentActivity {
 	public int getIntParam(String name) {
 		return getIntParam(name, 0);
 	}
-
+	
 	public String getStringParam(String name) {
+		return getStringParam(name, null);
+	}
+
+	public String getStringParam(String name, String defaultValue) {
 		Intent i = getIntent();
 		try {
 			Uri uri = i.getData();
@@ -394,8 +402,10 @@ public class DSActivity extends FragmentActivity {
 			}
 		} catch (Exception e) {
 		}
-
-		return i.getStringExtra(name);
+		if (i.getExtras() != null && i.getExtras().containsKey(name)) {
+			return i.getStringExtra(name);
+		}
+		return defaultValue;
 	}
 
 	public boolean getBooleanParam(String name, boolean defaultValue) {

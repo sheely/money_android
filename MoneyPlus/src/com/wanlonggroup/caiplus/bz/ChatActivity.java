@@ -136,11 +136,8 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 
 			adapter.append(dsMsg);
 			inputEditText.getText().clear();
+			listView.getRefreshableView().setSelection(adapter.getCount() - 1);
 		}
-		if (listView.getRefreshableView().isStackFromBottom()) {
-			listView.getRefreshableView().setStackFromBottom(false);
-		}
-		listView.getRefreshableView().setStackFromBottom(true);
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 		if(myCalender == v){
 			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://mycalender"));
 			intent.putExtra("isowntask", 1);
-			intent.putExtra("queryedusername", accountService().name());
+			intent.putExtra("queryedusername", accountService().id());
 			startActivity(intent);
 		}else if(myConcern == v){
 			startActivity("cp://myconcern");

@@ -48,8 +48,8 @@ public class CqCompanyDetailActivity extends BaseActivity {
 		cpyName.setText(dsCompany.getString("companyName"));
 		cpyCategory.setText(dsCompany.getString("companyType"));
 		cpyDesc.setText(dsCompany.getString("introduction"));
-		
-		if(dsCompany.hasKey("companyProducts")){
+
+		if (dsCompany.hasKey("companyProducts")) {
 			StringBuffer buffer = new StringBuffer();
 			for (DSObject obj : dsCompany.getArray("companyProducts")) {
 				if (buffer.length() > 0) {
@@ -59,8 +59,9 @@ public class CqCompanyDetailActivity extends BaseActivity {
 			}
 			cpyServerProduct.setText(buffer.toString());
 		}
-		
-		cpyServerClient.setText(Collection2Utils.toStr(dsCompany.getString("mainClients").split(","), "\n"));
+
+		cpyServerClient.setText(Collection2Utils.toStr(Collection2Utils.toArr(dsCompany.getString("mainClients"), ","),
+			"\n"));
 	}
 
 	SHPostTaskM detailTask;
