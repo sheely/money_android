@@ -349,7 +349,7 @@ public class AndroidUtils {
 	public boolean isApplicationForeground(final Context context) {
 		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningTaskInfo> tasks = am.getRunningTasks(1);
-		if (!tasks.isEmpty()) {
+		if (!Collection2Utils.isEmpty(tasks)) {
 			ComponentName topActivity = tasks.get(0).topActivity;
 			if (topActivity.getPackageName().equals(context.getPackageName())) {
 				return true;
