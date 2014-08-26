@@ -10,8 +10,9 @@ https://github.com/greenrobot/EventBus
 
 修改记录
 2014-08-26
-参照square/otto将Map<Class<?>, Object> stickyEvents改写为Map<Class<?>, Set<Object>> stickyEvents;
+1.参照square/otto将Map<Class<?>, Object> stickyEvents改写为Map<Class<?>, Set<Object>> stickyEvents;
 可以缓存多个事件
+2.添加方法addEvent
 
 
 
