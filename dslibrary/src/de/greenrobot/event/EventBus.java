@@ -18,8 +18,10 @@ package de.greenrobot.event;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -49,7 +51,7 @@ public class EventBus {
 
     private final Map<Class<?>, CopyOnWriteArrayList<Subscription>> subscriptionsByEventType;
     private final Map<Object, List<Class<?>>> typesBySubscriber;
-    private final Map<Class<?>, Object> stickyEvents;
+    private final Map<Class<?>, Set<Object>> stickyEvents;
 
     private final ThreadLocal<PostingThreadState> currentPostingThreadState = new ThreadLocal<PostingThreadState>() {
         @Override
@@ -107,7 +109,7 @@ public class EventBus {
     public EventBus() {
         subscriptionsByEventType = new HashMap<Class<?>, CopyOnWriteArrayList<Subscription>>();
         typesBySubscriber = new HashMap<Object, List<Class<?>>>();
-        stickyEvents = new ConcurrentHashMap<Class<?>, Object>();
+        stickyEvents = new ConcurrentHashMap<Class<?>, Set<Object>>();
         mainThreadPoster = new HandlerPoster(this, Looper.getMainLooper(), 10);
         backgroundPoster = new BackgroundPoster(this);
         asyncPoster = new AsyncPoster(this);
@@ -278,14 +280,16 @@ public class EventBus {
         subscribedEvents.add(eventType);
 
         if (sticky) {
-            Object stickyEvent;
+            Set<Object> stickyEventSet;
             synchronized (stickyEvents) {
-                stickyEvent = stickyEvents.get(eventType);
+            	stickyEventSet = stickyEvents.get(eventType);
             }
-            if (stickyEvent != null) {
+            if (stickyEventSet != null) {
                 // If the subscriber is trying to abort the event, it will fail (event is not tracked in posting state)
                 // --> Strange corner case, which we don't take care of here.
-                postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper());
+            	for(Object stickyEvent : stickyEventSet){
+            		postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper());
+            	}
             }
         }
     }
@@ -400,32 +404,51 @@ public class EventBus {
      */
     public void postSticky(Object event) {
         synchronized (stickyEvents) {
-            stickyEvents.put(event.getClass(), event);
+        	Set<Object> handlers = stickyEvents.get(event.getClass());
+        	if(handlers == null){
+        		handlers = new LinkedHashSet<Object>();
+        		stickyEvents.put(event.getClass(), handlers);
+        	}
+        	handlers.add(event);
         }
         // Should be posted after it is putted, in case the subscriber wants to remove immediately
         post(event);
     }
 
     /**
-     * Gets the most recent sticky event for the given type.
+     * Gets the most recent sticky events for the given type.
      * 
      * @see #postSticky(Object)
      */
-    public <T> T getStickyEvent(Class<T> eventType) {
-        synchronized (stickyEvents) {
-            return eventType.cast(stickyEvents.get(eventType));
-        }
-    }
+	public <T> Set<T> getStickyEvent(Class<T> eventType) {
+		synchronized (stickyEvents) {
+			Set<Object> handlers = stickyEvents.get(eventType);
+			Set<T> objects = new LinkedHashSet<T>();
+			if (handlers != null) {
+				for (Object obj : handlers) {
+					objects.add(eventType.cast(obj));
+				}
+			}
+			return objects;
+		}
+	}
 
     /**
-     * Remove and gets the recent sticky event for the given event type.
+     * Remove and gets the recent sticky events for the given event type.
      * 
      * @see #postSticky(Object)
      */
-    public <T> T removeStickyEvent(Class<T> eventType) {
+    public <T> Set<T> removeStickyEvent(Class<T> eventType) {
         synchronized (stickyEvents) {
-            return eventType.cast(stickyEvents.remove(eventType));
-        }
+			Set<Object> handlers = stickyEvents.remove(eventType);
+			Set<T> objects = new LinkedHashSet<T>();
+			if (handlers != null) {
+				for (Object obj : handlers) {
+					objects.add(eventType.cast(obj));
+				}
+			}
+			return objects;
+		}
     }
 
     /**
@@ -436,13 +459,16 @@ public class EventBus {
     public boolean removeStickyEvent(Object event) {
         synchronized (stickyEvents) {
             Class<? extends Object> eventType = event.getClass();
-            Object existingEvent = stickyEvents.get(eventType);
-            if (event.equals(existingEvent)) {
-                stickyEvents.remove(eventType);
-                return true;
-            } else {
-                return false;
-            }
+            Set<Object> handlers = stickyEvents.get(eventType);
+            if (handlers != null) {
+				for (Object obj : handlers) {
+					if(event.equals(obj)){
+						handlers.remove(obj);
+						return true;
+					}
+				}
+			}
+            return false;
         }
     }
 
