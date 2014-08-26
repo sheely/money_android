@@ -411,8 +411,24 @@ public class EventBus {
         	}
         	handlers.add(event);
         }
-        // Should be posted after it is putted, in case the subscriber wants to remove immediately
+        // Should be posted after it is put, in case the subscriber wants to remove immediately
         post(event);
+    }
+    
+    /**
+     * add the given event to the event bus and holds on to the event (because it is sticky). The most recent sticky
+     * event of an event's type is kept in memory for future access. This can be {@link #registerSticky(Object)} or
+     * {@link #getStickyEvent(Class)}.
+     */
+    public void addEvent(Object event) {
+        synchronized (stickyEvents) {
+        	Set<Object> handlers = stickyEvents.get(event.getClass());
+        	if(handlers == null){
+        		handlers = new LinkedHashSet<Object>();
+        		stickyEvents.put(event.getClass(), handlers);
+        	}
+        	handlers.add(event);
+        }
     }
 
     /**
