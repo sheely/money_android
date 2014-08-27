@@ -88,5 +88,11 @@ public class CxDetailActivity extends BaseActivity implements OnClickListener {
 		dsCaixin = DSObjectFactory.create(CPModeName.CAIXIN_ITEM).fromJson(task.getResult());
 		updateView();
 	}
+	
+	@Override
+	public void onProgressDialogCancel() {
+		super.onProgressDialogCancel();
+		finish();
+	}
 
 }

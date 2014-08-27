@@ -69,7 +69,7 @@ public class AttachmentListActivity extends BasePtrListActivity {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Object obj = (DSObject) parent.getItemAtPosition(position);
+		Object obj = parent.getItemAtPosition(position);
 		if (Utils.isDSObject(obj, CPModeName.CAIXIN_ATTACH_ITEM)) {
 			DSObject dsObject = (DSObject) obj;
 			downloadPdf(dsObject);

@@ -159,19 +159,29 @@ public class CxExecuteInfoActivity extends BaseActivity {
 		modifyTask.start();
 		showProgressDialog("提交中...");
 	}
+	
+	@Override
+	public void onProgressDialogCancel() {
+		super.onProgressDialogCancel();
+		if(queryTask != null){
+			finish();
+		}
+	}
 
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		if (task == queryTask) {
+			queryTask = null;
 			dismissProgressDialog();
 			dsCaixin = DSObjectFactory.create(CPModeName.CAIXIN_ITEM).fromJson(task.getResult());
 			updateView();
 		} else if (task == modifyTask) {
+			modifyTask = null;
 			dismissProgressDialog();
 			setInfoEditable(false);
 		}
 	}
-
+	
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
