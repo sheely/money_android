@@ -18,4 +18,12 @@ https://github.com/greenrobot/EventBus
 
 =================
 
+add library bufferknife
+
+-dontwarn butterknife.internal.**
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}
+
+=============
+
 
