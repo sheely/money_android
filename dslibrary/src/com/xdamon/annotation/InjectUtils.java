@@ -17,6 +17,7 @@ import com.xdamon.util.DSLog;
 //ProGuard：-keep class * extends java.lang.annotation.Annotation { *; }
 public class InjectUtils {
 
+    public static final String INJECT_RANGE_METHOD_NAME = "isInjectSelf";
     public static final String ANDROID_PREFIX = "android.";
     public static final String JAVA_PREFIX = "java.";
     public static final ArrayList<String> wrongPackageList = new ArrayList<String>();
@@ -124,9 +125,13 @@ public class InjectUtils {
 
         ArrayList<Class<?>> targetClassList = new ArrayList<Class<?>>();
         Class<?> targetClass = target.getClass();
-        while (!isInWrongPackage(targetClass.getName())) {
+        if (isInjectSelf(targetClass)) {
             targetClassList.add(targetClass);
-            targetClass = targetClass.getSuperclass();
+        } else {
+            while (!isInWrongPackage(targetClass.getName())) {
+                targetClassList.add(targetClass);
+                targetClass = targetClass.getSuperclass();
+            }
         }
         Collections.reverse(targetClassList);
 
@@ -259,6 +264,16 @@ public class InjectUtils {
             }
         }
         return false;
+    }
+
+    private static boolean isInjectSelf(Object target) {
+        try {
+            Method method = target.getClass().getDeclaredMethod(INJECT_RANGE_METHOD_NAME);
+            return (Boolean) method.invoke(target);
+        } catch (Exception e) {
+
+        }
+        return true;
     }
 
 }
