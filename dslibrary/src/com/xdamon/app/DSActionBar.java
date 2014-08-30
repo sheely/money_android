@@ -3,6 +3,7 @@ package com.xdamon.app;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -88,14 +89,14 @@ public class DSActionBar extends FrameLayout {
 		textView.setTextColor(getResources().getColor(R.color.actionbarTitleColor));
 		textView.setPadding(Pix2Utils.dip2px(getContext(), 15), 0, 0, 0);
 		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceMedium);
-		textView.setTextSize(Pix2Utils.sp2px(getContext(), 8));
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 		setCustomHomeAsUpView(textView, listener);
 	}
 
 	public void setCustomHomeAsUpView(View view, OnClickListener listener) {
 		if (homeAsUpContainer != null) {
 			homeAsUpContainer.removeAllViews();
-			
+
 			view.setOnClickListener(listener);
 			homeAsUpContainer.addView(view);
 		}
@@ -154,7 +155,7 @@ public class DSActionBar extends FrameLayout {
 		textView.setTextColor(getResources().getColor(R.color.actionbarTitleColor));
 		textView.setPadding(0, 0, Pix2Utils.dip2px(getContext(), 15), 0);
 		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceMedium);
-		textView.setTextSize(Pix2Utils.sp2px(getContext(), 8));
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 		addAction(textView, tag, listener);
 	}
 
@@ -223,13 +224,13 @@ public class DSActionBar extends FrameLayout {
 
 	// =====hide or show===
 	private ObjectAnimator objectAnimator;
-	
-	final void show(){
+
+	final void show() {
 		show(false);
 	}
 
 	final void show(boolean animated) {
-		if(!animated){
+		if (!animated) {
 			setVisibility(View.VISIBLE);
 			return;
 		}
@@ -245,13 +246,13 @@ public class DSActionBar extends FrameLayout {
 		}, 100);
 
 	}
-	
-	final void hide(){
+
+	final void hide() {
 		hide(false);
 	}
 
 	final void hide(boolean animated) {
-		if(!animated){
+		if (!animated) {
 			setVisibility(View.GONE);
 			return;
 		}

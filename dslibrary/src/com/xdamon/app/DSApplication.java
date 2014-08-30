@@ -63,9 +63,6 @@ public class DSApplication extends StandardApplication {
 				.discCacheFileNameGenerator(new Md5FileNameGenerator()).memoryCache(new LruMemoryCache(2 * 1024 * 1024))
 		        .memoryCacheSize(2 * 1024 * 1024).discCache(new UnlimitedDiscCache(cacheDir)).discCacheSize(50 * 1024 * 1024)
 		        .discCacheFileCount(100);
-		if (DSLog.isLoggable(DSLog.VERBOSE)) {
-			builder.writeDebugLogs();
-		}
 		ImageLoaderConfiguration config = builder.build();
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);
