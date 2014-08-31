@@ -56,7 +56,6 @@
             android:hint="say something"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:inputType="text"
             android:background="@color/white"
             android:padding="5dip" />
 

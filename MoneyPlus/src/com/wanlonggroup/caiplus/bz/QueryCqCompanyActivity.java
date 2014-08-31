@@ -32,7 +32,6 @@ public class QueryCqCompanyActivity extends BaseActivity implements OnClickListe
         companyNameTextView = (EditText) findViewById(R.id.company_name);
         queryButton = (Button) findViewById(R.id.query_btn);
         queryButton.setOnClickListener(this);
-        queryButton.setEnabled(false);
 
         cateAdapter = new CategoryAdapter(this, android.R.layout.simple_spinner_item);
         cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -57,7 +56,6 @@ public class QueryCqCompanyActivity extends BaseActivity implements OnClickListe
                 task.getResult());
             cateAdapter.append(dsobj.getList(CPModeName.COMPANY_CATEGORY_LIST,
                 CPModeName.COMPANY_CATEGORY_ITEM));
-            queryButton.setEnabled(true);
         }
     }
 

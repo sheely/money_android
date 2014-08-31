@@ -22,104 +22,108 @@ import com.xdamon.util.DSObjectFactory;
 
 public class CyListFragment extends BasePtrListFragment {
 
-	CyListAdapter adapter;
+    CyListAdapter adapter;
 
-	String oppoType;
-	String companyId;
-	String friendName;
-	String address;
+    String oppoType;
+    String companyId;
+    String friendName;
+    String address;
 
-	public void onCreate(android.os.Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    public void onCreate(android.os.Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		oppoType = getStringParam("oppotype", "");
-		companyId = getStringParam("companyid", "");
-		friendName = getStringParam("friendname", "");
-		address = getStringParam("address", "");
-	};
+        oppoType = getStringParam("oppotype", "");
+        companyId = getStringParam("companyid", "");
+        friendName = getStringParam("friendname", "");
+        address = getStringParam("address", "");
+    };
 
-	public void onActivityCreated(android.os.Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+    public void onActivityCreated(android.os.Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-		listView.setMode(Mode.DISABLED);
-		adapter = new CyListAdapter();
-		listView.setAdapter(adapter);
+        listView.setMode(Mode.DISABLED);
+        adapter = new CyListAdapter();
+        listView.setAdapter(adapter);
 
-	};
+    };
 
-	SHPostTaskM queryCyTask;
+    SHPostTaskM queryCyTask;
 
-	void queryCy() {
-		queryCyTask = getTask(DEFAULT_API_URL + "miQueryFriend.do", this);
-		queryCyTask.getTaskArgs().put("oppoType", oppoType);
-		queryCyTask.getTaskArgs().put("companyId", companyId);
-		queryCyTask.getTaskArgs().put("friendname", friendName);
-		queryCyTask.getTaskArgs().put("address", address);
-		queryCyTask.start();
-	}
+    void queryCy() {
+        queryCyTask = getTask(DEFAULT_API_URL + "miQueryFriend.do", this);
+        queryCyTask.getTaskArgs().put("oppoType", oppoType);
+        queryCyTask.getTaskArgs().put("companyId", companyId);
+        queryCyTask.getTaskArgs().put("friendname", friendName);
+        queryCyTask.getTaskArgs().put("address", address);
+        queryCyTask.start();
+    }
 
-	@Override
-	public void onTaskFinished(SHTask task) throws Exception {
-		DSObject dsCxList = DSObjectFactory.create(CPModeName.CAIYOU_LIST).fromJson(task.getResult());
-		DSObject[] arr = dsCxList.getArray(CPModeName.CAIYOU_LIST, CPModeName.CAIYOU_ITEM);
-		adapter.appendList(arr);
-		listView.onRefreshComplete();
-	}
+    @Override
+    public void onTaskFinished(SHTask task) throws Exception {
+        DSObject dsCxList = DSObjectFactory.create(CPModeName.CAIYOU_LIST).fromJson(
+            task.getResult());
+        DSObject[] arr = dsCxList.getArray(CPModeName.CAIYOU_LIST, CPModeName.CAIYOU_ITEM);
+        adapter.appendList(arr);
+        listView.onRefreshComplete();
+    }
 
-	@Override
-	public void onTaskFailed(SHTask task) {
-		adapter.appendList(null, task.getRespInfo().getMessage());
-		listView.onRefreshComplete();
-	}
+    @Override
+    public void onTaskFailed(SHTask task) {
+        adapter.appendList(null, task.getRespInfo().getMessage());
+        listView.onRefreshComplete();
+    }
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Object obj = parent.getItemAtPosition(position);
-		if (Utils.isDSObject(obj, CPModeName.CAIYOU_ITEM)) {
-			if (getBooleanParam("forresult")) {
-				Intent intent = new Intent();
-				intent.putExtra("caiyou", (DSObject) obj);
-				setResult(Activity.RESULT_OK, intent);
-				finish();
-			} else {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cydetail"));
-				intent.putExtra("caiyou", (DSObject) obj);
-				startActivity(intent);
-			}
-		}
-	}
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Object obj = parent.getItemAtPosition(position);
+        if (Utils.isDSObject(obj, CPModeName.CAIYOU_ITEM)) {
+            if (getBooleanParam("forresult")) {
+                Intent intent = new Intent();
+                intent.putExtra("caiyou", (DSObject) obj);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cydetail"));
+                intent.putExtra("caiyou", (DSObject) obj);
+                startActivity(intent);
+            }
+        }
+    }
 
-	class CyListAdapter extends BasicDSAdapter {
+    class CyListAdapter extends BasicDSAdapter {
 
-		@Override
-		public View getCPItemView(int position, View convertView, ViewGroup parent) {
-			BasicViewHolder viewHolder;
-			if (convertView == null) {
-				convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cy_list_query_item, parent,
-					false);
-				viewHolder = new BasicViewHolder();
-				viewHolder.textView1 = (TextView) convertView.findViewById(R.id.username);
-				viewHolder.textView2 = (TextView) convertView.findViewById(R.id.company);
-				viewHolder.textView3 = (TextView) convertView.findViewById(R.id.add_concern);
-				viewHolder.textView4 = (TextView) convertView.findViewById(R.id.send_cx);
-				if(getBooleanParam("forresult")){
-					convertView.findViewById(R.id.layer).setVisibility(View.GONE);
-				}
-				convertView.setTag(viewHolder);
-			} else {
-				viewHolder = (BasicViewHolder) convertView.getTag();
-			}
-			DSObject dsObj = (DSObject) getItem(position);
-			viewHolder.textView1.setText(dsObj.getString("friendName"));
-			viewHolder.textView2.setText(dsObj.getString("companyName"));
-			return convertView;
-		}
+        @Override
+        public View getCPItemView(int position, View convertView, ViewGroup parent) {
+            BasicViewHolder viewHolder;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.cy_list_query_item, parent, false);
+                viewHolder = new BasicViewHolder();
+                viewHolder.textView1 = (TextView) convertView.findViewById(R.id.username);
+                viewHolder.textView2 = (TextView) convertView.findViewById(R.id.company);
+                viewHolder.textView3 = (TextView) convertView.findViewById(R.id.add_concern);
+                viewHolder.textView4 = (TextView) convertView.findViewById(R.id.send_cx);
+                convertView.findViewById(R.id.layer).setVisibility(View.GONE);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (BasicViewHolder) convertView.getTag();
+            }
+            DSObject dsObj = (DSObject) getItem(position);
+            viewHolder.textView1.setText(dsObj.getString("friendName"));
+            viewHolder.textView2.setText(dsObj.getString("companyName"));
+            if (dsObj.getInt("isFollowed") == 0) {
+                viewHolder.textView3.setText("加关注");
+            } else {
+                viewHolder.textView3.setText("取消关注");
+            }
+            return convertView;
+        }
 
-		@Override
-		public void loadNextData(int startIndex) {
-			queryCy();
-		}
+        @Override
+        public void loadNextData(int startIndex) {
+            queryCy();
+        }
 
-	}
+    }
 
 }

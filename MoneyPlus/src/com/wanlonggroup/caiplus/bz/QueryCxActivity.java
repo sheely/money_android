@@ -36,7 +36,6 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
         titleEditText = (EditText) findViewById(R.id.title);
         queryButton = (Button) findViewById(R.id.query_btn);
         queryButton.setOnClickListener(this);
-        queryButton.setEnabled(false);
 
         cateAdapter = new CategoryAdapter(this, android.R.layout.simple_spinner_item);
         cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -61,7 +60,6 @@ public class QueryCxActivity extends BaseActivity implements OnClickListener {
                 task.getResult());
             cateAdapter.append(dsobj.getList(CPModeName.CAIXIN_TYPE_LIST,
                 CPModeName.CAIXIN_TYPE_ITEM));
-            queryButton.setEnabled(true);
         }
     }
 

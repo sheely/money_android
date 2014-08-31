@@ -36,7 +36,6 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
         queryButton = (Button) findViewById(R.id.query_btn);
         queryButton.setOnClickListener(this);
-        queryButton.setEnabled(false);
 
         cateAdapter = new CategoryAdapter(this, android.R.layout.simple_spinner_item);
         cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,7 +75,6 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
             addressAdapter.append(dsobj.getList("address", "address"));
             addressSpinner.setAdapter(addressAdapter);
 
-            queryButton.setEnabled(true);
         }
     }
 
@@ -97,10 +95,10 @@ public class QueryCyActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-        if (arg1 != RESULT_OK && getBooleanParam("forresult")) {
+        if (arg1 != RESULT_OK) {
             return;
         }
-        if (arg0 == 1) {
+        if (arg0 == 1 && getBooleanParam("forresult")) {
             setResult(RESULT_OK, arg2);
             finish();
         }

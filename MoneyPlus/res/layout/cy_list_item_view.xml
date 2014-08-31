@@ -5,4 +5,5 @@
     android:background="@drawable/table_view_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    cp:item_icon="@drawable/icon_username"
     cp:item_indicator="@drawable/arrow_normal" />

@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:singleLine="true" />
+            android:maxLines="2" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,23 +39,23 @@
         <TextView
             android:id="@+id/add_concern"
             style="@style/InfoWhiteText"
-            android:layout_width="wrap_content"
+            android:layout_width="110dip"
             android:layout_height="30dip"
             android:background="@drawable/btn_green"
             android:drawableLeft="@drawable/icon_username"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:padding="5dip"
             android:text="加关注" />
 
         <TextView
             android:id="@+id/send_cx"
             style="@style/InfoWhiteText"
-            android:layout_width="wrap_content"
+            android:layout_width="110dip"
             android:layout_height="30dip"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="5dip"
             android:background="@drawable/btn_blue"
             android:drawableLeft="@drawable/icon_username"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:padding="5dip"
             android:text="发财信" />
     </LinearLayout>
