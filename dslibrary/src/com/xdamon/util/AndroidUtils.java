@@ -26,9 +26,11 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -394,6 +396,19 @@ public class AndroidUtils {
 				super.handleMessage(msg);
 			}
 		}.sendEmptyMessageDelayed(1, 300);
-
 	}
+	
+	/**
+     * you need to add the permission in manifest: <uses-permission
+     * android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+     */
+    public static void createShortcut(Context context, String name,
+            Bitmap icon, Intent intent) {
+        Intent i = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+        i.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+        if (icon != null)
+            i.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon);
+        i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
+        context.sendBroadcast(i);
+    }
 }

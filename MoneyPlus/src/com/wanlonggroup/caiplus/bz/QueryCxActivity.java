@@ -21,83 +21,88 @@ import com.xdamon.util.DSObjectFactory;
 
 public class QueryCxActivity extends BaseActivity implements OnClickListener {
 
-	Spinner cateSpinner;
-	EditText executeEditText, titleEditText;
-	Button queryButton;
-	CateAdapter cateAdapter;
+    Spinner cateSpinner;
+    EditText executeEditText, titleEditText;
+    Button queryButton;
+    CategoryAdapter cateAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.query_cx);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.query_cx);
 
-		cateSpinner = (Spinner) findViewById(R.id.category);
-		executeEditText = (EditText) findViewById(R.id.execute);
-		titleEditText = (EditText) findViewById(R.id.title);
-		queryButton = (Button) findViewById(R.id.query_btn);
-		queryButton.setOnClickListener(this);
-		queryButton.setEnabled(false);
+        cateSpinner = (Spinner) findViewById(R.id.category);
+        executeEditText = (EditText) findViewById(R.id.execute);
+        titleEditText = (EditText) findViewById(R.id.title);
+        queryButton = (Button) findViewById(R.id.query_btn);
+        queryButton.setOnClickListener(this);
+        queryButton.setEnabled(false);
 
-		queryCate();
-	}
+        cateAdapter = new CategoryAdapter(this, android.R.layout.simple_spinner_item);
+        cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cateSpinner.setAdapter(cateAdapter);
 
-	SHPostTaskM queryCateTask;
+        queryCate();
+    }
 
-	void queryCate() {
-		queryCateTask = getTask(DEFAULT_API_URL + "miQueryOppoListInit.do", this);
-		queryCateTask.start();
-		showProgressDialog();
-	}
-	
-	@Override
-	public void onTaskFinished(SHTask task) throws Exception {
-		dismissProgressDialog();
-		if(task == queryCateTask){
-			DSObject dsobj = DSObjectFactory.create(CPModeName.CAIXIN_TYPE_LIST).fromJson(task.getResult());
-			cateAdapter = new CateAdapter(this, android.R.layout.simple_spinner_item, dsobj.getArray(CPModeName.CAIXIN_TYPE_LIST,CPModeName.CAIXIN_TYPE_ITEM));
-			cateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			cateSpinner.setAdapter(cateAdapter);
-			queryButton.setEnabled(true);
-		}
-	}
+    SHPostTaskM queryCateTask;
 
-	@Override
-	public void onClick(View v) {
-		if(v == queryButton){
-			Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("cp://cxlist"));
-			intent.putExtra("oppotype", cateAdapter.getOppoType(cateSpinner.getSelectedItemPosition()));
-			intent.putExtra("bossname", executeEditText.getText().toString());
-			intent.putExtra("oppotitle", titleEditText.getText().toString());
-			startActivity(intent);
-		}
-	}
+    void queryCate() {
+        queryCateTask = getTask(DEFAULT_API_URL + "miQueryOppoListInit.do", this);
+        queryCateTask.start();
+        showProgressDialog();
+    }
 
-	class CateAdapter extends ArrayAdapter<String> {
+    @Override
+    public void onTaskFinished(SHTask task) throws Exception {
+        dismissProgressDialog();
+        if (task == queryCateTask) {
+            DSObject dsobj = DSObjectFactory.create(CPModeName.CAIXIN_TYPE_LIST).fromJson(
+                task.getResult());
+            cateAdapter.append(dsobj.getList(CPModeName.CAIXIN_TYPE_LIST,
+                CPModeName.CAIXIN_TYPE_ITEM));
+            queryButton.setEnabled(true);
+        }
+    }
 
-		DSObject[] dsCates;
+    @Override
+    public void onClick(View v) {
+        if (v == queryButton) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://cxlist"));
+            intent.putExtra("oppotype",
+                cateAdapter.getKey(cateSpinner.getSelectedItemPosition()));
+            intent.putExtra("bossname", executeEditText.getText().toString());
+            intent.putExtra("oppotitle", titleEditText.getText().toString());
+            startActivity(intent);
+        }
+    }
 
-		public CateAdapter(Context context, int textViewResourceId, DSObject[] dsCates) {
-			super(context, textViewResourceId);
-			this.dsCates = dsCates;
-		}
+    class CateAdapter extends ArrayAdapter<String> {
 
-		@Override
-		public int getCount() {
-			if (dsCates != null) {
-				return dsCates.length;
-			}
-			return 0;
-		}
+        DSObject[] dsCates;
 
-		@Override
-		public String getItem(int position) {
-			return dsCates[position].getString("value");
-		}
-		
-		public String getOppoType(int position){
-			return dsCates[position].getString("key");
-		}
+        public CateAdapter(Context context, int textViewResourceId, DSObject[] dsCates) {
+            super(context, textViewResourceId);
+            this.dsCates = dsCates;
+        }
 
-	}
+        @Override
+        public int getCount() {
+            if (dsCates != null) {
+                return dsCates.length;
+            }
+            return 0;
+        }
+
+        @Override
+        public String getItem(int position) {
+            return dsCates[position].getString("value");
+        }
+
+        public String getOppoType(int position) {
+            return dsCates[position].getString("key");
+        }
+
+    }
 
 }

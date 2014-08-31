@@ -64,7 +64,10 @@
 
         <TextView
             android:id="@+id/desc"
-            style="@style/SingleLineTableItemWithPaddingLine"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
             android:gravity="center_vertical"
             android:text="最佳审计组合，尤其擅长快消行业"
             android:textColor="@color/text_color_black"
@@ -86,11 +89,13 @@
                 cp:item_subTitle="发起人"
                 cp:item_subTitleColor="@color/text_color_orange"
                 cp:item_title="张三" />
+
             <com.xdamon.widget.BasicSingleItem
                 style="@style/SingleLineTableItemWithPadding"
                 cp:item_icon="@drawable/icon_username"
                 cp:item_subTitleColor="@color/text_color_orange"
                 cp:item_title="李四" />
+
             <com.xdamon.widget.BasicSingleItem
                 style="@style/SingleLineTableItemWithPadding"
                 cp:item_icon="@drawable/icon_username"

@@ -63,7 +63,10 @@
 
         <TextView
             android:id="@+id/desc"
-            style="@style/SingleLineTableItemWithPaddingLine"
+            style="@style/CommonPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/table_view_item_with_line"
             android:gravity="center_vertical"
             android:text="酒店管理咨询行业领导者"
             android:textColor="@color/text_color_black"
@@ -96,8 +99,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/table_view_item_with_line"
             android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.2"
             android:text="希尔顿\n如家快捷"
-            android:lineSpacingMultiplier="1.2"   
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_info" />
     </LinearLayout>
