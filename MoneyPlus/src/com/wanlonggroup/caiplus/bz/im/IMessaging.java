@@ -1,7 +1,7 @@
 package com.wanlonggroup.caiplus.bz.im;
 
 public class IMessaging {
-    
+
     public final String senderUserId;
     public final String senderUserName;
     public final String senderHeadIcon;
@@ -18,9 +18,15 @@ public class IMessaging {
         this.chatContent = chatContent;
         this.sendTime = sendTime;
     }
+
+    public IMessaged toIMessaged() {
+        return new IMessaged(senderUserId, senderUserName, senderHeadIcon, receiverUserId,
+                chatContent, sendTime);
+    }
     
     public IMessage toIMessage(){
-        return new IMessage(senderUserId, senderUserName, senderHeadIcon, receiverUserId, chatContent, sendTime);
+        return new IMessage(senderUserId, senderUserName, senderHeadIcon, receiverUserId,
+            chatContent, sendTime);
     }
 
 }

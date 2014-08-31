@@ -73,7 +73,7 @@ public class ChatMessageService extends Service {
     public void onEvent(NoSubscriberEvent event) {
         if (event.originalEvent instanceof IMessaging) {
             EventBus.getDefault().post(((IMessaging) event.originalEvent).toIMessage());
-        } else if (event.originalEvent instanceof IMessage) {
+        } else {
             EventBus.getDefault().addEvent(event.originalEvent);
         }
     }

@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.adapter.BasicDSAdapter;
 import com.wanlonggroup.caiplus.app.BasePtrListFragment;
+import com.wanlonggroup.caiplus.bz.im.ChatHelper;
 import com.wanlonggroup.caiplus.bz.im.IMessage;
+import com.wanlonggroup.caiplus.bz.im.IMessaged;
 import com.wanlonggroup.caiplus.model.CPModeName;
+import com.wanlonggroup.caiplus.util.Utils;
 import com.wanlonggroup.caiplus.widget.CyListItem;
 import com.xdamon.app.DSActionBar;
 import com.xdamon.app.DSObject;
@@ -57,10 +61,11 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().registerSticky(this);
     };
 
-    public void onEvent(IMessage message) {
+    //已读消息
+    public void onEventMainThread(IMessaged message) {
         DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_MESSAGE_ITEM);
         dsMsg.put("senderuserid", message.senderUserId);
         dsMsg.put("senderusername", message.senderUserName);
@@ -72,11 +77,54 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
         adapter.append(dsMsg);
         listView.getRefreshableView().setSelection(adapter.getCount() - 1);
     }
+    //未读消息
+    public void onEventMainThread(IMessage message){
+        DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_MESSAGE_ITEM);
+        dsMsg.put("senderuserid", message.senderUserId);
+        dsMsg.put("senderusername", message.senderUserName);
+        dsMsg.put("senderheadicon", message.senderHeadIcon);
+        dsMsg.put("sendtime", message.sendTime);
+        dsMsg.put("receiveruserid", message.receiverUserId);
+        dsMsg.put("chatcontent", message.chatContent);
+
+        adapter.append(dsMsg);
+        listView.getRefreshableView().setSelection(adapter.getCount() - 1);
+    }
+    
+    
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Object obj = parent.getItemAtPosition(position);
+        if(Utils.isDSObject(obj, CPModeName.CY_CHAT_MESSAGE_ITEM)){
+            DSObject dsObject = (DSObject) obj;
+            DSObject dsCy = new DSObject(CPModeName.CAIYOU_ITEM);
+            dsCy.put("friendId", dsObject.getString("senderuserid"));
+            dsCy.put("friendName", dsObject.getString("senderusername"));
+            dsCy.put("friendHeadIcon", dsObject.getString("senderheadicon"));
+            ChatHelper.instance(getActivity()).chat2Who(getActivity(), dsCy);
+        }
+    }
 
     class CyListAdapter extends BasicDSAdapter {
         
         public CyListAdapter(){
             isEnd = true;
+        }
+        
+        @Override
+        public void append(DSObject obj) {
+            boolean isExist = false;
+            for(DSObject dsMsg : dsList){
+                if(obj.getString("senderuserid").equals(dsMsg.getString("senderuserid"))){
+                    dsMsg.put("chatcontent",obj.getString("chatcontent"));
+                    isExist = true;
+                    notifyDataSetChanged();
+                    break;
+                }
+            }
+            if(!isExist){
+                super.append(obj);
+            }
         }
 
         @Override

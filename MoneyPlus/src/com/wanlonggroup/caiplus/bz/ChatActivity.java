@@ -57,7 +57,7 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(IMessaging message) {
+    public void onEventMainThread(IMessaging message) {
         if (message.senderUserId.equals(dsCaiYou.getString("friendId"))) {
             DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_HISTORY_ITEM);
             dsMsg.put("senderuserid", message.senderUserId);
@@ -69,8 +69,10 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
 
             adapter.append(dsMsg);
             listView.getRefreshableView().setSelection(adapter.getCount() - 1);
+            EventBus.getDefault().post(message.toIMessaged());
+        }else{
+            EventBus.getDefault().post(message.toIMessage());
         }
-        EventBus.getDefault().post(message.toIMessage());
     }
 
     protected void onSetContentView() {
