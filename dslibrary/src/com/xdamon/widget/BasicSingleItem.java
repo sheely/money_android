@@ -14,205 +14,225 @@ import com.xdamon.library.R;
 
 public class BasicSingleItem extends LinearLayout {
 
-	protected TextView titleTextView;
-	protected TextView subTitleTextView;
-	protected ImageView iconImageView;
-	protected TextView countTextView;
-	protected ImageView moreImageView;
+    protected TextView titleTextView;
+    protected TextView subTitleTextView;
+    protected ImageView iconImageView;
+    protected TextView countTextView;
+    protected ImageView moreImageView;
 
-	public BasicSingleItem(Context context) {
-		this(context, null);
-	}
+    public BasicSingleItem(Context context) {
+        this(context, null);
+    }
 
-	public BasicSingleItem(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		inflateLayout(context);
-		TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BasicSingleItem);
+    public BasicSingleItem(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        inflateLayout(context);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BasicSingleItem);
 
-		int iconResId = array.getResourceId(R.styleable.BasicSingleItem_item_icon, 0);
+        int iconResId = array.getResourceId(R.styleable.BasicSingleItem_item_icon, 0);
 
-		String title = array.getString(R.styleable.BasicSingleItem_item_title);
-		String titleHint = array.getString(R.styleable.BasicSingleItem_item_titleHint);
-		int defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18, getResources()
-				.getDisplayMetrics());
-		int titleSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_titleSize, defSize);
-		int titleColor = array.getColor(R.styleable.BasicSingleItem_item_titleColor, 0xff323232);
+        String title = array.getString(R.styleable.BasicSingleItem_item_title);
+        String titleHint = array.getString(R.styleable.BasicSingleItem_item_titleHint);
+        int defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18,
+            getResources().getDisplayMetrics());
+        int titleSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_titleSize,
+            defSize);
+        int titleColor = array.getColor(R.styleable.BasicSingleItem_item_titleColor, 0xff323232);
 
-		String subTitle = array.getString(R.styleable.BasicSingleItem_item_subTitle);
-		String subTitleHint = array.getString(R.styleable.BasicSingleItem_item_subTitleHint);
-		defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics());
-		int subTitleSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_subTitleSize, defSize);
-		int subTitleColor = array.getColor(R.styleable.BasicSingleItem_item_subTitleColor, 0xff878787);
+        String subTitle = array.getString(R.styleable.BasicSingleItem_item_subTitle);
+        String subTitleHint = array.getString(R.styleable.BasicSingleItem_item_subTitleHint);
+        defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
+            getResources().getDisplayMetrics());
+        int subTitleSize = array.getDimensionPixelSize(
+            R.styleable.BasicSingleItem_item_subTitleSize, defSize);
+        int subTitleColor = array.getColor(R.styleable.BasicSingleItem_item_subTitleColor,
+            0xff878787);
 
-		String count = array.getString(R.styleable.BasicSingleItem_item_count);
-		defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18, getResources().getDisplayMetrics());
-		int countSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_countSize, defSize);
-		int countColor = array.getColor(R.styleable.BasicSingleItem_item_countColor, 0xff878787);
-		
-		int indicatorId = array.getResourceId(R.styleable.BasicSingleItem_item_indicator,0);
-		array.recycle();
+        String count = array.getString(R.styleable.BasicSingleItem_item_count);
+        defSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18,
+            getResources().getDisplayMetrics());
+        int countSize = array.getDimensionPixelSize(R.styleable.BasicSingleItem_item_countSize,
+            defSize);
+        int countColor = array.getColor(R.styleable.BasicSingleItem_item_countColor, 0xff878787);
 
-		iconImageView = (ImageView) findViewById(R.id.s_icon);
-		setLeftImageView(iconResId);
+        int indicatorId = array.getResourceId(R.styleable.BasicSingleItem_item_indicator, 0);
+        array.recycle();
 
-		titleTextView = (TextView) findViewById(R.id.s_title);
-		setTitle(title);
-		setTitleSize(titleSize);
-		setTitleColor(titleColor);
-		setTitleHint(titleHint);
+        iconImageView = (ImageView) findViewById(R.id.s_icon);
+        setIcon(iconResId);
 
-		subTitleTextView = (TextView) findViewById(R.id.s_subtitle);
-		setSubTitle(subTitle);
-		setSubTitleSize(subTitleSize);
-		setSubTitleColor(subTitleColor);
-		setSubTitleHint(subTitleHint);
+        titleTextView = (TextView) findViewById(R.id.s_title);
+        setTitle(title);
+        setTitleSize(titleSize);
+        setTitleColor(titleColor);
+        setTitleHint(titleHint);
 
-		countTextView = (TextView) findViewById(R.id.s_count);
-		setCount(count);
-		setCountColor(countColor);
-		setCountSize(countSize);
+        subTitleTextView = (TextView) findViewById(R.id.s_subtitle);
+        setSubTitle(subTitle);
+        setSubTitleSize(subTitleSize);
+        setSubTitleColor(subTitleColor);
+        setSubTitleHint(subTitleHint);
 
-		moreImageView = (ImageView) findViewById(R.id.s_more);
-		setIndicator(indicatorId);
-	}
-	
-	protected void inflateLayout(Context context) {
-		inflate(context, R.layout.basic_single_item, this);
-	}
+        countTextView = (TextView) findViewById(R.id.s_count);
+        setCount(count);
+        setCountColor(countColor);
+        setCountSize(countSize);
 
-	public ImageView getLeftImageView() {
-		return iconImageView;
-	}
-	
-	public void setLeftImageViewEnable(boolean enabled){
-		iconImageView.setEnabled(enabled);
-	}
-	
-	public boolean isLeftImageViewEnabled(){
-		return iconImageView.isEnabled();
-	}
-	
-	public void setLeftImageViewSelected(boolean selected){
-		iconImageView.setSelected(selected);
-	}
-	
-	public boolean isLeftImageViewSelected(){
-		return iconImageView.isSelected();
-	}
+        moreImageView = (ImageView) findViewById(R.id.s_more);
+        setIndicator(indicatorId);
+    }
 
-	public TextView getTitleView() {
-		return titleTextView;
-	}
+    protected void inflateLayout(Context context) {
+        inflate(context, R.layout.basic_single_item, this);
+    }
 
-	public TextView getSubTitleView() {
-		return subTitleTextView;
-	}
+    public ImageView getIcon() {
+        return iconImageView;
+    }
 
-	public TextView getCountView() {
-		return countTextView;
-	}
+    public void setIconSize(int width, int height) {
+        android.view.ViewGroup.LayoutParams lps = iconImageView.getLayoutParams();
+        lps.width = width;
+        lps.height = height;
+        iconImageView.setLayoutParams(lps);
+    }
 
-	public ImageView getRightImageView() {
-		return moreImageView;
-	}
-	
-	public void setRightImageViewEnable(boolean enabled){
-		moreImageView.setEnabled(enabled);
-	}
-	
-	public boolean isRightViewImageEnabled(){
-		return moreImageView.isEnabled();
-	}
-	
-	public void setRightImageViewSelected(boolean selected){
-		moreImageView.setSelected(selected);
-	}
-	
-	public boolean isRightImageViewSelected(){
-		return moreImageView.isSelected();
-	}
+    public void setIconEnable(boolean enabled) {
+        iconImageView.setEnabled(enabled);
+    }
 
-	public void setLeftImageView(int resId) {
-		if (resId > 0) {
-			iconImageView.setImageResource(resId);
-		}
-		iconImageView.setVisibility(resId == 0 ? GONE : VISIBLE);
-	}
-	
-	public void setLeftImageView(Drawable icon){
-		iconImageView.setImageDrawable(icon);
-	}
+    public boolean isIconEnabled() {
+        return iconImageView.isEnabled();
+    }
 
-	public void setTitle(CharSequence title) {
-		titleTextView.setText(title);
-	}
-	
-	public void setTitleHint(CharSequence hint){
-		titleTextView.setHint(hint);
-	}
+    public void setIconSelected(boolean selected) {
+        iconImageView.setSelected(selected);
+    }
 
-	public void setTitleSize(int size) {
-		titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-	}
+    public boolean isIconSelected() {
+        return iconImageView.isSelected();
+    }
 
-	public void setTitleColor(int color) {
-		titleTextView.setTextColor(color);
-	}
+    public TextView getTitleView() {
+        return titleTextView;
+    }
 
-	public void setSubTitle(CharSequence title) {
-		subTitleTextView.setText(title);
-	}
-	
-	public void setSubTitleHint(CharSequence hint){
-		subTitleTextView.setHint(hint);
-	}
+    public TextView getSubTitleView() {
+        return subTitleTextView;
+    }
 
-	public void setSubTitleSize(int size) {
-		subTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-	}
+    public TextView getCountView() {
+        return countTextView;
+    }
 
-	public void setSubTitleColor(int color) {
-		subTitleTextView.setTextColor(color);
-	}
+    public ImageView getIndicator() {
+        return moreImageView;
+    }
+    
+    public void setIndicatorSize(int width, int height) {
+        android.view.ViewGroup.LayoutParams lps = moreImageView.getLayoutParams();
+        lps.width = width;
+        lps.height = height;
+        moreImageView.setLayoutParams(lps);
+    }
 
-	public void setCount(CharSequence count) {
-		countTextView.setText(count);
-		if (TextUtils.isEmpty(count)) {
-			countTextView.setVisibility(GONE);
-		} else {
-			countTextView.setVisibility(VISIBLE);
-		}
-	}
+    public void setIndicatorEnable(boolean enabled) {
+        moreImageView.setEnabled(enabled);
+    }
 
-	public void setCountSize(int size) {
-		countTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-	}
+    public boolean isIndicatorEnabled() {
+        return moreImageView.isEnabled();
+    }
 
-	public void setCountColor(int value) {
-		countTextView.setTextColor(value);
-	}
-	
-	public void setIndicator(int drawableId){
-		if (drawableId > 0) {
-			moreImageView.setImageResource(drawableId);
-		}
-		moreImageView.setVisibility(drawableId == 0 ? GONE : VISIBLE);
-	}
-	
-	public void setIndicator(Drawable drawable){
-		moreImageView.setImageDrawable(drawable);
-	}
-	
-	@Override
-	public void setClickable(boolean clickable) {
-		super.setClickable(clickable);
-		setLeftImageViewEnable(clickable);
-		setRightImageViewEnable(clickable);
-	}
-	
-	public void clearTitle(){
-		setTitle(null);
-		setSubTitle(null);
-	}
+    public void setIndicatorSelected(boolean selected) {
+        moreImageView.setSelected(selected);
+    }
+
+    public boolean isIndicatorSelected() {
+        return moreImageView.isSelected();
+    }
+
+    public void setIcon(int resId) {
+        if (resId > 0) {
+            iconImageView.setImageResource(resId);
+        }
+        iconImageView.setVisibility(resId == 0 ? GONE : VISIBLE);
+    }
+
+    public void setIcon(Drawable icon) {
+        iconImageView.setImageDrawable(icon);
+    }
+
+    public void setTitle(CharSequence title) {
+        titleTextView.setText(title);
+    }
+
+    public void setTitleHint(CharSequence hint) {
+        titleTextView.setHint(hint);
+    }
+
+    public void setTitleSize(int size) {
+        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+    }
+
+    public void setTitleColor(int color) {
+        titleTextView.setTextColor(color);
+    }
+
+    public void setSubTitle(CharSequence title) {
+        subTitleTextView.setText(title);
+    }
+
+    public void setSubTitleHint(CharSequence hint) {
+        subTitleTextView.setHint(hint);
+    }
+
+    public void setSubTitleSize(int size) {
+        subTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+    }
+
+    public void setSubTitleColor(int color) {
+        subTitleTextView.setTextColor(color);
+    }
+
+    public void setCount(CharSequence count) {
+        countTextView.setText(count);
+        if (TextUtils.isEmpty(count)) {
+            countTextView.setVisibility(GONE);
+        } else {
+            countTextView.setVisibility(VISIBLE);
+        }
+    }
+
+    public void setCountSize(int size) {
+        countTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+    }
+
+    public void setCountColor(int value) {
+        countTextView.setTextColor(value);
+    }
+
+    public void setIndicator(int drawableId) {
+        if (drawableId > 0) {
+            moreImageView.setImageResource(drawableId);
+        }
+        moreImageView.setVisibility(drawableId == 0 ? GONE : VISIBLE);
+    }
+
+    public void setIndicator(Drawable drawable) {
+        moreImageView.setImageDrawable(drawable);
+    }
+
+    @Override
+    public void setClickable(boolean clickable) {
+        super.setClickable(clickable);
+        setIconEnable(clickable);
+        setIndicatorEnable(clickable);
+    }
+
+    public void clearTitle() {
+        setTitle(null);
+        setSubTitle(null);
+    }
 
 }

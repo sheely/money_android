@@ -32,7 +32,7 @@ public abstract class BasicDSAdapter extends BasicAdapter {
 			dsList.addAll(Arrays.asList(arr));
 		}
 	}
-
+	
 	@Override
 	public int getCount() {
 		if (!isEnd || !TextUtils.isEmpty(errorMsg)) {

@@ -34,7 +34,7 @@ public class MyConcernActivity extends BasePtrListActivity {
 	};
 
 	protected void onPullToRefresh() {
-		queryList();
+	    adapter.reset();
 	};
 
 	SHPostTaskM queryTask;

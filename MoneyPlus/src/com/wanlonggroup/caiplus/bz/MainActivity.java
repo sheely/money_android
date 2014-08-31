@@ -6,7 +6,10 @@ import android.view.MotionEvent;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
+import com.wanlonggroup.caiplus.bz.im.IMessage;
 import com.xdamon.widget.BadgeView;
+
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends BaseFragmentTabActivity {
 
@@ -18,7 +21,8 @@ public class MainActivity extends BaseFragmentTabActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		EventBus.getDefault().register(this);
+		
 		setTabWidgetBackground(R.color.tab_widget_color);
 
 		addTab(CAIXIN, R.drawable.ic_tab_cx, 0, CxHomeFragment.class, null);
@@ -26,6 +30,12 @@ public class MainActivity extends BaseFragmentTabActivity {
 		addTab(CAIQUAN, R.drawable.ic_tab_cq, 0, CqHomeFragment.class, null);
 		addTab(ME, R.drawable.ic_tab_me, 0, UserFragment.class, null);
 		
+	}
+	
+	@Override
+	protected void onDestroy() {
+	    super.onDestroy();
+	    EventBus.getDefault().unregister(this);
 	}
 
 	protected void onSetContent() {
@@ -41,9 +51,26 @@ public class MainActivity extends BaseFragmentTabActivity {
 	void setBadgeView(String text) {
 		if(messageView == null){
 			messageView = new BadgeView(this, mTabHost.getTabWidget(), 1);
+			messageView.setText(" ");
 		}
-		messageView.setText(text);
-		messageView.show();
+		if(text != null){
+		    messageView.show();
+		}else{
+		    messageView.hide();
+		}
+	}
+	
+	@Override
+	public void onTabChanged(String tabId) {
+	    if(CAIYOU.equals(tabId)){
+	        setBadgeView(null);
+	    }
+	}
+	
+	public void onEventMainThread(IMessage message){
+	    if(!CAIYOU.equals(mTabHost.getCurrentTabTag())){
+	        setBadgeView("");
+	    }
 	}
 
 	private long lastQuitTime;

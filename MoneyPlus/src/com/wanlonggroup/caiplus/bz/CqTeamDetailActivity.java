@@ -17,16 +17,21 @@ import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
+import com.xdamon.util.Pix2Utils;
 import com.xdamon.widget.BasicSingleItem;
 import com.xdamon.widget.TableView;
 
 public class CqTeamDetailActivity extends BaseActivity {
+    
+    int imageSize;
 
 	DSObject dsTeam;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		imageSize = Pix2Utils.dip2px(this, 40);
+		
 		dsTeam = getIntent().getParcelableExtra("team");
 		setupView();
 		updateView();
@@ -60,12 +65,14 @@ public class CqTeamDetailActivity extends BaseActivity {
 			for (DSObject obj : dsTeam.getArray("teamMembers")) {
 				final BasicSingleItem item = (BasicSingleItem) LayoutInflater.from(this).inflate(
 					R.layout.common_basic_single_item, memTable, false);
-				imageLoader.displayImage(obj.getString("memberHeadIcon"), item.getLeftImageView(), displayOptions,
+				item.setIconSize(imageSize, imageSize);
+				
+				imageLoader.displayImage(obj.getString("memberHeadIcon"), item.getIcon(), displayOptions,
 					new SimpleImageLoadingListener() {
 
 						@Override
 						public void onLoadingComplete(String paramString, View paramView, Bitmap paramBitmap) {
-							item.getLeftImageView().setVisibility(View.VISIBLE);
+							item.getIcon().setVisibility(View.VISIBLE);
 						}
 
 					});

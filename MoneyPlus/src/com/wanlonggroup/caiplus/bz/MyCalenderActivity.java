@@ -65,7 +65,7 @@ public class MyCalenderActivity extends BasePtrListActivity implements OnClickLi
 	}
 
 	protected void onPullToRefresh() {
-		queryList();
+	    adapter.reset();
 	};
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

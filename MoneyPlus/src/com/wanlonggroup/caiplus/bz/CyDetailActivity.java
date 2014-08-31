@@ -65,6 +65,11 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 		concernView.setOnClickListener(this);
 		sendcxView = (TextView) findViewById(R.id.send_cx);
 		sendcxView.setOnClickListener(this);
+		
+		if(accountService().id().equals(publisherId)){
+		    concernView.setVisibility(View.INVISIBLE);
+		    sendcxView.setVisibility(View.INVISIBLE);
+		}
 
 		techonologyTitleView = (TextView) findViewById(R.id.techonologyTitle);
 		personalExperienceView = (TextView) findViewById(R.id.personalExperience);

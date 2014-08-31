@@ -33,7 +33,7 @@ public class MyTeamActivity extends BasePtrListActivity {
 
 	@Override
 	protected void onPullToRefresh() {
-		queryList();
+		adapter.reset();
 	}
 
 	void queryList() {

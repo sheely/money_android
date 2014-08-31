@@ -145,7 +145,7 @@ public class CxExecuteInfoActivity extends BaseActivity {
 		}
 
 		if (Utils.wrapDatetime(start).after(Utils.wrapDatetime(end))) {
-			showAlert("结束时间必须晚于开始时间");
+			showAlert("结束时间不能早于开始时间");
 			return;
 		}
 

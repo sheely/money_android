@@ -15,9 +15,9 @@ public class ConfigSwitch {
 
 	private ConfigSwitch() {
 		domainType = DomainType.toType(PreferencesUtils.getInt(CaiPlusApplication.instance(), "config_domain"));
-		if(Environment.isDebug()){
+//		if(Environment.isDebug()){
 			domainType = DomainType.WANDEJUN;
-		}
+//		}
 		swithDomain(domainType);
 	}
 
