@@ -44,10 +44,9 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
         }
         setTitle(dsCaiYou.getString("friendName", "聊天"));
         setupView();
-        
         EventBus.getDefault().register(this);
     }
-    
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -67,7 +66,7 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
             adapter.append(dsMsg);
             listView.getRefreshableView().setSelection(adapter.getCount() - 1);
             EventBus.getDefault().postSticky(message.toIMessaged());
-        }else{
+        } else {
             EventBus.getDefault().postSticky(message.toIMessage());
         }
     }
@@ -192,7 +191,7 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
         public int getViewTypeCount() {
             return super.getViewTypeCount() + 1;
         }
-        
+
         @Override
         public boolean isEnabled(int position) {
             return false;
@@ -225,7 +224,7 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
                     convertView = LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.message_item_r, parent, false);
                 }
-                
+
                 viewHolder = new BasicViewHolder();
                 viewHolder.icon1 = (ImageView) convertView.findViewById(R.id.icon);
                 viewHolder.textView1 = (TextView) convertView.findViewById(R.id.time);

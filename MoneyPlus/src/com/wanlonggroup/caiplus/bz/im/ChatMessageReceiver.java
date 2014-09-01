@@ -14,8 +14,9 @@ public class ChatMessageReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
 			if(NetworkUtils.isConnectNetwork(context)){
-//				ChatMessageService.start(context);
+				ChatMessageService.start(context);
 			}
 		}
 	}
+	
 }

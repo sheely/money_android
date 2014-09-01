@@ -15,9 +15,6 @@ import com.xdamon.app.DSObject;
 import com.xdamon.executor.ThreadExecutorsHelper;
 import com.xdamon.util.DSObjectFactory;
 
-import de.greenrobot.event.EventBus;
-import de.greenrobot.event.NoSubscriberEvent;
-
 public class ChatMessageService extends Service {
 
     public static final int MESSAGE_RECEIVER_INTERVAL = 3000;
@@ -46,18 +43,6 @@ public class ChatMessageService extends Service {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
             if (ACTION_START.equals(intent.getAction())) {
@@ -67,15 +52,7 @@ public class ChatMessageService extends Service {
                 stopSelf();
             }
         }
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    public void onEvent(NoSubscriberEvent event) {
-        if (event.originalEvent instanceof IMessaging) {
-            EventBus.getDefault().postSticky(((IMessaging) event.originalEvent).toIMessage());
-        } else {
-            EventBus.getDefault().addEvent(event.originalEvent);
-        }
+        return START_STICKY;
     }
 
     private void stopMsgThread() {
@@ -103,20 +80,7 @@ public class ChatMessageService extends Service {
                 public void onTaskFinished(SHTask task) throws Exception {
                     DSObject dsChatMessages = DSObjectFactory.create(
                         CPModeName.CY_CHAT_MESSAGE_LIST).fromJson(task.getResult());
-                    for (DSObject dsMsg : dsChatMessages.getArray(CPModeName.CY_CHAT_MESSAGE_LIST,
-                        CPModeName.CY_CHAT_MESSAGE_ITEM)) {
-                        Log.i(
-                            "GetMessageThread",
-                            dsMsg.getString("senderuserid") + ">>>"
-                                    + dsMsg.getString("chatcontent"));
-
-                        IMessaging messaging = new IMessaging(dsMsg.getString("senderuserid"),
-                                dsMsg.getString("senderusername"),
-                                dsMsg.getString("senderheadicon"),
-                                dsMsg.getString("receiveruserid"), dsMsg.getString("chatcontent"),
-                                dsMsg.getString("sendtime"));
-                        EventBus.getDefault().post(messaging);
-                    }
+                    ChatMessageBrigdeService.sendMessage(ChatMessageService.this, dsChatMessages);
                 }
 
                 @Override

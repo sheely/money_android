@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name="com.wanlonggroup.caiplus.app.CaiPlusApplication"
@@ -480,7 +481,6 @@
                     android:scheme="cp" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.wanlonggroup.caiplus.bz.QueryExecuteActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -524,7 +524,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageService" />
+        <service
+            android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageService"
+            android:process=":message" />
+        <service android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageBrigdeService" />
     </application>
 
 </manifest>

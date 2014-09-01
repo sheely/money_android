@@ -35,7 +35,7 @@ public class CaiPlusApplication extends DSApplication {
 	@Override
 	public void onApplicationStop() {
 		super.onApplicationStop();
-		ChatMessageService.stop(this);
+//		ChatMessageService.stop(this);
 	}
 
 }

@@ -283,12 +283,12 @@ public class EventBus {
             Set<Object> stickyEventSet;
             synchronized (stickyEvents) {
             	stickyEventSet = stickyEvents.get(eventType);
-            }
-            if (stickyEventSet != null) {
-                // If the subscriber is trying to abort the event, it will fail (event is not tracked in posting state)
-                // --> Strange corner case, which we don't take care of here.
-            	for(Object stickyEvent : stickyEventSet){
-            		postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper());
+            	if (stickyEventSet != null) {
+            	    // If the subscriber is trying to abort the event, it will fail (event is not tracked in posting state)
+            	    // --> Strange corner case, which we don't take care of here.
+            	    for(Object stickyEvent : stickyEventSet){
+            	        postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper());
+            	    }
             	}
             }
         }

@@ -36,11 +36,18 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        EventBus.getDefault().registerSticky(this);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
 
+    }
+    
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -62,13 +69,10 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
         startActivity("cp://querycy");
     }
 
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        EventBus.getDefault().registerSticky(this);
-    };
-
     // 已读消息
     public void onEventMainThread(IMessaged message) {
+        EventBus.getDefault().removeStickyEvent(message);
+
         DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_MESSAGE_ITEM);
         dsMsg.put("senderuserid", message.senderUserId);
         dsMsg.put("senderusername", message.senderUserName);
@@ -77,12 +81,13 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
         dsMsg.put("receiveruserid", message.receiverUserId);
         dsMsg.put("chatcontent", message.chatContent);
 
-        adapter.append(dsMsg);
-        listView.getRefreshableView().setSelection(adapter.getCount() - 1);
+        refreshListView(dsMsg);
     }
 
     // 未读消息
     public void onEventMainThread(IMessage message) {
+        EventBus.getDefault().removeStickyEvent(message);
+
         DSObject dsMsg = DSObjectFactory.create(CPModeName.CY_CHAT_MESSAGE_ITEM);
         dsMsg.put("senderuserid", message.senderUserId);
         dsMsg.put("senderusername", message.senderUserName);
@@ -91,8 +96,13 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
         dsMsg.put("receiveruserid", message.receiverUserId);
         dsMsg.put("chatcontent", message.chatContent);
 
+        refreshListView(dsMsg);
+    }
+
+    void refreshListView(DSObject dsMsg) {
         adapter.append(dsMsg);
         listView.getRefreshableView().setSelection(adapter.getCount() - 1);
+
     }
 
     @Override
