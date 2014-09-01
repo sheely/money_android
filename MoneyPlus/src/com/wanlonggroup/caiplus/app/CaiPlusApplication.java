@@ -3,8 +3,10 @@ package com.wanlonggroup.caiplus.app;
 import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.bz.im.ChatMessageService;
 import com.wanlonggroup.caiplus.model.AccountService;
+import com.wanlonggroup.caiplus.util.Environment;
 import com.xdamon.app.DSApplication;
 import com.xdamon.util.PreferencesUtils;
+import com.xdamon.util.SafeLooper;
 
 public class CaiPlusApplication extends DSApplication {
 	
@@ -15,12 +17,16 @@ public class CaiPlusApplication extends DSApplication {
 		super.onCreate();
 		acccountServie();
 		PreferencesUtils.initSharedPreferenceName(getPackageName());
+		
+		if (!Environment.isDebug()) {
+		    SafeLooper.install();
+		}
 	}
 	
 	public AccountService acccountServie(){
 		if(accountService == null){
 			accountService = new AccountService(getApplicationContext());
-			SHEnvironment.getInstance().setLoginId(accountService.name());
+			SHEnvironment.getInstance().setLoginId(accountService.id());
 			SHEnvironment.getInstance().setPassword(accountService.password());
 		}
 		return accountService;

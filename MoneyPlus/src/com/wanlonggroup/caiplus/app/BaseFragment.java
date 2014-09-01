@@ -40,15 +40,26 @@ public class BaseFragment extends DSFragment implements AccountListener, ITaskLi
 	@Override
 	public final void onAccountChanged(AccountService sender) {
 		if (isLogined()) {
-			SHEnvironment.getInstance().setLoginId(sender.name());
-			SHEnvironment.getInstance().setPassword(sender.password());
+			addLoginInfo();
+		}else{
+		    clearLoginInfo();
 		}
-
 		onAccountChanged();
 	}
 
 	protected void onAccountChanged() {
 
+	}
+	
+	public void clearLoginInfo(){
+	    accountService().logout();
+        SHEnvironment.getInstance().setLoginId(null);
+        SHEnvironment.getInstance().setPassword(null);
+	}
+	
+	public void addLoginInfo(){
+	    SHEnvironment.getInstance().setLoginId(accountService().id());
+        SHEnvironment.getInstance().setPassword(accountService().password());
 	}
 
 	private HashMap<String, SHPostTaskM> taskMap = new HashMap<String, SHPostTaskM>();

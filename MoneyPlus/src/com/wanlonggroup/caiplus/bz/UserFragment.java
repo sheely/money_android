@@ -65,7 +65,7 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					accountService().logout();
+					clearLoginInfo();
 					startActivity("cp://login");
 					finish();
 				}

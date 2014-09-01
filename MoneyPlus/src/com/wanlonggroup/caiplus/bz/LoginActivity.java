@@ -19,126 +19,135 @@ import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.DSObjectFactory;
+import com.xdamon.util.PreferencesUtils;
 import com.xdamon.util.StringUtils;
 
 public class LoginActivity extends BaseActivity {
 
-	private Button loginBtn;
-	private EditText userNameText, passwordText;
-	private ImageView deleteUsername, deletePwd;
+    private Button loginBtn;
+    private EditText userNameText, passwordText;
+    private ImageView deleteUsername, deletePwd;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login);
 
-		userNameText = (EditText) findViewById(R.id.username);
-		userNameText.addTextChangedListener(textWatcher);
-		userNameText.setOnFocusChangeListener(focusChangeListener);
-		deleteUsername = (ImageView) findViewById(R.id.username_delete);
-		deleteUsername.setOnClickListener(onClickListener);
+        userNameText = (EditText) findViewById(R.id.username);
+        userNameText.addTextChangedListener(textWatcher);
+        userNameText.setOnFocusChangeListener(focusChangeListener);
+        deleteUsername = (ImageView) findViewById(R.id.username_delete);
+        deleteUsername.setOnClickListener(onClickListener);
 
-		passwordText = (EditText) findViewById(R.id.password);
-		passwordText.addTextChangedListener(textWatcher);
-		passwordText.setOnFocusChangeListener(focusChangeListener);
-		deletePwd = (ImageView) findViewById(R.id.pwd_delete);
-		deletePwd.setOnClickListener(onClickListener);
+        passwordText = (EditText) findViewById(R.id.password);
+        passwordText.addTextChangedListener(textWatcher);
+        passwordText.setOnFocusChangeListener(focusChangeListener);
+        deletePwd = (ImageView) findViewById(R.id.pwd_delete);
+        deletePwd.setOnClickListener(onClickListener);
 
-		loginBtn = (Button) findViewById(R.id.login_btn);
-		loginBtn.setOnClickListener(onClickListener);
+        loginBtn = (Button) findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(onClickListener);
 
-	}
+        String lastName = PreferencesUtils.getString(this, "last_login_name");
+        userNameText.setText(lastName);
+        if (!TextUtils.isEmpty(lastName))
+            userNameText.setSelection(lastName.length());
 
-	protected ActionBarType actionBarType() {
-		return ActionBarType.NONE;
-	}
+    }
 
-	SHPostTaskM loginTask;
+    protected ActionBarType actionBarType() {
+        return ActionBarType.NONE;
+    }
 
-	void login() {
-		String userName = userNameText.getText().toString();
-		String password = passwordText.getText().toString();
-		if (TextUtils.isEmpty(userName)) {
-			showAlert("请输入用户名");
-			userNameText.requestFocus();
-			return;
-		}
-		if (TextUtils.isEmpty(password)) {
-			showAlert("请输入密码");
-			passwordText.requestFocus();
-			return;
-		}
-		SHEnvironment.getInstance().setLoginId(userNameText.getText().toString());
-		SHEnvironment.getInstance().setPassword(StringUtils.MD5Encode(passwordText.getText().toString()));
+    SHPostTaskM loginTask;
 
-		loginTask = getTask(DEFAULT_API_URL + "milogin.do", this);
-		loginTask.getTaskArgs().put("appUuid",SHEnvironment.getInstance().getClientID());
-		loginTask.start();
-		showProgressDialog();
-	}
+    void login() {
+        String userName = userNameText.getText().toString();
+        String password = passwordText.getText().toString();
+        if (TextUtils.isEmpty(userName)) {
+            showAlert("请输入用户名");
+            userNameText.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            showAlert("请输入密码");
+            passwordText.requestFocus();
+            return;
+        }
+        SHEnvironment.getInstance().setLoginId(userName);
+        SHEnvironment.getInstance().setPassword(StringUtils.MD5Encode(password));
 
-	@Override
-	public void onTaskFinished(SHTask task) throws Exception {
-		dismissProgressDialog();
-		DSObject dsUser = DSObjectFactory.create(CPModeName.USER, task.getResult()).put("password",
-			SHEnvironment.getInstance().getPassword());
-		accountService().update(dsUser);
-		startActivity("cp://home");
-		finish();
-	}
+        loginTask = getTask(DEFAULT_API_URL + "milogin.do", this);
+        loginTask.getTaskArgs().put("appUuid", SHEnvironment.getInstance().getClientID());
+        loginTask.start();
+        showProgressDialog();
+    }
 
-	@Override
-	public void onTaskFailed(SHTask task) {
-		accountService().clear();
-		super.onTaskFailed(task);
-	}
+    @Override
+    public void onTaskFinished(SHTask task) throws Exception {
+        dismissProgressDialog();
+        DSObject dsUser = DSObjectFactory.create(CPModeName.USER, task.getResult()).put("password",
+            SHEnvironment.getInstance().getPassword());
+        accountService().update(dsUser);
+        PreferencesUtils.putString(this, "last_login_name", accountService().id());
+        startActivity("cp://home");
+        finish();
+    }
 
-	final OnClickListener onClickListener = new OnClickListener() {
+    @Override
+    public void onTaskFailed(SHTask task) {
+        accountService().clear();
+        SHEnvironment.getInstance().setLoginId(null);
+        SHEnvironment.getInstance().setPassword(null);
+        super.onTaskFailed(task);
+    }
 
-		@Override
-		public void onClick(View v) {
-			if (deleteUsername == v) {
-				userNameText.setText(null);
-				userNameText.requestFocus();
-			} else if (deletePwd == v) {
-				passwordText.setText(null);
-				passwordText.requestFocus();
-			} else if (loginBtn == v) {
-				login();
-			}
-		}
-	};
+    final OnClickListener onClickListener = new OnClickListener() {
 
-	final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void onClick(View v) {
+            if (deleteUsername == v) {
+                userNameText.setText(null);
+                userNameText.requestFocus();
+            } else if (deletePwd == v) {
+                passwordText.setText(null);
+                passwordText.requestFocus();
+            } else if (loginBtn == v) {
+                login();
+            }
+        }
+    };
 
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+    final TextWatcher textWatcher = new TextWatcher() {
 
-		}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
-		}
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-		@Override
-		public void afterTextChanged(Editable s) {
-			deleteUsername.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
-					: View.INVISIBLE);
-			deletePwd.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
-					: View.INVISIBLE);
-		}
-	};
+        }
 
-	final OnFocusChangeListener focusChangeListener = new OnFocusChangeListener() {
+        @Override
+        public void afterTextChanged(Editable s) {
+            deleteUsername.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
+                    : View.INVISIBLE);
+            deletePwd.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
+                    : View.INVISIBLE);
+        }
+    };
 
-		@Override
-		public void onFocusChange(View v, boolean hasFocus) {
-			deleteUsername.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
-					: View.INVISIBLE);
-			deletePwd.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
-					: View.INVISIBLE);
+    final OnFocusChangeListener focusChangeListener = new OnFocusChangeListener() {
 
-		}
-	};
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            deleteUsername.setVisibility((userNameText.hasFocus() && !TextUtils.isEmpty(userNameText.getText())) ? View.VISIBLE
+                    : View.INVISIBLE);
+            deletePwd.setVisibility((passwordText.hasFocus() && !TextUtils.isEmpty(passwordText.getText())) ? View.VISIBLE
+                    : View.INVISIBLE);
+
+        }
+    };
 }

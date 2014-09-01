@@ -1,16 +1,14 @@
 package com.next.net;
 
 import java.security.KeyStore;
-import java.util.ArrayList;
 
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
@@ -19,7 +17,6 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -87,12 +84,17 @@ public class SHPostTaskM extends SHPostTask {
 				SHCacheHelper.getInstance().put(this.getUrl(),
 						httpResult.getBytes());
 			}
-		} catch (Exception e) {
-			this.mRespinfo = new SHRespinfo();
-			this.mRespinfo.mResultCode = -1;
-			this.mRespinfo.mMessage = e.getMessage();
-			this.mTaskStatus = TaskStatus.FAILED;
-		}
+        } catch (HttpHostConnectException e) {
+            this.mRespinfo = new SHRespinfo();
+            this.mRespinfo.mResultCode = -1;
+            this.mRespinfo.mMessage = "网络不给力";
+            this.mTaskStatus = TaskStatus.FAILED;
+        } catch (Exception e) {
+            this.mRespinfo = new SHRespinfo();
+            this.mRespinfo.mResultCode = -1;
+            this.mRespinfo.mMessage = e.getMessage();
+            this.mTaskStatus = TaskStatus.FAILED;
+        }
 		return this.mResult;
 	}
 
