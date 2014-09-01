@@ -19,25 +19,18 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.xdamon.util.DSLog;
 
-public class DSApplication extends StandardApplication {
+public abstract class DSApplication extends StandardApplication {
 
-	protected static DSApplication instance;
 	private String sessionId;
+	private static DSApplication _inner_instance;
 
-	public static DSApplication instance() {
-		if (instance == null) {
-			throw new IllegalStateException("Application has not been created");
-		}
-
-		return instance;
-	}
 
 	static DSApplication _instance() {
-		return instance;
+		return _inner_instance;
 	}
 
 	public DSApplication() {
-		instance = this;
+	    _inner_instance = this;
 	}
 
 	@Override
@@ -133,7 +126,7 @@ public class DSApplication extends StandardApplication {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
 				if ((--liveCounter) == 0) {
-					DSApplication.instance().onApplicationStop();
+					DSApplication._instance().onApplicationStop();
 				}
 			}
 			if (msg.what == 2) {
@@ -142,7 +135,7 @@ public class DSApplication extends StandardApplication {
 			}
 			if (msg.what == 3) {
 				if ((--activeCounter) == 0) {
-					DSApplication.instance().onApplicationPause();
+					DSApplication._instance().onApplicationPause();
 				}
 			}
 		}
@@ -160,7 +153,7 @@ public class DSApplication extends StandardApplication {
 
 	public void activityOnResume(Activity a) {
 		if (activeCounter++ == 0) {
-			DSApplication.instance().onApplicationResume();
+			DSApplication._instance().onApplicationResume();
 		}
 	}
 

@@ -49,7 +49,8 @@ public class MainActivity extends BaseFragmentTabActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    protected void onSetContent() {
+    @Override
+    protected void onSetContentView() {
         setContentView(R.layout.fragment_tabs_bottom);
     }
 

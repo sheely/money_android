@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
+import com.wanlonggroup.caiplus.app.CaiPlusApplication;
 import com.xdamon.app.DSObject;
 import com.xdamon.executor.ThreadExecutorsHelper;
 import com.xdamon.io.DSStreamReader;
@@ -17,8 +19,6 @@ import com.xdamon.util.DSLog;
 public class ChatHelper {
 
     public final String FILE_NAME = "chat_list";
-
-    public final String KEY_NAME = "abFUJ970er78dfds";
 
     public final Context mContext;
 
@@ -46,6 +46,9 @@ public class ChatHelper {
     }
 
     public void saveChatingList(final ArrayList<DSObject> dsMsgList) {
+        if (TextUtils.isEmpty(cacheKey())) {
+            return;
+        }
 
         Runnable runnable = new Runnable() {
 
@@ -64,7 +67,7 @@ public class ChatHelper {
                             buffer = msg.toByteArray();
                             writer.writeByte(buffer);
                         }
-                        aCache.put(KEY_NAME, writer.toByteArray());
+                        aCache.put(cacheKey(), writer.toByteArray());
                     } catch (Exception e) {
                         DSLog.e("chathelp", e.getLocalizedMessage());
                     } finally {
@@ -82,7 +85,10 @@ public class ChatHelper {
     }
 
     public ArrayList<DSObject> getChatingList() {
-        byte[] buffer = aCache.getAsBinary(KEY_NAME);
+        if (TextUtils.isEmpty(cacheKey())) {
+            return null;
+        }
+        byte[] buffer = aCache.getAsBinary(cacheKey());
         if (buffer == null || buffer.length == 0) {
             return null;
         }
@@ -106,6 +112,10 @@ public class ChatHelper {
             }
         }
         return null;
+    }
+
+    public String cacheKey() {
+        return CaiPlusApplication.instance().acccountServie().id();
     }
 
 }

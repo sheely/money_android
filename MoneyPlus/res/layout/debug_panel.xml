@@ -30,6 +30,12 @@
             android:layout_marginLeft="15dip"
             android:layout_marginRight="15dip"
             android:text="打开" />
+        
+        <Button
+            android:id="@+id/crash"
+            style="@style/GreenButton"
+            android:layout_margin="15dip"
+            android:text="crash report" />
 
         <TextView
             android:id="@+id/debug_info"

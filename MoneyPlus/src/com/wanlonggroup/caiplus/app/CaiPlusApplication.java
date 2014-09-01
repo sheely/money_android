@@ -5,12 +5,26 @@ import com.wanlonggroup.caiplus.bz.im.ChatMessageService;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.util.Environment;
 import com.xdamon.app.DSApplication;
+import com.xdamon.util.CrashReportHelper;
 import com.xdamon.util.PreferencesUtils;
-import com.xdamon.util.SafeLooper;
 
 public class CaiPlusApplication extends DSApplication {
 	
 	private AccountService accountService;
+	
+	protected static CaiPlusApplication instance;
+
+    public static CaiPlusApplication instance() {
+        if (instance == null) {
+            throw new IllegalStateException("Application has not been created");
+        }
+
+        return instance;
+    }
+
+    public CaiPlusApplication() {
+        instance = this;
+    }
 	
 	@Override
 	public void onCreate() {
@@ -19,7 +33,7 @@ public class CaiPlusApplication extends DSApplication {
 		PreferencesUtils.initSharedPreferenceName(getPackageName());
 		
 		if (!Environment.isDebug()) {
-		    SafeLooper.install();
+		    CrashReportHelper.installSafeLooper();
 		}
 	}
 	

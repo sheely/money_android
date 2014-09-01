@@ -52,7 +52,8 @@ public class FragmentTabActivity extends DSActivity {
 		setTabWidgetBackground(0);
 	}
 
-	protected void onSetContent() {
+	@Override
+	protected void onSetContentView() {
 		setContentView(R.layout.fragment_tabs);
 	}
 

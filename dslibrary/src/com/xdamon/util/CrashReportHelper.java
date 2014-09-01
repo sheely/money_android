@@ -126,7 +126,7 @@ public class CrashReportHelper {
 				w.println("android");
 
 				w.print("deviceid=");
-				w.println(AndroidUtils.imei());
+				w.println(AndroidUtils.imei(mContext));
 
 				w.print("sessionid=");
 				w.println("");

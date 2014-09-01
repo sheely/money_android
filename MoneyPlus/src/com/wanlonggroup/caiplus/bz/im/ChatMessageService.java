@@ -5,15 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.next.intf.ITaskListener;
-import com.next.net.SHPostTaskM;
-import com.next.net.SHTask;
-import com.next.util.Log;
-import com.wanlonggroup.caiplus.model.CPModeName;
-import com.wanlonggroup.caiplus.util.ConfigSwitch;
-import com.xdamon.app.DSObject;
 import com.xdamon.executor.ThreadExecutorsHelper;
-import com.xdamon.util.DSObjectFactory;
 
 public class ChatMessageService extends Service {
 
@@ -23,7 +15,7 @@ public class ChatMessageService extends Service {
 
     public static final String ACTION_STOP = "com.wanlonggroup.caiplus.bz.im.MessageService_stop";
 
-    private GetMessageThread messageThread;
+    private StartMessageThread messageThread;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ChatMessageService.class);
@@ -64,44 +56,13 @@ public class ChatMessageService extends Service {
 
     private void startMsgThread() {
         stopMsgThread();
-        messageThread = new GetMessageThread();
+        messageThread = new StartMessageThread();
         ThreadExecutorsHelper.scheduleWithFixedDelay(messageThread, MESSAGE_RECEIVER_INTERVAL);
     }
 
-    class GetMessageThread implements Runnable {
+    class StartMessageThread implements Runnable {
         public void run() {
-            Log.i("GetMessageThread", "GetMessageThread");
-            SHPostTaskM receiveMsgTask = new SHPostTaskM();
-            receiveMsgTask.setUrl(ConfigSwitch.instance().wrapDomain(
-                "http://cjcapp.nat123.net:21414/myStruts1/miReceiveMessage.do"));
-            receiveMsgTask.setListener(new ITaskListener() {
-
-                @Override
-                public void onTaskFinished(SHTask task) throws Exception {
-                    DSObject dsChatMessages = DSObjectFactory.create(
-                        CPModeName.CY_CHAT_MESSAGE_LIST).fromJson(task.getResult());
-                    ChatMessageBrigdeService.sendMessage(ChatMessageService.this, dsChatMessages);
-                }
-
-                @Override
-                public void onTaskFailed(SHTask task) {
-                    if (task != null && task.getRespInfo() != null
-                            && task.getRespInfo().getMessage() != null)
-                        Log.e("GetMessageThread", task.getRespInfo().getMessage());
-                }
-
-                @Override
-                public void onTaskUpdateProgress(SHTask task, int count, int total) {
-
-                }
-
-                @Override
-                public void onTaskTry(SHTask task) {
-
-                }
-
-            });
-            receiveMsgTask.start();
+            ChatMessageBrigdeService.startService(ChatMessageService.this);
         }
     }
 

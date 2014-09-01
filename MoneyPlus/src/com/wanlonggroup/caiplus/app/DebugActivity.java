@@ -2,6 +2,7 @@ package com.wanlonggroup.caiplus.app;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -10,20 +11,27 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
 import com.wanlonggroup.caiplus.util.ConfigSwitch.DomainType;
+import com.xdamon.util.CrashReportHelper;
 
 public class DebugActivity extends com.xdamon.app.DebugActivity implements OnClickListener {
 
 	private Button domainBtn;
+	
+	private Button crashBtn;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		domainBtn = (Button) findViewById(R.id.domain);
 		domainBtn.setOnClickListener(this);
+		
+		crashBtn = (Button) findViewById(R.id.crash);
+		crashBtn.setOnClickListener(this);
 		
 		findViewById(R.id.open).setOnClickListener(this);
 		
@@ -69,7 +77,18 @@ public class DebugActivity extends com.xdamon.app.DebugActivity implements OnCli
 			}catch(Exception e){
 				showShortToast("can not open "+ text);
 			}
-			
+		}else if(v.getId() == R.id.crash){
+		    String report = CrashReportHelper.getReportBak();
+            if (TextUtils.isEmpty(report)) {
+                Toast.makeText(this, "没有崩溃报告", Toast.LENGTH_SHORT).show();;
+            } else {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[] { "xxx@163.com" });
+                i.putExtra(Intent.EXTRA_SUBJECT, "Crash Report");
+                i.putExtra(Intent.EXTRA_TEXT, report);
+                startActivity(Intent.createChooser(i, "Select email application"));
+            }
 		}
 	}
 	

@@ -11,6 +11,7 @@ import com.next.net.SHTask;
 import com.next.util.SHEnvironment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.wanlonggroup.caiplus.bz.im.ChatMessageBrigdeService;
 import com.wanlonggroup.caiplus.model.AccountService;
 import com.wanlonggroup.caiplus.model.AccountService.AccountListener;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
@@ -55,6 +56,7 @@ public class BaseFragment extends DSFragment implements AccountListener, ITaskLi
 	    accountService().logout();
         SHEnvironment.getInstance().setLoginId(null);
         SHEnvironment.getInstance().setPassword(null);
+        ChatMessageBrigdeService.cancelNofity(getActivity());
 	}
 	
 	public void addLoginInfo(){

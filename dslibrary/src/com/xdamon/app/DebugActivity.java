@@ -17,10 +17,10 @@ public class DebugActivity extends DSActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		onSetContentView();
 		debugInfo();
 	}
 	
+	@Override
 	public void onSetContentView(){
 		setContentView(R.layout.debug_panel);
 	}
@@ -32,7 +32,7 @@ public class DebugActivity extends DSActivity {
 			s.append("versionName=").append(AndroidUtils.versionName(this)).append('\n');
 			s.append("versionCode=").append(AndroidUtils.versionCode(this)).append('\n');
 			s.append("debuggable=").append((pi.applicationInfo.flags & 0x2) != 0).append('\n');
-			s.append("imei=").append(AndroidUtils.imei()).append('\n');
+			s.append("imei=").append(AndroidUtils.imei(this)).append('\n');
 			s.append("android.SDK=").append(Build.VERSION.SDK).append('\n');
 			s.append("android.VERSION=").append(Build.VERSION.RELEASE).append('\n');
 			s.append("android.ID=").append(Build.ID).append('\n');
