@@ -399,7 +399,7 @@
             android:name="com.wanlonggroup.caiplus.bz.ChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="聊天"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>

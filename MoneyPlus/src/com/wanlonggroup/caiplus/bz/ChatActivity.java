@@ -1,5 +1,6 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -44,13 +45,39 @@ public class ChatActivity extends BasePtrListActivity implements OnClickListener
         }
         setTitle(dsCaiYou.getString("friendName", "聊天"));
         setupView();
-        EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    protected void onResume() {
+        super.onResume();
+        try {
+            EventBus.getDefault().register(this);
+        } catch (Exception e) {
+        }
+
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        dsCaiYou = getIntent().getParcelableExtra("caiyou");
+        if (dsCaiYou == null) {
+            finish();
+            return;
+        }
+        setTitle(dsCaiYou.getString("friendName", "聊天"));
+        adapter = new Adapter();
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            EventBus.getDefault().unregister(this);
+        } catch (Exception e) {
+        }
     }
 
     public void onEventMainThread(IMessaging message) {

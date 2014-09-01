@@ -40,7 +40,7 @@ public class ChatHelper {
 
     public void chat2Who(final Context context, DSObject dscaiyou) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://chat"));
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("caiyou", dscaiyou);
         context.startActivity(intent);
     }

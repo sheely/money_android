@@ -36,16 +36,22 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        EventBus.getDefault().registerSticky(this);
+    public void onResume() {
+        super.onResume();
+        try {
+            EventBus.getDefault().registerSticky(this);
+        } catch (Exception e) {
+        }
+
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-
+    public void onStop() {
+        super.onStop();
+        try {
+            EventBus.getDefault().unregister(this);
+        } catch (Exception e) {
+        }
     }
     
     @Override

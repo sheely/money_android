@@ -34,19 +34,24 @@ public class MainActivity extends BaseFragmentTabActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().unregister(this);
-        EventBus.getDefault().registerSticky(this);
-
         if (messageView == null) {
             messageView = new BadgeView(this, mTabHost.getTabWidget(), 1);
             messageView.setText(" ");
         }
+        try {
+            EventBus.getDefault().registerSticky(this);
+        } catch (Exception e) {
+        }
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        try {
+            EventBus.getDefault().unregister(this);
+        } catch (Exception e) {
+        }
     }
 
     @Override

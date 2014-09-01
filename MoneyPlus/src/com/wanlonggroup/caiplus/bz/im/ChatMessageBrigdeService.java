@@ -112,7 +112,8 @@ public class ChatMessageBrigdeService extends Service {
 
         Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://chat"));
         notificationIntent.putExtra("caiyou", dsCy);
-        PendingIntent contentIntent = PendingIntent.getActivity(ChatMessageBrigdeService.this, 0,
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(ChatMessageBrigdeService.this, message.senderUserId.hashCode(),
             notificationIntent, 0);
         notification.contentIntent = contentIntent;
 
