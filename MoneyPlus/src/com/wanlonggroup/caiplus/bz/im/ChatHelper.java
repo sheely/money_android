@@ -115,7 +115,11 @@ public class ChatHelper {
     }
 
     public String cacheKey() {
-        return CaiPlusApplication.instance().acccountServie().id();
+        String id = CaiPlusApplication.instance().acccountServie().id();
+        if (TextUtils.isEmpty(id)) {
+            return null;
+        }
+        return "dfasdf34584300485JJFJ" + id.hashCode();
     }
 
 }
