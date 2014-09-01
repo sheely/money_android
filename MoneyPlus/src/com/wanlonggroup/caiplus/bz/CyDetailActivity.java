@@ -186,8 +186,8 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 
 	void addOrDelete() {
 		addOrdelTask = getTask(DEFAULT_API_URL + "miFollowerAdd.do", this);
-		addOrdelTask.getTaskArgs().put("myUserName", accountService().name());
-		addOrdelTask.getTaskArgs().put("followerUserName", dsCyDetail.getString("friendName"));
+		addOrdelTask.getTaskArgs().put("myUserName", accountService().id());
+		addOrdelTask.getTaskArgs().put("followerUserName", dsCyDetail.getString("friendId"));
 		addOrdelTask.getTaskArgs().put("addOrDelete", dsCyDetail.getInt("isFollowed") == 0 ? 1 : 0);
 		addOrdelTask.start();
 		showProgressDialog();

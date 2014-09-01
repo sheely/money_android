@@ -48,7 +48,7 @@ public class MyConcernActivity extends BasePtrListActivity {
 
 	void cancelConcern(DSObject follower) {
 		cancelConcernTask = getTask(DEFAULT_API_URL + "miFollowerAdd.do", this);
-		cancelConcernTask.getTaskArgs().put("myUserName", accountService().name());
+		cancelConcernTask.getTaskArgs().put("myUserName", accountService().id());
 		cancelConcernTask.getTaskArgs().put("followerUserName", follower.getString("followerId"));
 		cancelConcernTask.getTaskArgs().put("addOrDelete", 0);
 		cancelConcernTask.start();

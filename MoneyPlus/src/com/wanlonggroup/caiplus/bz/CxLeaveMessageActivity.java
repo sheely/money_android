@@ -92,7 +92,7 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 		} else if (sendTask == task) {
 			dismissProgressDialog();
 			DSObject dsMsg = DSObjectFactory.create(CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM);
-			dsMsg.put("leaveMessager", accountService().name());
+			dsMsg.put("leaveMessager", accountService().id());
 			dsMsg.put("lmTime", Utils.getCurrentTime(Utils.dateTimeFormat));
 			dsMsg.put("lmContent", message);
 			dsMsg.put("lmHeadIcon", accountService().headIcon());
@@ -127,7 +127,7 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 			Object obj = getItem(position);
 			if(Utils.isDSObject(obj, CPModeName.CAIXIN_LEAVE_MESSAGE_ITEM)){
 				DSObject msg = (DSObject) obj;
-				if(accountService().name().equals(msg.getString("leaveMessager"))){
+				if(accountService().id().equals(msg.getString("leaveMessager"))){
 					return 3;
 				}else{
 					return 4;
