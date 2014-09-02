@@ -66,7 +66,6 @@ public class DSActivity extends FragmentActivity {
             }
         });
 
-        handleIntent();
         onSetContentView();
     }
 
@@ -84,10 +83,6 @@ public class DSActivity extends FragmentActivity {
     }
 
     public void onCreateActionBar(DSActionBar actionBar) {
-
-    }
-
-    protected void handleIntent() {
 
     }
 

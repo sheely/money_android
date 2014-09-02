@@ -59,7 +59,7 @@
                     android:drawableLeft="@drawable/icon_username"
                     android:gravity="center_vertical"
                     android:padding="5dip"
-                    android:text="发财信" />
+                    android:text="聊天" />
             </LinearLayout>
         </RelativeLayout>
 

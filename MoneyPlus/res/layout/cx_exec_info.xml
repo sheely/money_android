@@ -5,9 +5,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/detail_header"
-        layout="@layout/cx_detail_header" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/single_line_height"
+        android:background="@drawable/table_view_item"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <com.wanlonggroup.caiplus.widget.BasicItem
+            android:id="@+id/execute_item"
+            style="@style/BasicItemStyle"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            cp:item_title="执行者" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@drawable/gray_vertical_line" />
+
+        <TextView
+            android:id="@+id/look_execute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="查看"
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_list" />
+    </LinearLayout>
 
     <include layout="@layout/common_divide_view" />
 
@@ -64,9 +89,9 @@
                 android:layout_marginLeft="8dip"
                 android:layout_weight="1"
                 android:background="@null"
-                android:inputType="numberDecimal"
                 android:gravity="right|center_vertical"
                 android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
                 android:singleLine="true" />
         </LinearLayout>
 

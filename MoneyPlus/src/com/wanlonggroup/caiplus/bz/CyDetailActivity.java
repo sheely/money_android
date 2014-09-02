@@ -192,11 +192,19 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 		addOrdelTask.start();
 		showProgressDialog();
 	}
+	
+	@Override
+	public void onProgressDialogCancel() {
+	    if(detailTask != null){
+	        finish();
+	    }
+	}
 
 	@Override
 	public void onTaskFinished(SHTask task) throws Exception {
 		dismissProgressDialog();
 		if (detailTask == task) {
+		    detailTask = null;
 			dsCyDetail = DSObjectFactory.create(CPModeName.CY_DETAIL).fromJson(task.getResult());
 			updateView();
 		} else if (addOrdelTask == task) {
@@ -207,6 +215,14 @@ public class CyDetailActivity extends BaseActivity implements View.OnClickListen
 			}
 			updateView();
 		}
+	}
+	
+	@Override
+	public void onTaskFailed(SHTask task) {
+	    if(detailTask == task){
+	        detailTask = null;
+	    }
+	    super.onTaskFailed(task);
 	}
 
 	class Adapter extends CommonDSAdapter {
