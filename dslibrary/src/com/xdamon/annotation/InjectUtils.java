@@ -9,6 +9,7 @@ import java.util.Collections;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.SystemClock;
 import android.view.View;
 
@@ -20,6 +21,7 @@ public class InjectUtils {
     public static final String INJECT_RANGE_METHOD_NAME = "isInjectSelf";
     public static final String ANDROID_PREFIX = "android.";
     public static final String JAVA_PREFIX = "java.";
+    public static final String JAVAX_PREFIX = "javax.";
     public static final ArrayList<String> wrongPackageList = new ArrayList<String>();
 
     static {
@@ -40,12 +42,22 @@ public class InjectUtils {
                 return ((View) source).findViewById(id);
             }
 
+            @Override
+            public Context getContext(Object source) {
+                return ((View) source).getContext();
+            }
+
         },
         ACTIVITY {
 
             @Override
             public View findViewById(Object source, int id) {
                 return ((Activity) source).findViewById(id);
+            }
+
+            @Override
+            public Context getContext(Object source) {
+                return ((Activity) source);
             }
 
         },
@@ -56,8 +68,15 @@ public class InjectUtils {
                 return ((Dialog) source).findViewById(id);
             }
 
+            @Override
+            public Context getContext(Object source) {
+                return ((Dialog) source).getContext();
+            }
+
         };
         public abstract View findViewById(Object source, int id);
+
+        public abstract Context getContext(Object source);
     }
 
     /**
@@ -125,7 +144,7 @@ public class InjectUtils {
 
         ArrayList<Class<?>> targetClassList = new ArrayList<Class<?>>();
         Class<?> targetClass = target.getClass();
-        if (isInjectSelf(targetClass)) {
+        if (isInjectSelf(target)) {
             targetClassList.add(targetClass);
         } else {
             while (!isInWrongPackage(targetClass.getName())) {
@@ -144,41 +163,122 @@ public class InjectUtils {
 
                     // inject view
                     if (field.isAnnotationPresent(InjectView.class)) {
-                        if (!isAssignableFromView(field)) {
-                            continue;
-                        }
-                        InjectView injectView = field.getAnnotation(InjectView.class);
-                        View view = finder.findViewById(source, injectView.value());
-                        if (view != null) {
-                            try {
-                                field.setAccessible(true);
-                                field.set(target, view);
-                            } catch (Exception e) {
-                                throw new RuntimeException("unable to inject view for " + target, e);
+                        while (true) {
+                            if (field.getType().isArray()) {
+                                DSLog.e(TAG, "annotation InjectView can not apply to array ["
+                                        + field.getName() + "]");
+                                break;
                             }
+                            if (!isMatch(field, View.class)) {
+                                break;
+                            }
+                            InjectView injectView = field.getAnnotation(InjectView.class);
+                            View view = finder.findViewById(source, injectView.value());
+                            if (view != null) {
+                                try {
+                                    field.setAccessible(true);
+                                    field.set(target, view);
+                                } catch (Exception e) {
+                                    throw new RuntimeException("unable to inject view for "
+                                            + field.getName(), e);
+                                }
+                            }
+                            break;
                         }
-
                     }
 
                     // inject views
                     if (field.isAnnotationPresent(InjectViews.class)) {
-                        if (!isAssignableFromView(field)) {
-                            continue;
+                        while (true) {
+                            if (!field.getType().isArray()) {
+                                DSLog.e(TAG, "annotation InjectViews must be apply to array , ["
+                                        + field.getName() + " is not]");
+                                break;
+                            }
+                            if (!isMatch(field, View.class)) {
+                                break;
+                            }
+                            InjectViews injectViews = field.getAnnotation(InjectViews.class);
+                            int[] ids = injectViews.value();
+                            Object views = Array.newInstance(field.getType().getComponentType(),
+                                ids.length);
+                            int index = 0;
+                            try {
+                                for (int id : ids) {
+                                    Array.set(views, index++, finder.findViewById(source, id));
+                                }
+                                field.setAccessible(true);
+                                field.set(target, views);
+                            } catch (Exception e) {
+                                throw new RuntimeException("unable to inject views for "
+                                        + field.getName(), e);
+                            }
+                            break;
                         }
-                        InjectViews injectViews = field.getAnnotation(InjectViews.class);
-                        int[] ids = injectViews.value();
-                        Object views = Array.newInstance(field.getType().getComponentType(),
-                            ids.length);
-                        int index = 0;
-                        for (int id : ids) {
-                            Array.set(views, index++, finder.findViewById(source, id));
+                    }
+
+                    // inject resource
+                    if (field.isAnnotationPresent(InjectResource.class)) {
+                        while (true) {
+                            if (field.getType().isArray()) {
+                                DSLog.e(TAG, "annotation InjectResource can not apply to array ["
+                                        + field.getName() + "]");
+                                break;
+                            }
+                            InjectResource injectRes = field.getAnnotation(InjectResource.class);
+                            Object res = ResLoader.loadRes(finder.getContext(source),
+                                injectRes.type(), injectRes.id());
+                            if (res.getClass().isArray()) {
+                                DSLog.e(TAG,
+                                    "resource value is array can not apply to annotation InjectResource");
+                                break;
+                            }
+                            if (!isMatch(field, res.getClass())) {
+                                break;
+                            }
+                            try {
+                                field.setAccessible(true);
+                                field.set(target, res);
+                            } catch (Exception e) {
+                                throw new RuntimeException("unable to inject resource for "
+                                        + field.getName(), e);
+                            }
+                            break;
                         }
-                        try {
-                            field.setAccessible(true);
-                            field.set(target, views);
-                        } catch (Exception e) {
-                            throw new RuntimeException("unable to inject views for " + target, e);
+                    }
+
+                    // inject resources
+                    if (field.isAnnotationPresent(InjectResources.class)) {
+                        while (true) {
+                            if (!field.getType().isArray()) {
+                                DSLog.e(
+                                    TAG,
+                                    "annotation InjectResources must be apply to array , ["
+                                            + field.getName() + " is not]");
+                                break;
+                            }
+                            if (!isMatch(field, View.class)) {
+                                break;
+                            }
+                            InjectResources injectResources = field.getAnnotation(InjectResources.class);
+                            int[] ids = injectResources.ids();
+                            Object ress = Array.newInstance(field.getType().getComponentType(),
+                                ids.length);
+                            int index = 0;
+                            try {
+                                for (int id : ids) {
+                                    Array.set(ress, index++, ResLoader.loadRes(
+                                        finder.getContext(source), injectResources.type(), id));
+                                }
+                                field.setAccessible(true);
+                                field.set(target, ress);
+                            } catch (Exception e) {
+                                throw new RuntimeException("unable to inject resources for "
+                                        + field.getName(), e);
+                            }
+                            break;
                         }
+
                     }
                 }
             }
@@ -208,7 +308,7 @@ public class InjectUtils {
                                     }
                                     if (!listenerClass.targetType().isAssignableFrom(
                                         view.getClass())) {
-                                        DSLog.w(
+                                        DSLog.e(
                                             TAG,
                                             view.getClass().getSimpleName()
                                                     + " does not contain method ["
@@ -216,7 +316,7 @@ public class InjectUtils {
                                         continue;
                                     }
                                     if (!listenerClass.type().isInstance(target)) {
-                                        DSLog.w(TAG, "the target [" + target
+                                        DSLog.e(TAG, "the target [" + target
                                                 + "] can not cast to [" + listenerClass.type()
                                                 + "]");
                                         continue;
@@ -227,7 +327,7 @@ public class InjectUtils {
                                 }
                             } catch (Exception e) {
                                 throw new RuntimeException("unable to inject "
-                                        + annoType.getSimpleName() + " for " + target, e);
+                                        + annoType.getSimpleName() + " for " + method.getName(), e);
                             }
                         }
                     }
@@ -238,11 +338,15 @@ public class InjectUtils {
                 + (SystemClock.uptimeMillis() - starttime));
     }
 
-    private static boolean isAssignableFromView(Field field) {
+    private static boolean isMatch(Field field, Class<?> representedClass) {
         Class<?> fieldType = field.getType().isArray() ? field.getType().getComponentType()
                 : field.getType();
-        if (!View.class.isAssignableFrom(fieldType)) {
-            DSLog.w(TAG, "the type of field [" + field.getName() + " ] is not view or views");
+        Class<?> representedType = representedClass.isArray() ? representedClass.getComponentType()
+                : representedClass;
+        if (!representedType.isAssignableFrom(fieldType)) {
+            DSLog.e(TAG,
+                "the field [" + field.getName() + "] type is [" + fieldType.getSimpleName()
+                        + "] can not be converted to " + representedType.getSimpleName());
             return false;
         }
         return true;
@@ -255,6 +359,10 @@ public class InjectUtils {
         }
         if (className.startsWith(JAVA_PREFIX)) {
             DSLog.i(TAG, className + " incorrectly in Java framework package");
+            return true;
+        }
+        if (className.startsWith(JAVAX_PREFIX)) {
+            DSLog.i(TAG, className + " incorrectly in Javax framework package");
             return true;
         }
         for (String wrongName : wrongPackageList) {
