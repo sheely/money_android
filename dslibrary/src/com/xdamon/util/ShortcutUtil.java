@@ -13,8 +13,6 @@ import android.net.Uri;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.xdamon.library.R;
-
 /**
  * 创建桌面快捷键工具类
  * 
@@ -81,7 +79,7 @@ public class ShortcutUtil {
      * @param context
      * @return
      */
-    public static boolean hasShortcut(Context context) {
+    public static boolean hasShortcut(Context context,String appName) {
         final String AUTHORITY = getAuthorityFromPermission(context.getApplicationContext(),
             "com.android.launcher.permission.READ_SETTINGS");
         Cursor c = null;
@@ -92,7 +90,7 @@ public class ShortcutUtil {
         Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/favorites?notify=true");
         try {
             c = cr.query(CONTENT_URI, new String[] { "title" }, "title=?",
-                new String[] { context.getString(R.string.app_name) }, null);
+                new String[] { appName }, null);
             if (c != null && c.getCount() > 0) {
                 return true;
             }

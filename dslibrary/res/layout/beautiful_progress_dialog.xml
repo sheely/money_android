@@ -38,19 +38,6 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="1px"
-            android:layout_height="fill_parent"
-            android:background="@drawable/beautiful_progress_dialog_vertical_divider" />
-
-        <ImageView
-            android:id="@+id/btn_cancel"
-            android:layout_width="30dip"
-            android:layout_height="30dip"
-            android:layout_margin="5dip"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_close" />
     </LinearLayout>
 
 </RelativeLayout>

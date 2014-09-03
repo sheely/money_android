@@ -37,7 +37,13 @@ public class DSObject implements Parcelable {
 			jsonObj = new JSONObject(dr.readString());
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
-		}
+		}finally{
+            try{
+                dr.close();
+            }catch(Exception ex){
+                
+            }
+        }
 	}
 
 	public static final Parcelable.Creator<DSObject> CREATOR = new Parcelable.Creator<DSObject>() {
@@ -257,7 +263,6 @@ public class DSObject implements Parcelable {
 					}
 				} catch (Exception e) {
 					objs[i] = new DSObject(objName).fromJson(array.optJSONObject(i));
-
 				}
 			}
 			return objs;
@@ -325,7 +330,13 @@ public class DSObject implements Parcelable {
 			dw.writeString(jsonObj.toString());
 		} catch (IOException e) {
 			throw new IllegalArgumentException(e);
-		}
+		}finally{
+            try{
+                dw.close();
+            }catch(Exception ex){
+                
+            }
+        }
 		return dw.toByteArray();
 	}
 
@@ -358,19 +369,22 @@ public class DSObject implements Parcelable {
 	}
 
 	public DSObject fromJson(Object obj) {
-		try {
-			if (obj instanceof JSONObject) {
-				this.jsonObj = (JSONObject) obj;
-			} else {
-				JSONObject json = new JSONObject();
-				json.put("value", obj);
-				this.jsonObj = json;
-			}
-		} catch (Exception e) {
-			throw new IllegalArgumentException("format obj to JSONObject failed");
-		}
-		return this;
-	}
+        try {
+            if (obj instanceof String) {
+                return fromJson((String) obj);
+            }
+            if (obj instanceof JSONObject) {
+                return fromJson((JSONObject) obj);
+            }
+            
+            JSONObject json = new JSONObject();
+            json.put("value", obj);
+            this.jsonObj = json;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("format obj to JSONObject failed");
+        }
+        return this;
+    }
 
 	public DSObject fromJson(String json) {
 		try {
