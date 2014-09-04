@@ -97,11 +97,8 @@ public class CxLeaveMessageActivity extends BasePtrListActivity implements OnCli
 			dsMsg.put("lmContent", message);
 			dsMsg.put("lmHeadIcon", accountService().headIcon());
 			adapter.append(dsMsg);
-			if (listView.getRefreshableView().isStackFromBottom()) {
-				listView.getRefreshableView().setStackFromBottom(false);
-			}
-			listView.getRefreshableView().setStackFromBottom(true);
-			inputEditText.getText().clear();
+			listView.getRefreshableView().setSelection(adapter.getCount() - 1);
+			inputEditText.setText(null);
 		}
 	}
 
