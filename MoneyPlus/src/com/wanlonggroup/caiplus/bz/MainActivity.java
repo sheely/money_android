@@ -1,12 +1,19 @@
 package com.wanlonggroup.caiplus.bz;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import com.next.config.SHConfigManager;
+import com.next.config.SHConfigState;
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
 import com.wanlonggroup.caiplus.bz.im.IMessage;
+import com.wanlonggroup.caiplus.util.ConfigSwitch;
 import com.xdamon.widget.BadgeView;
 
 import de.greenrobot.event.EventBus;
@@ -17,6 +24,18 @@ public class MainActivity extends BaseFragmentTabActivity {
     private final String CAIYOU = "财友";
     private final String CAIQUAN = "财圈";
     private final String ME = "我";
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SHConfigManager.CORE_NOTIFICATION_CONFIG_STATUS_CHANGED.equals(intent.getAction())
+                    && SHConfigManager.getInstance().getState() == SHConfigState.Done) {
+                SHConfigManager.getInstance().show(MainActivity.this);
+            }
+        }
+
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +48,21 @@ public class MainActivity extends BaseFragmentTabActivity {
         addTab(CAIQUAN, R.drawable.ic_tab_cq, 0, CqHomeFragment.class, null);
         addTab(ME, R.drawable.ic_tab_me, 0, UserFragment.class, null);
 
+        registerReceiver(receiver, new IntentFilter(
+                SHConfigManager.CORE_NOTIFICATION_CONFIG_STATUS_CHANGED));
+        SHConfigManager.getInstance().setURL(
+            ConfigSwitch.instance().wrapDomain(DEFAULT_API_URL + "getConfig"));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            unregisterReceiver(receiver);
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

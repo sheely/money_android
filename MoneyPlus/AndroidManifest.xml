@@ -516,7 +516,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageReceiver" >
+        <receiver android:name="com.wanlonggroup.caiplus.bz.im.ChatMessageReceiver" 
+            android:process=":msgreceiver">
             <intent-filter>
 
                 <!-- 接收网络变化的广播 -->

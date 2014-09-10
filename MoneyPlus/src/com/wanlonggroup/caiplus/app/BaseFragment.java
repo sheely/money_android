@@ -19,7 +19,7 @@ import com.xdamon.app.DSFragment;
 
 public class BaseFragment extends DSFragment implements AccountListener, ITaskListener {
 
-	public static final String DEFAULT_API_URL = "http://cjcapp.nat123.net:21414/myStruts1/";
+    public static final String DEFAULT_API_URL = "http://210.13.70.38:18080/myStruts1/";
 
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected static DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
