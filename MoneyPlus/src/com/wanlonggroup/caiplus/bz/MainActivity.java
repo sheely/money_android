@@ -51,7 +51,7 @@ public class MainActivity extends BaseFragmentTabActivity {
         registerReceiver(receiver, new IntentFilter(
                 SHConfigManager.CORE_NOTIFICATION_CONFIG_STATUS_CHANGED));
         SHConfigManager.getInstance().setURL(
-            ConfigSwitch.instance().wrapDomain(DEFAULT_API_URL + "getConfig"));
+            ConfigSwitch.instance().wrapDomain(DEFAULT_API_URL + "getconfig.do"));
 
     }
 

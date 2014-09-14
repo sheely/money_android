@@ -260,7 +260,7 @@ public class SHConfigManager implements ITaskListener, EventListener {
 				this.mPushNotice = xml.getString("pushNotice");
 			}
 			if (!xml.isNull("isMaintenanceMode")) {
-				this.mIsMaintenanceMode = xml.getBoolean("isMaintenanceMode");
+				this.mIsMaintenanceMode = xml.getInt("isMaintenanceMode") == 1;
 			}
 		}
 	}
@@ -274,9 +274,9 @@ public class SHConfigManager implements ITaskListener, EventListener {
 		// TODO Auto-generated method stub
 		try {
 			JSONObject update = ((JSONObject)task.getResult()).getJSONObject("update");
-			JSONObject config = ((JSONObject)task.getResult()).getJSONObject("config");
+//			JSONObject config = ((JSONObject)task.getResult()).getJSONObject("config");
 			this.doUpdate(update);
-			this.doConfig(config);
+//			this.doConfig(config);
 			mState = SHConfigState.Done;
 			Intent intent = new Intent(CORE_NOTIFICATION_CONFIG_STATUS_CHANGED);
 			StandardApplication.getInstance().sendBroadcast(intent);

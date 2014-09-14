@@ -43,7 +43,7 @@ public class DSActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DSApplication._instance().activityOnCreate(this);
+        DSApplication._inner_instance().activityOnCreate(this);
 
         if (actionBarType() == ActionBarType.NONE) {
             getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -146,13 +146,13 @@ public class DSActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        DSApplication._instance().activityOnResume(this);
+        DSApplication._inner_instance().activityOnResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        DSApplication._instance().activityOnPause(this);
+        DSApplication._inner_instance().activityOnPause(this);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class DSActivity extends FragmentActivity {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        DSApplication._instance().activityOnDestory(this);
+        DSApplication._inner_instance().activityOnDestory(this);
         super.onDestroy();
     }
 

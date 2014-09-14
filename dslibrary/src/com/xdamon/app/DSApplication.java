@@ -25,7 +25,7 @@ public abstract class DSApplication extends StandardApplication {
 	private static DSApplication _inner_instance;
 
 
-	static DSApplication _instance() {
+	static DSApplication _inner_instance() {
 		return _inner_instance;
 	}
 
@@ -126,7 +126,7 @@ public abstract class DSApplication extends StandardApplication {
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
 				if ((--liveCounter) == 0) {
-					DSApplication._instance().onApplicationStop();
+					DSApplication._inner_instance().onApplicationStop();
 				}
 			}
 			if (msg.what == 2) {
@@ -135,7 +135,7 @@ public abstract class DSApplication extends StandardApplication {
 			}
 			if (msg.what == 3) {
 				if ((--activeCounter) == 0) {
-					DSApplication._instance().onApplicationPause();
+					DSApplication._inner_instance().onApplicationPause();
 				}
 			}
 		}
@@ -153,7 +153,7 @@ public abstract class DSApplication extends StandardApplication {
 
 	public void activityOnResume(Activity a) {
 		if (activeCounter++ == 0) {
-			DSApplication._instance().onApplicationResume();
+			DSApplication._inner_instance().onApplicationResume();
 		}
 	}
 

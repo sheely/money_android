@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import android.text.TextUtils;
 
+import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.app.CaiPlusApplication;
 import com.xdamon.util.PreferencesUtils;
 
@@ -56,15 +57,14 @@ public class ConfigSwitch {
         domainType = type;
         switch (type) {
             case GERMMY:
-                domainMap.put("http://210.13.70.38:18080/myStruts1/",
+                domainMap.put(BaseActivity.DEFAULT_API_URL,
                     "http://germmyapp.nat123.net/myStruts1/");
             case WANDEJUN:
-                domainMap.put("http://210.13.70.38:18080/myStruts1/",
+                domainMap.put(BaseActivity.DEFAULT_API_URL,
                     "http://112.124.22.156:18080/myStruts1/");
                 break;
             case WANLONGTEST:
-                domainMap.put("http://210.13.70.38:18080/myStruts1/",
-                    "http://210.13.70.38:17070/myStruts1/");
+                domainMap.put(BaseActivity.DEFAULT_API_URL, "http://210.13.70.38:17070/myStruts1/");
                 break;
             default:
                 break;
@@ -87,6 +87,8 @@ public class ConfigSwitch {
                     return GERMMY;
                 case 1:
                     return WANDEJUN;
+                case 2:
+                    return WANLONGTEST;
                 default:
                     return NONE;
             }

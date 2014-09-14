@@ -20,6 +20,11 @@ public abstract class DSHandler extends Handler {
         mOuter = new WeakReference<DSActivity>(activity);
     }
 
+    public DSHandler(DSActivity activity, Looper looper, Callback callback) {
+        super(looper, callback);
+        mOuter = new WeakReference<DSActivity>(activity);
+    }
+
     @Override
     public final void handleMessage(Message msg) {
         if (mOuter.get() != null && !mOuter.get().isFinishing()) {
