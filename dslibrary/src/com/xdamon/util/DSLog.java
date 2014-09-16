@@ -46,7 +46,7 @@ public class DSLog {
 	 */
 	public static final int ERROR = android.util.Log.ERROR;
 
-	private static String TAG_DEFAULT = "com.damon.ds";
+	private static String TAG_DEFAULT = "com.xdamon.log";
 
 	/**
 	 * 检查当前是否需要输出对应的level。
@@ -62,7 +62,7 @@ public class DSLog {
 	 */
 	public static void v(String tag, String log) {
 		if (VERBOSE >= LEVEL) {
-			android.util.Log.v(tag, log);
+			android.util.Log.v(tag, getLogInfo(log));
 		}
 	}
 
@@ -73,7 +73,7 @@ public class DSLog {
 	 */
 	public static void v(String tag, String log, Throwable e) {
 		if (VERBOSE >= LEVEL) {
-			android.util.Log.v(tag, log, e);
+			android.util.Log.v(tag, getLogInfo(log), e);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class DSLog {
 	 */
 	public static void v(String log) {
 		if (VERBOSE >= LEVEL) {
-			android.util.Log.v(TAG_DEFAULT, log);
+			android.util.Log.v(TAG_DEFAULT, getLogInfo(log));
 		}
 	}
 
@@ -91,7 +91,7 @@ public class DSLog {
 	 */
 	public static void d(String tag, String log) {
 		if (DEBUG >= LEVEL) {
-			android.util.Log.d(tag, log);
+			android.util.Log.d(tag, getLogInfo(log));
 		}
 	}
 
@@ -102,7 +102,7 @@ public class DSLog {
 	 */
 	public static void d(String tag, String log, Throwable e) {
 		if (DEBUG >= LEVEL) {
-			android.util.Log.d(tag, log, e);
+			android.util.Log.d(tag, getLogInfo(log), e);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class DSLog {
 	 */
 	public static void d(String log) {
 		if (DEBUG >= LEVEL) {
-			android.util.Log.d(TAG_DEFAULT, log);
+			android.util.Log.d(TAG_DEFAULT, getLogInfo(log));
 		}
 	}
 
@@ -120,7 +120,7 @@ public class DSLog {
 	 */
 	public static void i(String tag, String log) {
 		if (INFO >= LEVEL) {
-			android.util.Log.i(tag, log);
+			android.util.Log.i(tag, getLogInfo(log));
 		}
 	}
 
@@ -131,7 +131,7 @@ public class DSLog {
 	 */
 	public static void i(String tag, String log, Throwable e) {
 		if (INFO >= LEVEL) {
-			android.util.Log.i(tag, log, e);
+			android.util.Log.i(tag, getLogInfo(log), e);
 		}
 	}
 
@@ -140,7 +140,7 @@ public class DSLog {
 	 */
 	public static void i(String log) {
 		if (INFO >= LEVEL) {
-			android.util.Log.i(TAG_DEFAULT, log);
+			android.util.Log.i(TAG_DEFAULT, getLogInfo(log));
 		}
 	}
 
@@ -149,7 +149,7 @@ public class DSLog {
 	 */
 	public static void w(String tag, String log) {
 		if (WARN >= LEVEL) {
-			android.util.Log.w(tag, log);
+			android.util.Log.w(tag, getLogInfo(log));
 		}
 	}
 
@@ -160,7 +160,7 @@ public class DSLog {
 	 */
 	public static void w(String tag, String log, Throwable e) {
 		if (WARN >= LEVEL) {
-			android.util.Log.w(tag, log, e);
+			android.util.Log.w(tag, getLogInfo(log), e);
 		}
 	}
 
@@ -169,7 +169,7 @@ public class DSLog {
 	 */
 	public static void w(String log) {
 		if (WARN >= LEVEL) {
-			android.util.Log.w(TAG_DEFAULT, log);
+			android.util.Log.w(TAG_DEFAULT, getLogInfo(log));
 		}
 	}
 
@@ -178,7 +178,7 @@ public class DSLog {
 	 */
 	public static void e(String tag, String log) {
 		if (ERROR >= LEVEL) {
-			android.util.Log.e(tag, log);
+			android.util.Log.e(tag, getLogInfo(log));
 		}
 	}
 
@@ -187,19 +187,33 @@ public class DSLog {
 	 * <p>
 	 * 附带具体的Exception，一般必须带有tag。不允许在默认的tag中输出Exception
 	 */
-	public static void e(String tag, String log, Throwable e) {
-		if (ERROR >= LEVEL) {
-			android.util.Log.e(tag, log, e);
-		}
-	}
+    public static void e(String tag, String log, Throwable e) {
+        if (ERROR >= LEVEL) {
+            android.util.Log.e(tag, getLogInfo(log), e);
+        }
+    }
 
 	/**
 	 * e/error：用以打印出现错误的日志，一般用以表示错误导致功能无法继续运行。
 	 */
-	public static void e(String log) {
-		if (ERROR >= LEVEL) {
-			android.util.Log.e(TAG_DEFAULT, log);
-		}
-	}
+    public static void e(String log) {
+        if (ERROR >= LEVEL) {
+            android.util.Log.e(TAG_DEFAULT, getLogInfo(log));
+        }
+    }
+	
+    private static String getLogInfo(String log) {
+        try {
+            StackTraceElement traceElement = ((new Exception()).getStackTrace())[2];
+            StringBuffer toStringBuffer = new StringBuffer(log);
+            toStringBuffer.append("\t").append("[").append(traceElement.getFileName()).append(" | ").append(
+                traceElement.getLineNumber()).append(" | ").append(traceElement.getMethodName()).append(
+                "()").append("]");
+            return toStringBuffer.toString();
+        } catch (Exception e) {
+
+        }
+        return log;
+    }
 	
 }

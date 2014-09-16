@@ -442,7 +442,7 @@ public class DSActivity extends FragmentActivity {
         return getDoubleParam(name, 0);
     }
 
-    public DSObject getObjectParam(String name) {
+    public DSObject getDSObjectParam(String name) {
         Intent i = getIntent();
         try {
             Uri uri = i.getData();
