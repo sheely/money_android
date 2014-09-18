@@ -2,36 +2,43 @@ package com.xdamon.ext;
 
 import java.lang.ref.WeakReference;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.xdamon.app.DSActivity;
-
 public abstract class DSHandler extends Handler {
-    private WeakReference<DSActivity> mOuter;
+    private WeakReference<Context> mOuter;
 
-    public DSHandler(DSActivity activity) {
-        mOuter = new WeakReference<DSActivity>(activity);
+    public DSHandler(Context context) {
+        mOuter = new WeakReference<Context>(context);
     }
 
-    public DSHandler(DSActivity activity, Looper looper) {
+    public DSHandler(Context context, Looper looper) {
         super(looper);
-        mOuter = new WeakReference<DSActivity>(activity);
+        mOuter = new WeakReference<Context>(context);
     }
 
-    public DSHandler(DSActivity activity, Looper looper, Callback callback) {
+    public DSHandler(Context context, Looper looper, Callback callback) {
         super(looper, callback);
-        mOuter = new WeakReference<DSActivity>(activity);
+        mOuter = new WeakReference<Context>(context);
     }
 
     @Override
     public final void handleMessage(Message msg) {
-        if (mOuter.get() != null && !mOuter.get().isFinishing()) {
-            handleRealMessage(msg);
-        } else {
+        Context context = mOuter.get();
+        do {
+            if ((context instanceof Activity) && !((Activity) context).isFinishing()) {
+                handleRealMessage(msg);
+                break;
+            }
+            if (context != null) {
+                handleRealMessage(msg);
+                break;
+            }
             removeCallbacksAndMessages(null);
-        }
+        } while (false);
     }
 
     public abstract void handleRealMessage(Message msg);

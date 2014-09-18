@@ -205,10 +205,10 @@ public class DSLog {
     private static String getLogInfo(String log) {
         try {
             StackTraceElement traceElement = ((new Exception()).getStackTrace())[2];
-            StringBuffer toStringBuffer = new StringBuffer(log);
-            toStringBuffer.append("\t").append("[").append(traceElement.getFileName()).append(" | ").append(
+            StringBuffer toStringBuffer = new StringBuffer();
+            toStringBuffer.append("[").append(traceElement.getFileName()).append(" | ").append(
                 traceElement.getLineNumber()).append(" | ").append(traceElement.getMethodName()).append(
-                "()").append("]");
+                "()").append("]").append("\t").append(log);
             return toStringBuffer.toString();
         } catch (Exception e) {
 
