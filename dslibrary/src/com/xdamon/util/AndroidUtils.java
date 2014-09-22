@@ -206,7 +206,7 @@ public class AndroidUtils {
         File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"),
                 "data");
         File appCacheDir = new File(new File(dataDir, context.getPackageName()), "cache");
-        if (!(appCacheDir.exists())) {
+        if (!(appCacheDir.exists()) || !appCacheDir.isDirectory()) {
             if (!(appCacheDir.mkdirs())) {
                 DSLog.w("Unable to create external cache directory");
                 return null;
