@@ -18,6 +18,7 @@ import com.next.net.SHTask;
 import com.next.util.Log;
 import com.next.util.SHEnvironment;
 import com.wanlonggroup.caiplus.R;
+import com.wanlonggroup.caiplus.app.BaseActivity;
 import com.wanlonggroup.caiplus.model.CPModeName;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
 import com.xdamon.app.DSObject;
@@ -113,8 +114,8 @@ public class ChatMessageBrigdeService extends Service {
         Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("cp://chat"));
         notificationIntent.putExtra("caiyou", dsCy);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent contentIntent = PendingIntent.getActivity(ChatMessageBrigdeService.this, message.senderUserId.hashCode(),
-            notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(ChatMessageBrigdeService.this,
+            message.senderUserId.hashCode(), notificationIntent, 0);
         notification.contentIntent = contentIntent;
 
         notificationManager.notify(1, notification);
@@ -146,7 +147,7 @@ public class ChatMessageBrigdeService extends Service {
                 Log.i("GetMessageThread", "GetMessageThread");
                 SHPostTaskM receiveMsgTask = new SHPostTaskM();
                 receiveMsgTask.setUrl(ConfigSwitch.instance().wrapDomain(
-                    "http://cjcapp.nat123.net:21414/myStruts1/miReceiveMessage.do"));
+                    BaseActivity.DEFAULT_API_URL + "miReceiveMessage.do"));
                 receiveMsgTask.setListener(new ITaskListener() {
 
                     @Override
