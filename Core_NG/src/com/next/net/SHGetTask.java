@@ -59,7 +59,7 @@ public class SHGetTask extends SHTask {
 
 	protected static ThreadPoolExecutor executor;
 	static {
-		executor = new ThreadPoolExecutor(2, 10, 60, TimeUnit.SECONDS,
+		executor = new ThreadPoolExecutor(8, 20, 60, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>());
 	}
 
