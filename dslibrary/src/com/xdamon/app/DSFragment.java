@@ -355,7 +355,7 @@ public class DSFragment extends Fragment {
 		return getDoubleParam(name, 0);
 	}
 
-	public DSObject getObjectParam(String name) {
+	public DSObject getDSObjectParam(String name) {
 		Bundle bundle = getArguments();
 		if (bundle != null) {
 			try {
