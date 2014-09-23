@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragment;
+import com.xdamon.util.AndroidUtils;
 import com.xdamon.widget.BasicSingleItem;
 
 public class UserFragment extends BaseFragment implements OnClickListener {
@@ -42,6 +43,8 @@ public class UserFragment extends BaseFragment implements OnClickListener {
 
 		logoutBtn = (Button) view.findViewById(R.id.logout_btn);
 		logoutBtn.setOnClickListener(this);
+		
+		((BasicSingleItem)view.findViewById(R.id.version)).setTitle("版本："+AndroidUtils.versionName(getActivity()));
 	}
 
 	@Override

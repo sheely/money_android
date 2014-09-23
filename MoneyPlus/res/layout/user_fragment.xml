@@ -35,6 +35,13 @@
             cp:item_icon="@drawable/icon_myprofile_myteam"
             cp:item_indicator="@drawable/arrow_normal"
             cp:item_title="我的团队" />
+        
+        <com.xdamon.widget.BasicSingleItem
+            android:id="@+id/version"
+            style="@style/SingleLineTableItemWithPadding"
+            cp:item_icon="@drawable/icon_myprofile_mycalender"
+            cp:item_indicator="@drawable/arrow_normal"
+            cp:item_title="版本" />
     </com.xdamon.widget.TableView>
 
     <Button
