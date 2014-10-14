@@ -323,6 +323,7 @@ public class InjectUtils {
                                     }
                                     Method setMethod = listenerClass.targetType().getDeclaredMethod(
                                         listenerClass.setter(), listenerClass.type());
+                                    setMethod.setAccessible(true);
                                     setMethod.invoke(view, target);
                                 }
                             } catch (Exception e) {
@@ -376,7 +377,8 @@ public class InjectUtils {
 
     private static boolean isInjectSelf(Object target) {
         try {
-            Method method = target.getClass().getDeclaredMethod(INJECT_RANGE_METHOD_NAME);
+            Method method = target.getClass().getMethod(INJECT_RANGE_METHOD_NAME);
+            method.setAccessible(true);
             return (Boolean) method.invoke(target);
         } catch (Exception e) {
 
