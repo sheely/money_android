@@ -35,7 +35,7 @@ public class SplashScreenActivity extends BaseActivity {
 		handler.sendEmptyMessageDelayed(1, 2400);
 	}
 
-	protected ActionBarType actionBarType() {
+	public ActionBarType actionBarType() {
 		return ActionBarType.NONE;
 	}
 

@@ -4,104 +4,92 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionBarHeight" >
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/ds_title_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/ds_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:maxWidth="240dip"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/ds_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ds_title"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:maxWidth="240dip"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ds_home_as_up_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/ds_home_as_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:src="@drawable/ds_home_as_up" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ds_action_bar_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" >
+            android:id="@+id/ds_progress_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:visibility="gone" >
 
-            <RelativeLayout
-                android:id="@+id/ds_title_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center" >
+            <com.xdamon.widget.LoadingView
+                android:id="@+id/ds_progress"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/loading_small" />
 
-                <TextView
-                    android:id="@+id/ds_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:ellipsize="end"
-                    android:maxWidth="240dip"
-                    android:singleLine="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/ds_subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ds_title"
-                    android:layout_centerHorizontal="true"
-                    android:ellipsize="end"
-                    android:maxWidth="240dip"
-                    android:singleLine="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/ds_home_as_up_container"
+            <TextView
+                android:id="@+id/ds_progress_text"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" >
-
-                <ImageButton
-                    android:id="@+id/ds_home_as_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:src="@drawable/ds_home_as_up" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ds_action_bar_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <FrameLayout
-                    android:id="@+id/ds_progress_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dip"
-                    android:visibility="gone" >
-
-                    <com.xdamon.widget.LoadingView
-                        android:id="@+id/ds_progress"
-                        android:layout_width="30dip"
-                        android:layout_height="30dip"
-                        android:src="@drawable/loading_small" />
-
-                    <TextView
-                        android:id="@+id/ds_progress_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="10dip" />
-                </FrameLayout>
-
-                <ProgressBar
-                    android:id="@+id/ds_horizontal_progressbar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_gravity="bottom"
-                    android:progressDrawable="@drawable/ds_prg_bg" 
-                    android:visibility="gone"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="10dip" />
         </FrameLayout>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/ds_horizontal_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom"
+        android:progressDrawable="@drawable/ds_prg_bg"
+        android:visibility="gone" />
 
 </com.xdamon.app.DSActionBar>

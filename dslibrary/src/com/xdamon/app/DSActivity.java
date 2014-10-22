@@ -175,7 +175,7 @@ public class DSActivity extends FragmentActivity {
 
     // ----actionbar-----
 
-    protected enum ActionBarType {
+    public enum ActionBarType {
         DSACTIONBAR, NONE
     }
 
@@ -183,15 +183,15 @@ public class DSActivity extends FragmentActivity {
 
     private boolean isActionBarShowing = actionBarType() != ActionBarType.NONE;
 
-    protected boolean isActionBarShowing() {
+    public boolean isActionBarShowing() {
         return isActionBarShowing;
     }
 
-    protected ActionBarType actionBarType() {
+    public ActionBarType actionBarType() {
         return ActionBarType.DSACTIONBAR;
     }
 
-    protected DSActionBar actionBar() {
+    public DSActionBar actionBar() {
         return actionBar;
     }
 

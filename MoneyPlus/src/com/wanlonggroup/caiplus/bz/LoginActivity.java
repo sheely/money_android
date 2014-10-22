@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    protected ActionBarType actionBarType() {
+    public ActionBarType actionBarType() {
         return ActionBarType.NONE;
     }
 

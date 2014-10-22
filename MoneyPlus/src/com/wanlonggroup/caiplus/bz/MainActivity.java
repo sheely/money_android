@@ -93,7 +93,7 @@ public class MainActivity extends BaseFragmentTabActivity {
         setContentView(R.layout.fragment_tabs_bottom);
     }
 
-    protected ActionBarType actionBarType() {
+    public ActionBarType actionBarType() {
         return ActionBarType.NONE;
     }
 

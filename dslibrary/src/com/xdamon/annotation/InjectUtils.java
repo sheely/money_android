@@ -27,6 +27,12 @@ public class InjectUtils {
     static {
         wrongPackageList.add("com.xdamon.");
     }
+    
+    public static void addExcludePackage(String packagename){
+        if(!wrongPackageList.contains(packagename)){
+            wrongPackageList.add(packagename);
+        }
+    }
 
     private final static String TAG = InjectUtils.class.getSimpleName();
 
