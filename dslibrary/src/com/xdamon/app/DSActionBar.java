@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -113,6 +114,18 @@ public class DSActionBar extends FrameLayout {
             titleContainer.removeAllViews();
             titleContainer.addView(view);
         }
+    }
+    
+    /**
+     * 
+     * @param layoutId
+     * @return
+     *  view inflated by {@link layoutId}
+     */
+    public View setCustomTitleView(int layoutId) {
+        View view = LayoutInflater.from(getContext()).inflate(layoutId, titleContainer, false);
+        setCustomTitleView(view);
+        return view;
     }
 
     public void setProgressBarType(ProgressBarType type) {

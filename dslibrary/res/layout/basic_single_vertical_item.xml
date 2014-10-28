@@ -8,13 +8,14 @@
 
     <ImageView
         android:id="@+id/s_icon"
-        android:layout_marginRight="8dip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dip" />
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dip"
         android:layout_weight="1"
         android:orientation="vertical" >
 
@@ -42,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="8dip"
         android:gravity="center_vertical"
         android:textColor="@color/orange"
         android:textSize="16sp" />
@@ -51,6 +51,7 @@
         android:id="@+id/s_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
         android:src="@drawable/arrow_normal" />
 
 </LinearLayout>
