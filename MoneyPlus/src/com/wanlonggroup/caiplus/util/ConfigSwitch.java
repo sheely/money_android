@@ -61,7 +61,7 @@ public class ConfigSwitch {
                     "http://112.124.22.156:18080/myStruts1/");
                 break;
             case WANLONGTEST:
-                domainMap.put(BaseActivity.DEFAULT_API_URL, "http://203.110.169.54:8888/fashion/");
+                domainMap.put(BaseActivity.DEFAULT_API_URL, "http://210.13.70.38:17070/myStruts1/");
                 break;
             default:
                 break;
