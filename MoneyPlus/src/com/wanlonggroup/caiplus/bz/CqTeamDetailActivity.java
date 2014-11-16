@@ -65,7 +65,7 @@ public class CqTeamDetailActivity extends BaseActivity {
 			for (DSObject obj : dsTeam.getArray("teamMembers")) {
 				final BasicSingleItem item = (BasicSingleItem) LayoutInflater.from(this).inflate(
 					R.layout.common_basic_single_item, memTable, false);
-				item.setIconSize(imageSize, imageSize);
+				item.setIconSize(imageSize, (int) (imageSize*1.25));
 				
 				imageLoader.displayImage(obj.getString("memberHeadIcon"), item.getIcon(), displayOptions,
 					new SimpleImageLoadingListener() {

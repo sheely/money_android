@@ -95,11 +95,6 @@ public class DSFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		initActionBar(view);
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
 		invalidateActionBar();
 	}
 
@@ -241,6 +236,7 @@ public class DSFragment extends Fragment {
 			progressDialog.setMessage(message);
 		}
 		progressDialogCount++;
+		progressDialog.show();
 	}
 
 	public void dismissProgressDialog() {
@@ -286,9 +282,9 @@ public class DSFragment extends Fragment {
 			lCancel = listener;
 		}
 		if (!hasCancelBtn) {
-			DialogUtils.showAlert(dsActivity, message, title, "确定", false, lOk);
+			DialogUtils.showAlert(dsActivity, message, title, "确定", false, lOk).show();;
 		} else {
-			DialogUtils.showAlert(dsActivity, message, title, "确定", "取消", false, lOk, lCancel);
+			DialogUtils.showAlert(dsActivity, message, title, "确定", "取消", false, lOk, lCancel).show();;
 		}
 	}
 

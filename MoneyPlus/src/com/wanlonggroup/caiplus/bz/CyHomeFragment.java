@@ -22,12 +22,15 @@ import com.xdamon.app.DSActionBar;
 import com.xdamon.app.DSObject;
 import com.xdamon.util.Collection2Utils;
 import com.xdamon.util.DSObjectFactory;
+import com.xdamon.util.Pix2Utils;
 
 import de.greenrobot.event.EventBus;
 
 public class CyHomeFragment extends BasePtrListFragment implements View.OnClickListener {
 
     CyListAdapter adapter;
+    
+    int imageSize = Pix2Utils.dip2px(getActivity(), 60);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,6 +156,7 @@ public class CyHomeFragment extends BasePtrListFragment implements View.OnClickL
                     R.layout.cy_list_item_view, parent, false);
             }
             CyListItem item = (CyListItem) convertView;
+            item.setIconSize(imageSize, (int) (imageSize*1.25));
             DSObject dsObject = (DSObject) getItem(position);
 
             imageLoader.displayImage(dsObject.getString("senderheadicon"), item.getIcon(),

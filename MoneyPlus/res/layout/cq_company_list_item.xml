@@ -8,10 +8,9 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="80dip"
-        android:layout_height="60dip"
-        android:layout_marginRight="5dip"
-        android:scaleType="fitXY" />
+        android:layout_width="120dip"
+        android:layout_height="80dip"
+        android:layout_marginRight="5dip"/>
 
     <TextView
         android:id="@+id/title"

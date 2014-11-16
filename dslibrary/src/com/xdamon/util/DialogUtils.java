@@ -16,7 +16,6 @@ public class DialogUtils {
 		progressDialog.setCancelable(cancelable);
 		progressDialog.setOnCancelListener(listener);
 		progressDialog.setMessage(message);
-		progressDialog.show();
 		return progressDialog;
 	}
 
@@ -32,9 +31,7 @@ public class DialogUtils {
 		builder.setMessage(msg);
 		builder.setPositiveButton(yes, lOk);
 		builder.setCancelable(cancelable);
-		final AlertDialog alert = builder.create();
-		alert.show();
-		return alert;
+		return builder.create();
 	}
 
 	public static AlertDialog showAlert(final Context context, final String msg, final String title, final String yes,
@@ -51,8 +48,6 @@ public class DialogUtils {
 		builder.setPositiveButton(yes, lOk);
 		builder.setNegativeButton(no, lCancel);
 		builder.setCancelable(cancelable);
-		final AlertDialog alert = builder.create();
-		alert.show();
-		return alert;
+		return builder.create();
 	}
 }

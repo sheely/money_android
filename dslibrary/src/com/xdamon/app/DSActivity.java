@@ -318,6 +318,7 @@ public class DSActivity extends FragmentActivity {
             progressDialog.setMessage(message);
         }
         progressDialogCount++;
+        progressDialog.show();
     }
 
     public void dismissProgressDialog() {
@@ -359,9 +360,9 @@ public class DSActivity extends FragmentActivity {
             lCancel = listener;
         }
         if (!hasCancelBtn) {
-            DialogUtils.showAlert(this, message, title, "确定", false, lOk);
+            DialogUtils.showAlert(this, message, title, "确定", false, lOk).show();;
         } else {
-            DialogUtils.showAlert(this, message, title, "确定", "取消", false, lOk, lCancel);
+            DialogUtils.showAlert(this, message, title, "确定", "取消", false, lOk, lCancel).show();;
         }
     }
 

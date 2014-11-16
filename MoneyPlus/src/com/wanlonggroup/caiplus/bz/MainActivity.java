@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.next.config.SHConfigManager;
 import com.next.config.SHConfigState;
@@ -14,7 +15,6 @@ import com.wanlonggroup.caiplus.R;
 import com.wanlonggroup.caiplus.app.BaseFragmentTabActivity;
 import com.wanlonggroup.caiplus.bz.im.IMessage;
 import com.wanlonggroup.caiplus.util.ConfigSwitch;
-import com.xdamon.widget.BadgeView;
 
 import de.greenrobot.event.EventBus;
 
@@ -43,10 +43,10 @@ public class MainActivity extends BaseFragmentTabActivity {
 
         setTabWidgetBackground(R.color.tab_widget_color);
 
-        addTab(CAIXIN, R.drawable.ic_tab_cx, 0, CxHomeFragment.class, null);
-        addTab(CAIYOU, R.drawable.ic_tab_cy, 0, CyHomeFragment.class, null);
-        addTab(CAIQUAN, R.drawable.ic_tab_cq, 0, CqHomeFragment.class, null);
-        addTab(ME, R.drawable.ic_tab_me, 0, UserFragment.class, null);
+        addTab(CAIXIN, R.layout.tab_indicator_cx, CxHomeFragment.class, null);
+        addTab(CAIYOU, R.layout.tab_indicator_cy, CyHomeFragment.class, null);
+        addTab(CAIQUAN, R.layout.tab_indicator_cq, CqHomeFragment.class, null);
+        addTab(ME, R.layout.tab_indicator_me, UserFragment.class, null);
 
         registerReceiver(receiver, new IntentFilter(
                 SHConfigManager.CORE_NOTIFICATION_CONFIG_STATUS_CHANGED));
@@ -68,10 +68,6 @@ public class MainActivity extends BaseFragmentTabActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (messageView == null) {
-            messageView = new BadgeView(this, mTabHost.getTabWidget(), 1);
-            messageView.setText(" ");
-        }
         try {
             EventBus.getDefault().registerSticky(this);
         } catch (Exception e) {
@@ -97,17 +93,9 @@ public class MainActivity extends BaseFragmentTabActivity {
         return ActionBarType.NONE;
     }
 
-    BadgeView messageView;
-
     void toggleBadgeView(boolean isShow) {
-        if (messageView == null) {
-            return;
-        }
-        if (isShow) {
-            messageView.show();
-        } else {
-            messageView.hide();
-        }
+        mTabHost.getTabWidget().getChildAt(1).findViewById(R.id.ic_new_text).setVisibility(
+            isShow ? View.VISIBLE : View.GONE);
     }
 
     @Override

@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/icon"
             android:layout_width="100dip"
-            android:layout_height="100dip"
+            android:layout_height="125dip"
             android:scaleType="fitXY"
             android:src="@drawable/icon_username" />
 

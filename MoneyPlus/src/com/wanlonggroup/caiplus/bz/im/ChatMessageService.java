@@ -9,7 +9,7 @@ import com.xdamon.executor.ThreadExecutorsHelper;
 
 public class ChatMessageService extends Service {
 
-    public static final int MESSAGE_RECEIVER_INTERVAL = 3000;
+    public static final int MESSAGE_RECEIVER_INTERVAL = 5000;
 
     public static final String ACTION_START = "com.wanlonggroup.caiplus.bz.im.MessageService_start";
 
