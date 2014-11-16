@@ -17,6 +17,7 @@ public class ConfigSwitch {
     private ConfigSwitch() {
         domainType = DomainType.toType(PreferencesUtils.getInt(CaiPlusApplication.instance(),
             "config_domain"));
+        domainType = DomainType.WANLONGTEST;
         swithDomain(domainType);
     }
 
