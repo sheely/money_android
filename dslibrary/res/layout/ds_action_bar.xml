@@ -69,7 +69,7 @@
             android:padding="5dip"
             android:visibility="gone" >
 
-            <com.dianping.merchantlib.widget.LoadingView
+            <com.xdamon.widget.LoadingView
                 android:id="@+id/ds_progress"
                 android:layout_width="30dip"
                 android:layout_height="30dip"
