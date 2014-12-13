@@ -22,7 +22,8 @@ import com.xdamon.app.DSActivity;
 
 public class BaseActivity extends DSActivity implements AccountListener, ITaskListener {
 
-	public static final String DEFAULT_API_URL = "http://203.110.169.54:18080/myStruts1/";
+//	public static final String DEFAULT_API_URL = "http://203.110.169.54:18080/myStruts1/";
+	public static final String DEFAULT_API_URL = "http://203.110.169.54:8888/fashion/";
 
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected static DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();

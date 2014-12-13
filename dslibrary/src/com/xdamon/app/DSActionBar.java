@@ -60,6 +60,17 @@ public class DSActionBar extends FrameLayout {
         }
     }
 
+    public void setTitleOnClickListener(OnClickListener listener) {
+        if (titleView != null) {
+            titleView.setOnClickListener(listener);
+            titleView.setClickable(listener != null);
+        }
+    }
+
+    public TextView getTitleView() {
+        return titleView;
+    }
+
     public void setSubTitle(CharSequence title) {
         if (subTitleView == null) {
             return;
@@ -81,6 +92,7 @@ public class DSActionBar extends FrameLayout {
     public void setHomeAsUpListener(OnClickListener listener) {
         if (homeAsUp != null) {
             homeAsUp.setOnClickListener(listener);
+            homeAsUp.setClickable(listener != null);
         }
     }
 
@@ -105,6 +117,7 @@ public class DSActionBar extends FrameLayout {
             homeAsUpContainer.removeAllViews();
 
             view.setOnClickListener(listener);
+            view.setClickable(listener != null);
             homeAsUpContainer.addView(view);
         }
     }
@@ -115,12 +128,12 @@ public class DSActionBar extends FrameLayout {
             titleContainer.addView(view);
         }
     }
-    
+
     /**
      * 
      * @param layoutId
      * @return
-     *  view inflated by {@link layoutId}
+     *         view inflated by {@link layoutId}
      */
     public View setCustomTitleView(int layoutId) {
         View view = LayoutInflater.from(getContext()).inflate(layoutId, titleContainer, false);
@@ -133,7 +146,7 @@ public class DSActionBar extends FrameLayout {
         resetProgressBar();
     }
 
-    private void resetProgressBar() {
+    public void resetProgressBar() {
         progressTextView.setText(null);
         progressContainer.setVisibility(GONE);
 
@@ -207,6 +220,7 @@ public class DSActionBar extends FrameLayout {
             ((LinearLayout.LayoutParams) view.getLayoutParams()).gravity = Gravity.CENTER_VERTICAL;
         }
         view.setOnClickListener(listener);
+        view.setClickable(listener != null);
         view.setTag(tag);
         View child = findAction(tag);
         int index = 0;

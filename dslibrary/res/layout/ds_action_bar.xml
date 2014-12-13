@@ -16,8 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:ellipsize="end"
-            android:maxWidth="240dip"
+            android:maxWidth="120dip"
             android:singleLine="true"
+            android:drawablePadding="5dip"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -29,7 +30,7 @@
             android:layout_below="@id/ds_title"
             android:layout_centerHorizontal="true"
             android:ellipsize="end"
-            android:maxWidth="240dip"
+            android:maxWidth="120dip"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
@@ -68,7 +69,7 @@
             android:padding="5dip"
             android:visibility="gone" >
 
-            <com.xdamon.widget.LoadingView
+            <com.dianping.merchantlib.widget.LoadingView
                 android:id="@+id/ds_progress"
                 android:layout_width="30dip"
                 android:layout_height="30dip"

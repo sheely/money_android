@@ -15,9 +15,11 @@ public class ConfigSwitch {
     private HashMap<String, String> domainMap = new HashMap<String, String>();
 
     private ConfigSwitch() {
-        domainType = DomainType.toType(PreferencesUtils.getInt(CaiPlusApplication.instance(),
-            "config_domain"));
-        swithDomain(domainType);
+        if(Environment.isDebug()){
+            domainType = DomainType.toType(PreferencesUtils.getInt(CaiPlusApplication.instance(),
+                    "config_domain"));
+            swithDomain(domainType);
+        }
     }
 
     public static ConfigSwitch instance() {
