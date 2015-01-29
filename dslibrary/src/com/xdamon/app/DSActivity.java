@@ -1,5 +1,6 @@
 package com.xdamon.app;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -359,10 +360,14 @@ public class DSActivity extends FragmentActivity {
         if (lCancel == null) {
             lCancel = listener;
         }
+        AlertDialog dlg = null;
         if (!hasCancelBtn) {
-            DialogUtils.showAlert(this, message, title, "确定", false, lOk).show();;
+            dlg = DialogUtils.showAlert(this, message, title, "确定", false, lOk);
         } else {
-            DialogUtils.showAlert(this, message, title, "确定", "取消", false, lOk, lCancel).show();;
+            dlg = DialogUtils.showAlert(this, message, title, "确定", "取消", false, lOk, lCancel);
+        }
+        if (dlg != null) {
+            dlg.show();
         }
     }
 

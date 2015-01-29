@@ -3,6 +3,7 @@ package com.xdamon.app;
 import java.lang.reflect.Method;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -263,30 +264,34 @@ public class DSFragment extends Fragment {
 	}
 
 	public void showAlert(String title, String message, boolean hasCancelBtn, DialogInterface.OnClickListener lOk,
-			DialogInterface.OnClickListener lCancel) {
-		if (isActivityFinish()) {
-			return;
-		}
+ DialogInterface.OnClickListener lCancel) {
+        if (isActivityFinish()) {
+            return;
+        }
 
-		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		};
-		if (lOk == null) {
-			lOk = listener;
-		}
-		if (lCancel == null) {
-			lCancel = listener;
-		}
-		if (!hasCancelBtn) {
-			DialogUtils.showAlert(dsActivity, message, title, "确定", false, lOk).show();;
-		} else {
-			DialogUtils.showAlert(dsActivity, message, title, "确定", "取消", false, lOk, lCancel).show();;
-		}
-	}
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        };
+        if (lOk == null) {
+            lOk = listener;
+        }
+        if (lCancel == null) {
+            lCancel = listener;
+        }
+        AlertDialog dlg = null;
+        if (!hasCancelBtn) {
+            dlg = DialogUtils.showAlert(dsActivity, message, title, "确定", false, lOk);
+        } else {
+            dlg = DialogUtils.showAlert(dsActivity, message, title, "确定", "取消", false, lOk, lCancel);
+        }
+        if (dlg != null) {
+            dlg.show();
+        }
+    }
 
 	// ====get parameters
 
